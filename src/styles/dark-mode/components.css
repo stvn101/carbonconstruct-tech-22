@@ -1,0 +1,62 @@
+
+/* Dark mode component-specific styles */
+
+/* Green accents for dark mode */
+.dark .green-accent {
+  @apply border-green-700;
+}
+
+.dark .green-text {
+  @apply text-green-400;
+}
+
+/* Dropdown and menu styles */
+.dark .dropdown-menu {
+  @apply bg-gray-800 border-gray-700;
+}
+
+.dark .alert {
+  @apply bg-gray-800 border-gray-700;
+}
+
+/* Card styling */
+.dark .card,
+.dark .bg-white {
+  @apply bg-gray-800 border-gray-700 text-carbon-300;
+}
+
+/* Card hover with green accent in dark mode */
+.dark .card:hover,
+.dark .card-component:hover {
+  @apply border-green-700;
+}
+
+/* Navbar specific styles */
+.dark-navbar {
+  @apply bg-gray-900 border-gray-800;
+}
+
+.dark .navbar-container {
+  @apply bg-gray-900;
+}
+
+/* Green accent for active nav items */
+.dark .active-nav-link {
+  @apply border-green-600;
+}
+
+/* Ensure dropdown menus are not transparent */
+.dark [data-radix-popper-content-wrapper] > div {
+  @apply bg-gray-800 !important;
+  backdrop-filter: none !important;
+}
+
+/* Theme toggle dropdown specifically */
+.dark .DropdownMenuContent {
+  @apply bg-gray-800 border-gray-700;
+}
+
+/* Green active state for tabs in dark mode */
+.dark [data-state="active"] {
+  @apply border-green-600;
+}

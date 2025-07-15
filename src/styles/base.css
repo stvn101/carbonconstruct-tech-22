@@ -1,0 +1,146 @@
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+  
+  /* Selection styling */
+  ::selection {
+    @apply bg-carbon-500 text-carbon-950;
+  }
+  
+  .dark ::selection {
+    @apply bg-carbon-400 text-carbon-950;
+  }
+
+  /* Ensure dark mode styles propagate to root */
+  html.dark {
+    @apply bg-gray-900;
+    color-scheme: dark;
+  }
+
+  /* Apply dark mode to body as well */
+  html.dark body {
+    @apply bg-gray-900 text-carbon-300;
+  }
+  
+  /* Improved focus styles for accessibility */
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-carbon-500;
+  }
+  
+  /* Skip to content link - accessibility improvement */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-carbon-500 focus:text-white focus:rounded;
+  }
+  
+  /* Consistent heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-foreground font-medium leading-tight;
+  }
+  
+  /* Better table accessibility */
+  table {
+    @apply w-full border-collapse;
+  }
+  
+  th {
+    @apply text-left font-semibold;
+  }
+  
+  /* Focus highlight for interactive elements */
+  button:focus-visible, 
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    @apply outline-2 outline-offset-2 outline-carbon-500 ring-2 ring-carbon-500/30;
+  }
+  
+  /* Smooth scrolling but respect reduced motion */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  
+  /* Better form elements */
+  input, textarea, select {
+    @apply text-foreground bg-background;
+  }
+}
+
+#root {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+/* Ensure that all Radix dropdowns are properly styled in dark mode */
+html.dark [data-radix-popper-content-wrapper] {
+  --select-trigger-color: hsl(var(--carbon-300));
+  background-color: hsl(220, 14%, 13%) !important;
+}
+
+/* Fix for transparency in tab panels */
+[role="tabpanel"] {
+  background-color: white;
+}
+
+.dark [role="tabpanel"] {
+  background-color: hsl(220, 14%, 13%);
+}
+
+/* Fix for transparent UI components */
+.tabs-content,
+.tab-content {
+  opacity: 1 !important;
+  background-color: inherit;
+}
+
+/* Visually hidden elements for screen readers */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Print styles for better PDF generation */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+  
+  a {
+    text-decoration: underline;
+  }
+}
+
+/* Fix tooltip styling */
+.dark [data-radix-tooltip-content] {
+  @apply bg-gray-800 border-gray-700 text-carbon-300;
+}
+
+/* Ensure all dropdowns have proper contrast */
+.dark [data-radix-dropdown-menu-content] [role="menuitem"] {
+  @apply hover:bg-gray-700;
+}

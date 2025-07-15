@@ -1,0 +1,60 @@
+
+/* Import all dark mode style modules */
+@import './dark-mode/components.css';
+@import './dark-mode/charts.css';
+@import './dark-mode/dropdowns.css';
+@import './dark-mode/text.css';
+@import './dark-mode/backgrounds.css';
+@import './dark-mode/form-elements.css';
+@import './dark-mode/auth.css';
+@import './dark-mode/switch.css';
+
+/* Core dark mode rules */
+.dark body {
+  @apply bg-background text-foreground;
+  color-scheme: dark;
+}
+
+/* Improved focus states for dark mode */
+.dark :focus-visible {
+  outline-color: hsl(var(--ring));
+}
+
+/* Improve link accessibility in dark mode */
+.dark a:not([class]) {
+  @apply underline text-primary hover:text-primary/90;
+}
+
+/* Make sure charts are visible in dark mode */
+.dark .recharts-surface {
+  filter: brightness(0.85);
+}
+
+/* Fix chart tooltips in dark mode */
+.dark .recharts-default-tooltip {
+  @apply bg-card text-card-foreground border-border !important;
+}
+
+/* Scrollbar styling for dark mode */
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-gray-600;
+}
+
+.dark ::-webkit-scrollbar-track {
+  @apply bg-gray-800;
+}
+
+.dark ::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+/* Improve selection color in dark mode */
+.dark ::selection {
+  @apply bg-primary/30 text-primary-foreground;
+}
+
+/* Make inputs more visible */
+.dark input::placeholder,
+.dark textarea::placeholder {
+  @apply text-gray-500;
+}

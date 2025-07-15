@@ -1,0 +1,79 @@
+
+/* Import all CSS files */
+@import './theme-variables.css';
+@import './base.css';
+@import './variables.css';
+@import './components.css';
+@import './charts.css';
+@import './dark-mode.css';
+@import './utilities.css';
+@import './forms.css';
+@import './layout.css';
+@import './typography.css';
+@import './responsive.css';
+@import './light-mode/auth.css';
+
+/* Mobile-specific safe area utilities */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+/* Enhanced responsive utilities */
+@media (max-width: 640px) {
+  .mobile-full-width {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-padding {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .mobile-py {
+    padding-top: 1.5rem;
+    padding-bottom: 5rem; /* Extra padding to account for mobile navigation */
+  }
+}
+
+/* Enhanced shadow utilities for better depth */
+.shadow-elegant {
+  box-shadow: var(--shadow-elegant);
+}
+
+.shadow-glow {
+  box-shadow: var(--shadow-glow);
+}
+
+/* Brand-consistent elevation classes */
+.elevation-1 {
+  box-shadow: var(--shadow-sm);
+}
+
+.elevation-2 {
+  box-shadow: var(--shadow-md);
+}
+
+.elevation-3 {
+  box-shadow: var(--shadow-lg);
+}
+
+/* Improved tap target sizes for mobile */
+@media (max-width: 640px) {
+  button, 
+  .button, 
+  [role="button"],
+  a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  input, 
+  select, 
+  textarea {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}

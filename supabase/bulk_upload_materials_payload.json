@@ -1,0 +1,55 @@
+{
+  "materials": [
+    {
+      "name": "Concrete In-Situ ≤10 MPa",
+      "description": "Any concrete mix with a strength rating of 10 MPa",
+      "category": "Concrete",
+      "unit": "kg/m³",
+      "carbon_footprint_kgco2e_kg": 0.114,
+      "carbon_footprint_kgco2e_tonne": 114,
+      "factor": 0.114,
+      "sustainability_score": 89,
+      "region": "Australia",
+      "tags": ["low-carbon"],
+      "applicable_standards": null,
+      "ncc_requirements": null,
+      "scope1_emissions": null,
+      "scope2_emissions": null,
+      "scope3_emissions": null
+    },
+    {
+      "name": "Concrete In-Situ >10 MPa To ≤20 MPa",
+      "description": "Any concrete mix with a strength rating of 20 MPa",
+      "category": "Concrete",
+      "unit": "kg/m³",
+      "carbon_footprint_kgco2e_kg": 0.155,
+      "carbon_footprint_kgco2e_tonne": 155,
+      "factor": 0.155,
+      "sustainability_score": 85,
+      "region": "Australia",
+      "tags": [],
+      "applicable_standards": null,
+      "ncc_requirements": null,
+      "scope1_emissions": null,
+      "scope2_emissions": null,
+      "scope3_emissions": null
+    },
+    {
+      "name": "Concrete In-Situ >20 MPa To ≤25 MPa",
+      "description": "Any concrete mix with a strength rating of 25 MPa",
+      "category": "Concrete",
+      "unit": "kg/m³",
+      "carbon_footprint_kgco2e_kg": 0.177,
+      "carbon_footprint_kgco2e_tonne": 177,
+      "factor": 0.177,
+      "sustainability_score": 82,
+      "region": "Australia",
+      "tags": [],
+      "applicable_standards": null,
+      "ncc_requirements": null,
+      "scope1_emissions": null,
+      "scope2_emissions": null,
+      "scope3_emissions": null
+    }
+  ]
+}

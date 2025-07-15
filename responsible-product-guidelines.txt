@@ -1,0 +1,1786 @@
+Responsible
+Products
+Guidelines –
+Version A
+For product certifiers and other initiatives
+1
+
+Heritage Lanes, QLD. Mirvac. 6 Star Green Star – Buildings v1
+
+Acknowledgment of Country
+We at the Green Building Council of Australia recognise the Traditional
+Custodians of Country throughout Australia. We pay our respects to Elders
+past and present, and recognise their continuous connection to lands, skies
+and waters.
+Australia's First People are the world's oldest continuous living culture, and
+Australia's first practitioners of sustainability. They have shaped the built
+environment for millennia with purpose-built architecture that responds to the
+unique character and challenges of the landscape. The Green Building
+Council of Australia recognises the power of the built environment to shape a
+future that cares for both people and planet. The choices we make today
+matter for the future of tomorrow.
+
+2
+
+Change log
+
+Revision
+
+Date
+
+Description
+
+Initial
+Release
+
+15/11/2024
+
+N/A
+Minor updates to correct
+grammatical errors and improve
+readability.
+
+1
+
+21/11/2024
+Amendment to page 1 to include
+“For product certifiers and other
+initiatives”.
+
+Thought paper title: Bi line for the thought paper
+
+Thought paper title: Bi line for the thought paper
+
+The Social Quarter, VIC. Vicinity Centres.5 Star Green Star Designed – Buildings.
+
+33
+
+Brought to you by
+
+Use of
+Trade Marks
+Established in 2002, Green Building Council of Australia (GBCA) is the
+nation’s authority on sustainable buildings, communities and cities. Our
+vision is for healthy, resilient and positive places. Our purpose is to lead
+the sustainable transformation of the built environment. GBCA
+represents more than 550 individual companies with a combined
+annual turnover of more than $46 billion.
+
+All third-party trade marks are the property of their respective owners.
+All third-party trade marks referenced in this document are used in an
+editorial fashion and not to the detriment of the trade mark holders.
+No part of this document or the information contained within it may be
+(a) used for any purpose other than that stated within this document; or
+(b) reproduced, transmitted or translated in any form or by any means,
+electronic, mechanical, manual, optical or otherwise, without prior
+written permission of Green Building Council of Australia (GBCA).
+
+Jorge Chapa – Chief Impact Officer
+Katherine Featherstone – Senior Manager for Products and Materials
+Harriet Smith – Responsible Products Program Lead
+
+Acknowledgments
+
+The Responsible Products Guidelines for Initiatives – Version A were
+developed thanks to the support of many individuals and organisations
+in the building and products industries. From our Future Focus
+partners, Expert Reference Panels and Roundtables, for our colleagues
+national and worldwide in the Green Building Council network, to our
+partners in the built environment space, and our member
+organisations.
+We would also like to acknowledge the significant contribution of the
+following people:
+Adam Garnys - CETEC
+Andrew Bellamy - CETEC
+Libby Staggs - Sustainable Business Matters
+John Gertsakis - Product Stewardship Centre of Excellence
+Rose Read - Product Stewardship Centre of Excellence
+Karie Soehardi – Circular Design Thinking
+Tori Wouters – thinkstep-ANZ
+Nicole Sullivan - thinkstep-ANZ
+Jim Goddin - thinkstep-ANZ
+
+Responsible Products Guidelines: Version A
+
+4
+
+Authorisation and
+Disclaimer
+
+The GBCA authorises you to view and use these Guidelines for
+your individual use only. In exchange for this authorisation, you
+agree that the GBCA retains all copyright and other proprietary
+rights contained in, and in relation to the Guidelines and agree
+not to sell, modify, or use them for another purpose. The
+Guidelines should not be reproduced, displayed or distributed in
+any way for any public or commercial purposes, including
+display on a website or in a networked environment.
+Unauthorised use of the Guidelines may violate copyright, and
+other laws, and is prohibited. All text, graphics, layout, and other
+elements of content contained in the Guidelines is owned by
+the GBCA and are protected by copyright, trade mark, and other
+laws.
+
+As a condition of use of the Guidelines, you covenant not to sue, and
+agree to release the GBCA, its officers, agents, employees, contractors
+(including any Certified Assessor, any member of the Technical
+Working Group and any Independent Chair) and its members from and
+against any and all claims, demands and causes of action for any
+injury, loss, destruction or damage (including, without limitation,
+equitable relief and economic loss) that you may now or hereafter have
+a right to assert against such parties as a result of your use of, or
+reliance on, the Guidelines.
+The application of the Guidelines to all eligible initiatives is encouraged
+to assess and improve their product standards in alignment with the
+GBCA’s Responsible Products Program.
+All rights reserved.
+
+To the maximum extent permitted by law, the GBCA does not
+accept responsibility, including without limitation for
+negligence, for any inaccuracy within the Guidelines and makes
+no warranty, expressed or implied, including the warranties of
+merchantability and fitness for a particular purpose, nor
+assumes any legal liability or responsibility to you or any third
+parties for the accuracy, completeness, or use of, or reliance
+on, any information contained in the Guidelines or for any
+injuries, losses or damages (including, without limitation,
+equitable relief and economic loss) arising out of such use or
+reliance. The Guidelines are no substitute for professional
+advice. You should seek your own professional and other
+appropriate advice on the matters addressed by the Guidelines.
+
+Responsible Products Guidelines: Version A
+
+5
+
+Contents
+
+1.
+
+Introduction
+1.1 A focus on products in Green Star
+1.2 Responsible Products Program
+1.3 Development of the Responsible Products Guidelines
+1.4 Assessing Product Certification Initiatives
+1.5 Governance Requirements
+1.6 Recognition of Initiatives
+1.8 Maintaining Recognition
+
+2.
+
+Responsible Products Guidelines – Version A
+2.1 The credits in the Responsible Products Guidelines
+
+3.
+
+Next Steps
+3.1 The future of the Responsible Products Guidelines
+3.2 Additional Resources
+
+Responsible Products Guidelines: Version A
+
+Thought paper title: Bi line for the thought paper
+
+The Greenhouse, QLD. Sekisui House. 6 Star Green Star – Design & As Built v1.2
+
+63
+
+01
+Introduction
+
+7
+
+Grosvenor Place, NSW. Grosvenor Place Pty Ltd. 3 Star Green Star – Performance v1.2
+
+A focus on
+products in
+Green Star
+
+Responsible Products Program
+With the launch of the Green Star Future Focus program in 2019, GBCA
+recognised the opportunity to have a greater impact on the built
+environment through the products specified for projects. With buildings
+and fitouts contributing to around 50% of resources used worldwide and
+about 10% of global greenhouse emissions it was time to turn our focus to
+products.
+
+Health
+& &
+Health
+dddd
+Wellbeing
+Wellbei
+ng
+
+The Responsible Products Program (the Program) seeks to reward the use
+of products that have lower environmental impact, are transparent, respect
+human rights, and reduce carbon content. Such products are an active part
+of the solution for a better future with a more healthy, resilient, positive and
+circular built environment.
+The Program does not certify or directly recognise products. The Program
+aims to achieve its goals by influencing and recognising third-party
+product standards, and initiatives. For products to be recognised, the
+manufacturers of the products must receive certification by an initiative in
+the Responsible Products Score Checker.
+
+Health and wellbeing
+People and equity
+Community resilience
+
+Circular economy
+Resource &
+Circularity
+
+Nature & biodiversity
+Water cycle
+
+Alongside the Program, the GBCA is working to:
+•
+
+Create a long-term roadmap to assist industry with navigating the
+circular economy dimensions.
+
+•
+
+Drive supply chain transformation to an approach that is more circular,
+less carbon intensive, and nature positive.
+
+•
+
+Advocate for a transformative circular economy and nature positive
+outcomes.
+
+Net zero emissions
+Climate
+Action
+
+Climate resilience
+Upfront carbon
+
+*Adapted from World Green Building Council 2020-2022 strategy, Global megatrends and issues.
+
+Responsible Products Guidelines: Version A
+
+8
+
+Responsible
+Products
+Program
+
+The Responsible Products Guidelines
+The Responsible Products Guidelines provide the criteria by which GBCA
+recognises product certification initiatives. GBCA assesses initiatives’
+standards against the technical criteria and governance requirements in
+the guidelines. A Responsible Product Value (RPV) is then assigned to the
+standard, depending on the degree of alignment the standard has with the
+technical criteria in the guidelines. Products that are certified by these
+initiatives will be inferred that RPV.
+
+The Responsible Products Program
+
+Responsible Products Guidelines
+Guidelines for initiatives seeking recognition by the GBCA.
+
+GBCA does not recognise products or product manufacturers directly.
+The only minimum requirements that apply are:
+•
+•
+
+Timber certifications must meet the Transparent Chain of Custody
+requirements, and;
+Initiatives that assess products that are to be used indoors and that
+emit Volatile Organic Compounds (VOCs) must meet the Occupant
+Health and Safety requirements.
+
+A ‘Responsible Product’ is defined as a
+product or material that has a Responsible
+Product Value (RPV) issued by a product
+certification initiative recognised by the Green
+Building Council of Australia.
+
+Responsible Products Guidelines: Version A
+
+Responsible Products Calculator
+Online platform for project teams seeking to comply with the
+Responsible Products credits in Green Star.
+
+Responsible Products Database
+Accessed via the Responsible Products Calculator,
+products in this database are considered compliant as
+they are certified by a GBCA recognised product
+certification initiative.
+
+9
+
+Development of the
+Responsible Products
+Guidelines - Version A
+
+Responsible
+
+Healthy
+
+Corporate Commitment on Climate
+
+Occupant Health and Safety
+
+Environmental Management
+
+Manufacturing Health and
+Safety
+
+Carbon Emissions Disclosure
+
+The Responsible Products Guidelines are made up of four focus areas
+(categories) to define products: Responsible, Healthy, Positive and Circular. Each
+focus area contain credits to drive outcomes for responsible products. Further
+details of these credits and their criteria can be found later in this guide.
+
+Socially Responsible Extraction of
+Resources
+Transparent Chain of Custody
+Environmental Impact Disclosure
+
+Chemicals of Concern
+Modern Slavery
+Social Accountability
+
+Health Impacts Disclosure
+Changes from previous versions
+
+Ingredient Disclosure
+
+The draft version of the guidelines was developed in 2020. Since then, they have
+been amended to reflect feedback and industry changes. All initiatives scored to
+date have been scored against the Responsible Products Guidelines – Version
+A.
+
+Positive
+
+Circular
+
+Energy Use Reduction
+
+Material Extraction Impact
+Reduction
+
+Energy Source
+Carbon Emissions Reduction
+
+Water Use Reduction
+
+Waste Generation Reduction
+Impacts to Nature
+
+Packaging
+
+Leadership
+To reward initiatives of product suppliers, manufacturer and sourcing initiatives
+that are deemed new and break barriers, and in turn inspire others to follow.
+
+10
+
+Assessing Product Certification Initiatives
+
+~ 3 Months
+
+1
+
+2
+
+3
+
+4
+
+Eligibility
+
+Assessment
+
+Governance Review
+
+Recognition
+
+GBCA receives recognition
+requests from:
+
+GBCA reviews the
+initiative’s governance
+requirements and technical
+criteria alongside the
+initiatives standard, against
+the Responsible Product’s
+Guidelines to award a
+Responsible Product Value.
+
+GBCA presents the
+outcome of the review to
+the Responsible Products
+Advisory Group1 for the
+final determination. A
+Responsible Product Value
+is endorsed.
+
+Initiative receives Letter of
+Recognition with a
+Responsible Product Value
+(RPV) and this value is
+published on the Initiative
+Score Checker.
+
+• Product Certification
+Initiatives
+• Green Star project teams
+• Product Manufacturers
+
+GBCA will then send the
+initiative governance
+requirements and technical
+criteria to populate.
+
+Initiatives and manufacturers
+can use the marketing
+guidelines to promote scores.
+
+(1) The Responsible Products Advisory Group reviews the determination by GBCA staff. The Group is tasked with ensuring the approval process has been followed,
+
+that information was verified and documented, and any final determinations are reasonable based on the evidence provided.
+
+Governance
+Requirements
+
+This section outlines the governance requirements to
+achieve recognition under the Responsible Products
+Program. There are five governance requirements that
+must be met by all initiatives, and two expectations
+relevant to some initiatives.
+
+Standards quality
+The initiative’s standards must be developed to a high
+degree of quality and meet the following criteria:
+•
+
+The standard has clearly stated objectives. The
+initiative shall clearly and explicitly specify the
+social, environmental and/or economic objectives
+of a standard.
+
+•
+
+The standard has robust criteria for assessment.
+Standards shall be expressed in terms of a
+combination of process, management and
+performance criteria rather than design or
+descriptive characteristics. Standards shall not
+favour a particular technology or patent(s). There
+should be sufficient detail to clearly outline the
+exact requirements for achieving compliance with
+each criterion.
+
+Note: GBCA reserves the right not to recognise an
+initiative or standard should it impact negatively on
+GBCA or the Green Star brand.
+
+Registered Entity
+The initiative must:
+•
+
+Be a legally registered business in Australia or
+overseas.
+
+•
+
+Be registered under GBCA’s website and have
+provided contact details for CEO and company
+secretary. Create an account here.
+
+•
+
+Operate a website with current contact details and
+access to all standards and standards content.
+
+•
+
+Recognise building products and/or materials.
+
+Responsible Products Guidelines: Version A
+
+•
+
+The standard must be representative of best
+practice. Standards must encourage improvements
+above and beyond regulation in Australia. As Green
+Star operates in Australia, legislated requirements in
+other countries that exceed Australian legislated
+requirements can be considered best practice until
+such times as Australia’s legislated requirements
+are improved.
+
+•
+
+Any targets shall be science-based and clearly
+identified. It is expected the initiative has completed
+a review, and appropriately referenced, existing
+international and national regulations and
+standards relevant to inform the benchmarks used.
+It is expected that these benchmarks be reviewed
+alongside the revision of the standard/s.
+
+•
+
+Claims made by the initiative about certified
+products must be compliant with both the ACCC’s
+“Greenwashing by businesses in Australia” report
+and one of the following:
+
+o ISO 14021 ‘Environmental Labels and
+Declarations – Self-Declared
+Environmental Claims’ (Type II
+Environmental Labelling) requirements, OR
+o The Global Reporting Initiative’s
+‘Sustainability Reporting Guidelines’.
+
+12
+
+Governance
+Requirements
+
+Standard Development Process
+
+Independent Assessment
+
+The initiative must show its standards development process:
+
+The initiative must show that the accreditation awarded to the product
+or material is reviewed by a third-party, independent of the initiative.
+Accreditations must not be awarded based on self-assessment. The
+initiative shall ensure certification decisions are free of conflicts of
+interest. Assessments should be performed by accredited auditors
+registered by JAS-ANZ (in Australia and New Zealand) or other
+national or international auditor accreditation systems, or through a
+comprehensive process that demonstrates appropriate independent
+training and qualifications for the relevant assessors.
+
+•
+
+Has appropriate governance and representation:
+
+o Including a diverse group of external stakeholders that is
+representative of the sector and includes independent
+voices, as per ISEAL Code of Good Practice.
+o With appropriate processes to ensure all stakeholder
+concerns are addressed and consensus is sought in decision
+making, with processes in place to address situations where
+consensus is not achieved.
+•
+
+Ensures public opinion is considered.
+
+o Providing at least one round of public review/comment
+period of at least 20 days as part of the process for the
+development and revision of standards.
+
+The initiative may:
+
+•
+
+Rely on independent JAS/ANZ auditors to verify compliance
+
+•
+
+Rely on independent third-party auditors that are contracted by the
+initiative. The auditors must be required to hold qualifications or
+positions relevant to the issues that are being assessed. Their
+names and the criteria for their selection must be publicly
+available.
+
+o Having processes in place to consider feedback received
+from public review/comment.
+o Compiling a summary of feedback and the response to such
+feedback; to be made publicly available .
+
+•
+
+Has publicly available information delineating:
+
+o The standard and its requirements for current and previous
+versions of the standards.
+
+Examples of Auditor Accreditation Systems include:
+
+•
+
+IRCA, www.irca.org
+
+•
+
+IPCA, http://www.ipcaweb.org/
+
+•
+
+JAB, https://www.jab.or.jp/
+
+o Publicly available standard-setting procedures and
+summaries of work programmes.
+o Standards review and update processes with indicative
+timelines.
+
+Responsible Products Guidelines: Version A
+
+13
+
+Governance
+Requirements
+
+Conflict Resolution
+
+Right of reconsideration of decision
+
+The initiative must have a conflict resolution process in place to manage
+disputes regarding compliance between an applicant and the certifying
+body. The conflict resolution process should:
+
+If an entity (the Complainant) disagrees with a decision of GBCA to
+refuse to recognise an initiative, or if the initiative wishes to challenge
+a result, the Complainant may seek to have that decision
+reconsidered.
+
+•
+
+Recognition
+of Initiatives
+
+Include the opportunity for an independent party to help resolve the
+dispute.
+
+•
+
+Include a timeframe for completion.
+
+•
+
+Provide the opportunity for appeal.
+
+•
+
+Include a provision to make public the outcome of the grievance
+resolution process.
+
+Once the initiative has been assessed, and deemed to qualify for
+recognition, GBCA will issue a Letter of Recognition. This contains the
+Responsible Product Value the initiative can confer onto the products it
+certifies, with the expectation that manufacturers meet the criteria within
+the standard. It also shows whether the initiative has met the threshold for
+Good Practice or Best Practice under the relevant credits.
+Should the threshold for recognition be unmet, GBCA’s Products Team will
+send an email explaining the score and the reason for it. The initiative can
+accept the outcome, seek clarification, or challenge the result.
+GBCA may, at its discretion, amend its determination based on further
+evidence from the initiative. This could be done without a formal appeal.
+
+Within 14 days of receiving written notification of the relevant
+decision, the Complainant shall give written notice to Responsible
+Products Team that it is seeking to have the decision reconsidered
+and specifying the grounds for the reconsideration.
+Within 14 days of receiving notice from a Complainant, a GBCA
+Executive in charge of Green Star (Green Star Executive) shall provide
+the Complainant notice in writing of the grounds on which the
+decision was made.
+The Green Star Executive shall arrange for a meeting between the
+Complainant and a senior executive of GBCA, which shall be held on a
+date not less than 14 days and not more than 30 days after the
+Complainant has received the written grounds for the decision. The
+Complainant shall be given at least 7 days’ notice of the time and
+place of the meeting. At this meeting, the Complainant shall be
+entitled to appear and be heard about the decision it is requesting
+reconsideration for.
+Within 30 days of the meeting, a senior executive of GBCA shall
+provide the Complainant with its decision in writing, together with
+reasons.
+
+Should the initiative not agree with GBCA’s decision, it can start an appeal
+process.
+
+Responsible Products Guidelines: Version A
+
+14
+
+Recognition
+of Initiatives
+(Continued)
+
+Right of appeal
+If a Complainant wishes to appeal against any decision of a senior
+executive of GBCA arising from a reconsideration under this section, the
+Complainant shall, within 14 days of having received written notification
+of such decision, give written notice to the Company Secretary of GBCA,
+seeking determination by an independent person or body.
+The Complainant and GBCA shall agree upon the appointment of a
+suitable qualified person or body to determine the appeal or, failing such
+agreement, the parties shall appoint any person or body recommended
+by the President of the Law Society of New South Wales at the request of
+either of the Complainant or GBCA. The independent person or body
+shall agree a process for both parties to make submissions in respect of
+the appeal. The independent person or body shall notify the parties in
+writing of its decision together with reasons. Unless otherwise agreed,
+the parties shall each bear half the costs of the independent person or
+body in hearing the appeal. The appeal shall be scheduled as quickly as
+possible after notification is given by the Complainant to GBCA. The
+decision of the independent person or body shall be final.
+
+Maintaining
+Recognition
+
+To maintain recognition, initiatives must meet the following
+requirements:
+•
+
+Maintain current contact details on GBCA website
+
+•
+
+Inform GBCA of any changes to the standard
+
+•
+
+Provide timely and accurate communications with regards to Green
+Star to their licensees (in accordance with our Marketing Guidelines)
+
+•
+
+Maintain the integrity of their standard and processes
+
+•
+
+Adequately address any issues raised by GBCA on matters that may
+impact to the Green Star brand
+
+These requirements are further outlined below.
+Recognition is only awarded for the version of the standard reviewed by
+GBCA. Should GBCA revise the Guidelines, a transition period will be
+introduced, and initiatives may be requested to provide additional
+information or updated requirements.
+GBCA reserves the right to remove recognition at its discretion should it
+deem that any of the above actions have not been met.
+
+Maintain current contact details
+From time to time, GBCA will send relevant information to recognised
+initiatives. Initiatives are required to maintain at least one representative
+from their organisation as a contact person, with their name, role,
+current phone number and email address on GBCA’s internal website
+(Memberdrive). They can do this by updating their details directly via
+their GBCA account.
+
+Responsible Products Guidelines: Version A
+
+15
+
+Maintaining
+Recognition
+(Continued)
+
+Changes to standards
+
+Maintain integrity of their standard and processes
+
+Initiatives are required to inform GBCA of any changes to their
+standards.
+
+Initiatives must maintain the integrity of their standards and business
+processes and promptly address any issues. GBCA may consider
+media mentions, stakeholder feedback, or similar, when considering
+the suitability of an initiative for achieving or maintaining recognition.
+Initiatives are expected to ensure their standards are driving change
+and delivering products and materials that are improving the built
+environment.
+
+Changes to the standard must be sent to GBCA for review, to determine
+whether the change/s impact recognition. The changes will be reviewed
+by GBCA and may require the initiative to reapply for recognition. In such
+a case, GBCA will work with the initiative to define the transition period
+whereby licensees will maintain recognition under the old standard prior
+to transitioning to the new standard.
+
+Impact to the Green Star brand
+Compliance with GBCA’s Marketing Guidelines
+When making any references to Green Star, initiatives are required to
+comply with the Marketing Guidelines for the Green Building Council of
+Australia's Responsible Products Program. These guidelines have been
+designed to provide a consistent message to all stakeholders. Please see
+the marketing guidelines here.
+
+Initiatives are required to ensure their actions, or those of their
+stakeholders (where relevant to the initiative), do not impact the Green
+Star brand negatively.
+
+Practice good conduct
+An initiative must engage with the GBCA members, customers and the
+public in a manner that complies with GBCA’s Code of Conduct. This
+means acting with integrity, due care, and in a manner that upholds
+the reputation of the works and objectives of the GBCA.
+
+Responsible Products Guidelines: Version A
+
+16
+
+02
+The Responsible
+Products Guidelines –
+Version A
+
+17
+
+Heritage Lanes, QLD. Mirvac. 6 Star Green Star – Buildings v1
+
+Green Star
+Interiors to date
+
+Global megatrends
+driving change
+
+Our vision for
+Green Star Fitouts
+
+Five Key
+changes
+
+Wecredits
+set the
+standard
+The
+in the
+Responsible
+Products Guidelines – Version A
+
+Case
+studies
+
+The Responsible Products Guidelines – Version A contain the credits and criteria that
+standards meet to be recognised. Below contains the credits and their outcomes.
+
+Corporate Commitment
+on Climate
+
+Environmental
+Management
+
+Carbon Emissions
+Disclosure
+
+Socially Responsible
+Extraction of Resources
+
+The initiative requires manufacturers
+to be on a trajectory to fully
+decarbonise its products by 2050 or
+earlier.
+
+The initiative requires product
+manufacturers to have processes in
+place to continuously review and
+improve their environmental
+management practices.
+
+The initiative requires product
+manufacturers to have processes in
+place to continuously review, account,
+and compensate for the Greenhouse
+Gas emissions from their
+manufacturing practices.
+
+The initiative requires that Indigenous
+Peoples and their rights regarding
+ownership, use and management of
+land and resources affected by
+manufacturing or extraction activities
+are considered and addressed.
+
+Transparent Chain of
+Custody
+
+Environmental Impact
+Disclosure
+
+Health Impacts
+Disclosure
+
+Ingredient Disclosure
+
+The initiative requires that products
+have a public and traceable history
+from raw material source to
+manufacturing that has been verified
+by a third party.
+
+The initiative ensures the quantitative
+environmental impacts of the product
+are publicly and transparently
+declared.
+
+The initiative requires quantitative
+health impacts of the product to be
+publicly and transparently declared.
+
+The initiative requires the quantitative
+content of the product to be publicly
+declared.
+
+Responsible Products Guidelines: Version A
+
+18
+3
+
+Green Star
+Interiors to date
+
+Global megatrends
+driving change
+
+Our vision for
+Green Star Fitouts
+
+Five Key
+changes
+
+Case
+studies
+
+Wecredits
+set the
+standard
+The
+in the
+Responsible
+Products Guidelines – Version A
+Occupant Health
+and Safety
+
+Manufacturing Health and
+Safety
+
+Chemicals of Concern
+
+Modern Slavery
+
+The initiative requires the transparent
+and public declaration of health
+impacts on those who will occupy
+spaces in which the product is
+installed.
+
+The initiative requires the health
+impacts on those who manufacture,
+process or install the product to be
+publicly and transparently declared.
+
+The initiative requires chemicals of
+concern to be identified to ensure
+chemicals that are harmful to people
+or the environment are removed or
+substituted.
+
+The initiative requires the product
+manufacturer to mitigate modern
+slavery risks.
+
+Social Accountability
+
+Energy Use Reduction
+
+Energy Source
+
+Carbon Emissions
+Reduction
+
+The initiative requires human rights
+issues to be addressed. These include
+issues such as discrimination, health
+and safety conditions, wellbeing,
+diversity, gender equity etc.
+
+The initiative requires that product
+manufacturers have lower energy use
+from manufacturing activities either
+on a year-on-year basis or when
+compared against a typical equivalent
+product.
+
+The initiative requires the
+manufacturer to source its energy for
+manufacturing and operations from
+renewable sources.
+
+The initiative requires carbon
+emissions from manufacturing and
+operations to be lower than a typical
+equivalent product.
+
+Responsible Products Guidelines: Version A
+
+19
+3
+
+Green Star
+Interiors to date
+
+Global megatrends
+driving change
+
+Our vision for
+Green Star Fitouts
+
+Five Key
+changes
+
+Case
+studies
+
+Wecredits
+set the
+standard
+The
+in the
+Responsible
+Products Guidelines – Version A
+Water Use Reduction
+
+Material Extraction Impact
+Reduction
+
+Waste Generation
+Reduction
+
+Impacts to Nature
+
+The initiative requires the
+manufacturer to reduce water use for
+manufacturing when compared to a
+typical equivalent product.
+
+The initiative requires the
+manufacturer to assess impacts to
+land and nature from material
+extraction and reduced these impacts.
+
+The initiative requires waste
+generated by the manufacturing
+facility to be measured and reduced.
+
+The initiative requires the product’s
+sourcing manufacturing processes to
+reduce all impacts to nature beyond
+required practice.
+
+Packaging
+
+Market Transformation
+
+The initiative requires primary,
+secondary, and tertiary packaging to
+be designed for circularity and fit-forpurpose protection of a product and
+meets National Packaging Targets.
+
+GBCA celebrates initiatives or
+outcomes that are deemed new and
+break barriers, and in turn inspire
+others to follow.
+
+Responsible Products Guidelines: Version A
+
+20
+3
+
+Responsible
+Products
+Guidelines –
+Version A
+
+Credit
+
+Credits - Topic areas
+classified by Category,
+which outline a specific
+outcome.
+
+Points - Are additive
+unless expressed
+otherwise within the
+credit.
+Criteria – Requirements
+that must be present in
+the initiative’s standard
+that can contribute to
+achieving the credit’s
+outcome. A credit may
+have multiple criteria
+classified into
+performance levels.
+
+Point(s)
+
+Criteria
+
+Corporate Commitment on Climate
+
+CA
+
+1
+
+The manufacturer has a publicly disclosed commitment to decarbonise between now and 2050 on a 1.5C
+trajectory, with reduction to be incremental and documented prior to 2030.
+
+Environmental Management
+
+CA
+
+1
+
+The manufacturer has an environmental management system (EMS) in place to manage the environmental
+impacts from the manufacturing of the product, valid at the time of manufacturing.
+
+CA
+
+2
+
+The product has a publicly available document transparently showing quantitative carbon impacts of the
+product across its sourcing and manufacturing (A1-A3 (cradle to gate)) as a minimum.
+
+HP
+
+3
+
+The product has been independently certified as carbon neutral.
+
+CA
+
+3
+
+Prior to the commencement of any new extraction activities, the manufacturer shall achieve Free, Prior and
+Informed Consent, ensuring no negative impacts to life and natural resources of Indigenous Peoples.
+
+Carbon Emissions Disclosure
+
+Responsible
+
+Performance Levels Outline how to comply
+with a credit. They are
+ranked in terms of
+minimum expectation
+(ME), credit achievement,
+(CA) high performance
+(HP), and exceptional
+performance (EP). Each
+performance level is
+allocated a point(s).
+
+Performance
+Level
+
+Socially Responsible Extraction of
+Resources
+
+This criteria is only applicable to timber products. If you are not a timber product manufacturer, please
+proceed to the next criteria.
+ME
+
+0
+
+Products where more than 20% of the mass is composed of timber must meet the Credit Achievement to
+achieve recognition under the Responsible Products Guidelines.
+
+Transparent Chain of Custody
+CA
+
+2
+
+A minimum of 70% of the product supply chain, as per BES 6001, is documented and audited from the final
+manufacturing activity back to the source of the raw material for major material components.
+
+CA
+
+1
+
+The product is covered by an industry sector environmental product declaration that discloses the
+environmental impacts of similar products. The manufacturer must be part of the industry-wide product
+declaration.
+
+HP
+
+4
+
+The product is covered by a product specific environmental product declaration that discloses the
+environmental impacts of the product.
+
+Environmental Impact Disclosure
+
+21
+
+Responsible
+
+Credit
+
+Performance
+Level
+
+Point(s)
+
+Criteria
+
+Health Impacts Disclosure
+
+CA
+
+2
+
+The product has obtained a Product Declaration of Health Impacts that discloses the impact of the product
+on human health and wellbeing from a recognised product certification initiative.
+
+Ingredient Disclosure
+
+CA
+
+1
+
+The product has a publicly available document showing the chemical ingredients within it, with a particular
+view to ensuring harmful chemicals and chemicals of concern are disclosed. Disclosure sheets must follow
+the Globally Harmonised System of Classification and Labelling of Chemicals (GHS) requirements.
+
+CA
+
+1
+
+The finished product has been tested by the manufacturer, and it can be shown the occupant is not exposed
+to off-gassing of high volatile organic compounds.
+
+HP
+
+2
+
+The manufacturer has undertaken a 28-day VOC emissions test for the finished product and it can be
+shown that the occupant is not exposed to off gassing of high volatile organic compounds.
+
+CA
+
+1
+
+The manufacturer must have a publicly available health and safety management system certified to ISO
+45001 (or equivalent), verified by an accredited third-party certification body.
+
+ME
+
+0
+
+A risk assessment has been conducted to ensure no risk from exposure to any chemicals of concern during
+manufacture or use.
+
+CA
+
+2
+
+The manufacturer has taken action to substitute out Chemicals of Concern for those with reduced impact.
+
+1
+
+The product manufacturer applies due diligence in the sourcing and manufacturing of products and takes
+clear steps to prevent, address and mitigate modern slavery. If modern slavery is found, the manufacturer
+has a Remediation Action Plan with strategies for preventing it reoccurring in the supply chain, reviewed
+yearly.
+
+Occupant Health and Safety
+
+Healthy
+
+Responsible
+Products
+Guidelines –
+Version A
+
+Manufacturing Health and Safety
+
+Chemicals of Concern
+
+Modern Slavery
+
+CA
+
+22
+
+Responsible
+Products
+Guidelines –
+Version A
+Healthy
+
+Credit
+
+Performance
+Level
+
+Point(s)
+
+ME
+
+0
+
+A publicly available document to substantiate the organisations commitment to improve anti-discrimination,
+health and safety conditions, wellbeing, diversity, gender equity etc.
+
+CA
+
+1
+
+The product manufacturer has undertaken activities to create more equitable conditions for those affected
+by or involved in the sourcing and manufacturing of products and materials, supported by a publicly
+available document.
+
+HP
+
+1
+
+The manufacturer has a policy that drives or provides employment and/or training to for minority groups.
+The policy of employment or training includes:
+• Internships or training programs for students or apprentices;
+• Pathways to Employment;
+• Employment
+
+CA
+
+1
+
+The energy consumed by the facility at which the product is manufactured has been reduced on a year-onyear basis when averaged over 5 years.
+
+HP
+
+1
+
+The energy consumed by the facility at which the product is manufactured is 10% lower than a typical
+equivalent product (measured in joules/tonne).
+
+EP
+
+2
+
+The energy consumed by the facility at which the product is manufactured is 20% lower than a typical
+equivalent product (measured in joules/tonne).
+
+CA
+
+1
+
+The manufacturer has a commitment to increase the amount of renewable energy used in its operations by
+40% of its manufacturing operations by 2030.
+
+HP
+
+1
+
+100% of the manufacturer's electricity consumption comes from renewables.
+
+EP
+
+2
+
+100% of the manufacturer's energy consumption comes from renewables.
+
+Social Accountability
+
+Positive
+
+Energy Use Reduction
+
+Energy Source
+
+Criteria
+
+23
+
+Responsible
+Products
+Guidelines –
+Version A
+
+Credit
+
+Positive
+
+Carbon Emissions Reduction
+
+Circular
+
+Water Use Reduction
+
+Impacts to Nature
+
+Performance
+Level
+
+Point(s)
+
+Criteria
+
+CA
+
+1
+
+The carbon emissions generated by the facility at which the product is manufactured has been reduced on a
+year-on-year basis when averaged over 5 years.
+
+HP
+
+1
+
+The carbon emissions generated by the facility at which the product is manufactured is 20% lower than a
+typical equivalent product.
+
+EP
+
+2
+
+The carbon emissions generated by the facility at which the product is manufactured is 40% lower than a
+typical equivalent product.
+
+CA
+
+1
+
+The water consumed by the product’s manufacturing is 10% lower than a typical equivalent product.
+
+HP
+
+1
+
+The water consumed by the product’s manufacturing is 20% lower than a typical equivalent product.
+
+EP
+
+3
+
+The water consumed during manufacture is part of a closed loop system that recovers a minimum of 50%
+from processes (not including operational processes e.g. those associated with maintenance of the facility).
+
+ME
+
+0
+
+The product’s sourcing or manufacturing facilities or practices do not impact areas with a high ecological
+value.
+
+CA
+
+1
+
+The product manufacturer implements a hotspot analysis and reduces impacts to air, water, and land from
+manufacturing activities.
+
+HP
+
+2
+
+The product manufacturer or producer undertakes on-site restoration and conservation activities beyond
+legal requirements. Raw materials have not been extracted from primary or native forests.
+24
+
+Responsible
+Products
+Guidelines –
+Version A
+
+Credit
+
+Performance
+Level
+
+Point(s)
+
+Criteria
+
+•
+CA
+
+1
+
+HP
+
+1
+
+•
+
+•
+Material Extraction Impact
+Reduction
+
+•
+
+Circular
+
+•
+EP
+
+1
+
+•
+•
+
+CA
+
+1
+
+Waste Generation Reduction
+HP
+
+2
+
+EP
+
+2
+
+3 of the product’s material extraction impacts are lower than an industry average of a similar product by
+15% on average (or)
+The product meet requirements established by an industry recognised standard that delineates limits on
+high-impact materials that are typically used in the manufacturing of a product.
+
+3 of the product’s material extraction impacts are lower than an industry average of a similar product by
+30% on average (or)
+5 of the product’s material extraction impacts are lower than typical by 15% on average.
+
+3 of the product’s material extraction impacts are lower than an industry average of a similar product by
+50% on average (or)
+5 of the product’s material extraction impacts are lower than an industry average of a similar product by
+30% on average (or)
+7 of the product’s material extraction impacts are lower than an industry average of a similar product by
+15% on average.
+
+•
+•
+
+The product has an ‘end of use’ pathway that is accessible by the product user.
+The product has been designed for recycling, reuse, modularity, disassembly and ancillary support
+equipment for the product is selected at point of purchase and not bundled with the product.
+
+•
+
+The waste generated by the product’s manufacturing has been reduced on a year-on-year basis when
+averaged over 5 years (or)
+The product manufacturer recycles or reuses more than 80% of all waste including pre-install and install
+excess.
+
+•
+
+The product has a Digital Material Passport.
+
+25
+
+Responsible
+Products
+Guidelines –
+Version A
+
+Credit
+
+Performance
+Level
+
+Point(s)
+
+Criteria
+
+The manufacture has a commitment to measurement. In addition, the manufacturer must comply with one
+of the following targets:
+•
+ME
+
+0
+
+•
+•
+•
+•
+•
+•
+
+Packaging is 100% reusable, recyclable, biodegradable, or compostable (contains no PFAS or other
+chemicals that pose hazards to the environment, flora, fauna or human health).
+70% of plastic packaging has been recycled or composted, with the % of recycled content verified.
+50% of average recycled content included in packaging (revised from 30% in 2020).
+All packaging materials are responsibly sourced.
+Have a reuse or take back model.
+% of recycled content is displayed and verified where possible.
+No use of plastic packaging.
+
+The manufacturer must comply with 3 out of the 6 following targets:
+
+Circular
+
+•
+
+Packaging
+
+CA
+
+1
+
+•
+•
+•
+•
+•
+•
+
+Packaging is 100% reusable, recyclable, biodegradable, or compostable (contains no PFAS or other
+chemicals that pose hazards to the environment, flora, fauna or human health).
+70% of plastic packaging has been recycled or composted, with the % of recycled content verified.
+50% of average recycled content included in packaging (revised from 30% in 2020).
+All packaging materials are responsibly sourced.
+Have a reuse or take back model.
+% of recycled content is displayed and verified where possible.
+No use of plastic packaging.
+
+Packaging must be produced with at least 5 of the following principles:
+
+HP
+
+2
+
+•
+•
+•
+•
+•
+•
+•
+•
+
+Design for recovery
+Optimise material efficiency
+Design to reduce product waste of the packaged product
+Eliminate hazardous materials
+Use verified and local recycled materials
+Use renewable materials
+Design for transport efficiency
+Design for accessibility
+26
+
+Responsible
+Products
+Guidelines –
+Version A
+Leadership
+
+Credit
+
+Market Transformation
+
+Point(s)
+
+Up to 5 Points
+
+Criteria
+
+Provide evidence as to how your initiative supports GBCA's vision to drive demand for transparent, healthy,
+low-impact and zero carbon products that are part of a circular economy.
+
+27
+
+03
+
+Grosvenor Place
+
+Next Steps
+
+1 William Street, QLD. Cbus Property. 6 Star Green Star – Performance v1.2
+
+28
+
+Green Star
+Interiors to date
+
+Global megatrends
+driving change
+
+Our vision for
+Green Star Fitouts
+
+Five Key
+changes
+
+Case
+studies
+
+The future of the
+Responsible Products
+Guidelines
+The next version of the guidelines will seek to address feedback received against
+the Responsible Products Guidelines – Version A, as well as address the
+changes within industry. Initiatives and manufacturers should expect to see
+amendments to nature and circularity related credits, as GBCA recognises the
+importance of nature disclosure, optimised EPDs, and traceability. Changes
+could include performance level amendments, point allocation, or fundamental
+changes to credits and criteria.
+GBCA expects to consult on the proposed changes in 2025.
+All scores against Version A will remain until Version B is released and the
+transition period has occurred. GBCA will communicate with the initiatives during
+this period and will provide significant time for industry to transition.
+
+29
+
+3
+
+JLL Sydney Office, NSW. JLL. 6 Star Green Star – Interiors v1.3
+
+Additional
+Resources
+
+Format
+
+Location
+
+Responsible Products Calculator (Excel)
+Note: Only available while the online calculator is in Beta.
+
+Excel
+
+Resources Portal
+
+Responsible Products Calculator (Online)
+Note: Only accessible via a Green Star project.
+
+Online
+
+Green Star Online Platform
+
+Marketing Guidelines
+
+PDF
+
+Responsible Products Webpage
+
+Initiatives Score Checker
+
+Online
+
+Score Checker
+
+Responsible Products Calculator Guide
+
+PDF
+
+Resources Portal
+
+Guidance for Responsible Products Credits – Green Star Buildings_v1
+
+PDF
+
+Resources Portal
+
+30
+
+Thank you
+For further information, please contact the GBCA Products and Materials Team at productsteam@gbca.org.au
+
+Jorge Chapa | Chief Impact Officer
+Katherine Featherstone | Senior Manager - Products and Materials
+Harriet Smith | Responsible Products Program Lead
+
+31
+3
+
+

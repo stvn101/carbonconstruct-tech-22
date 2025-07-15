@@ -1,0 +1,207 @@
+
+/* Gradient and headings */
+.gradient-heading {
+  @apply bg-gradient-to-r from-carbon-800 via-carbon-700 to-carbon-600 bg-clip-text text-transparent dark:from-carbon-200 dark:via-carbon-300 dark:to-carbon-400 
+         selection:text-carbon-950 dark:selection:text-carbon-50;
+}
+
+/* Make gradients more vibrant */
+.gradient-heading strong,
+.gradient-heading b {
+  @apply bg-gradient-to-r from-carbon-700 to-carbon-500 bg-clip-text text-transparent dark:from-carbon-100 dark:via-carbon-200 dark:to-carbon-300
+         selection:text-carbon-950 dark:selection:text-carbon-50;
+}
+
+/* Card styling - ensure solid backgrounds with rounded corners */
+.card {
+  @apply bg-card border border-border shadow-sm rounded-xl;
+}
+
+/* Remove backdrop filters for better compatibility */
+[class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  @apply bg-background/95 dark:bg-background/95;
+}
+
+/* Force solid backgrounds on common UI components with rounded corners */
+.dropdown-menu,
+.popover,
+.dialog,
+.sheet,
+[data-radix-popper-content-wrapper] > * {
+  @apply bg-popover border border-border rounded-xl !important;
+  backdrop-filter: none !important;
+  z-index: var(--z-dropdown);
+}
+
+/* Ensure sections with secondary backgrounds are solid */
+[class*="bg-secondary"] {
+  @apply bg-secondary rounded-xl !important;
+}
+
+/* Make dialogs completely opaque with rounded corners */
+[role="dialog"],
+div[data-state] {
+  @apply bg-card rounded-xl !important;
+  backdrop-filter: none !important;
+}
+
+/* Specifically target Radix UI Dialog content */
+[data-radix-popper-content-wrapper],
+[data-state] > [role="dialog"] {
+  @apply bg-popover rounded-xl !important;
+  box-shadow: var(--shadow-md) !important;
+  z-index: var(--z-dropdown);
+}
+
+/* Details button styling */
+.details-btn {
+  @apply bg-primary hover:bg-primary/90 border-primary dark:bg-primary dark:hover:bg-primary/90 dark:border-primary text-primary-foreground transition-colors rounded-xl;
+}
+
+/* Force all backdrop blur elements fully opaque */
+.dark [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  @apply bg-background/95 !important;
+}
+
+/* Improve dropdown menu item visibility */
+[data-radix-dropdown-menu-content] {
+  @apply bg-popover rounded-xl !important;
+}
+
+/* Fix transparency in content containers */
+[data-radix-tabs-content] {
+  @apply bg-transparent !important;
+}
+
+/* COMPLETELY REMOVE all automatic pseudo-element green lines - STRENGTHENED RULES */
+*,
+*::before,
+*::after {
+  position: relative !important;
+}
+
+*::before,
+*::after {
+  content: none !important;
+  border: none !important;
+  background: none !important;
+  height: 0 !important;
+  width: 0 !important;
+  display: none !important;
+}
+
+/* Remove any pseudo-elements that might create lines - STRENGTHENED */
+h1::before, h1::after,
+h2::before, h2::after,
+h3::before, h3::after,
+h4::before, h4::after,
+h5::before, h5::after,
+h6::before, h6::after,
+p::before, p::after,
+span::before, span::after,
+div::before, div::after,
+section::before, section::after,
+article::before, article::after {
+  content: none !important;
+  display: none !important;
+  border: none !important;
+  background: none !important;
+  height: 0 !important;
+  width: 0 !important;
+}
+
+/* Only allow green lines where explicitly defined */
+.nav-link-active::after {
+  content: '';
+  @apply absolute bottom-0 left-2 right-2 h-0.5 bg-green-600;
+}
+
+/* Improve mobile touch targets */
+@media (max-width: 640px) {
+  button, 
+  a.button,
+  .interactive-element {
+    @apply min-h-[44px] min-w-[44px] rounded-xl;
+  }
+  
+  /* Improve spacing between form elements */
+  .form-group + .form-group {
+    @apply mt-4;
+  }
+  
+  /* Stack buttons on mobile */
+  .button-group {
+    @apply flex flex-col space-y-2;
+  }
+  
+  /* Make card padding consistent */
+  .card {
+    @apply p-4 rounded-xl;
+  }
+  
+  /* Improve spacing for form fields on mobile */
+  input,
+  select,
+  textarea {
+    @apply text-base py-2.5 rounded-xl;
+  }
+  
+  /* Fix touch target size for interactive elements */
+  .interactive-control {
+    @apply min-h-[44px] rounded-xl;
+  }
+  
+  /* Ensure labels are visible */
+  label {
+    @apply text-sm font-medium mb-1.5 block;
+  }
+
+  /* Make dialog content better fit mobile screens */
+  [role="dialog"] {
+    @apply p-4 rounded-xl;
+    width: calc(100% - 32px) !important;
+    max-width: 500px;
+  }
+
+  /* Improve heading sizes on mobile */
+  h1 { @apply text-2xl leading-tight; }
+  h2 { @apply text-xl leading-tight; }
+  h3 { @apply text-lg leading-tight; }
+
+  /* Ensure card contents are readable */
+  .card-content {
+    @apply text-base;
+  }
+  
+  /* Improve tooltip readability */
+  [data-tooltip] {
+    @apply text-sm max-w-[250px] rounded-xl;
+  }
+}
+
+/* Add mobile-friendly container class */
+.mobile-friendly-container {
+  @apply w-full px-4 sm:px-6 md:px-8 mx-auto;
+}
+
+/* Create responsive grid layouts */
+.responsive-grid {
+  @apply grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4;
+}
+
+/* Fix footer spacing on mobile */
+.footer-content {
+  @apply px-4 py-6 sm:px-6;
+}
+
+/* Ensure form row elements stack properly on mobile */
+.form-row {
+  @apply flex flex-col sm:flex-row gap-4;
+}
+
+/* Add consistent spacing for sections */
+.section-spacing {
+  @apply py-8 sm:py-12;
+}

@@ -1,0 +1,100 @@
+
+/* Dark mode background styles */
+
+/* Basic backgrounds */
+.dark .bg-carbon-50, .dark .bg-carbon-100 {
+  @apply text-carbon-50 bg-gray-800;
+}
+
+.dark .bg-background {
+  @apply bg-gray-900;
+}
+
+/* Ensures background color works on html element in dark mode */
+.dark {
+  @apply bg-gray-900;
+}
+
+.dark body,
+.dark #root,
+.dark main {
+  @apply bg-gray-900;
+}
+
+/* Prevent transparency in ALL background elements */
+.dark [class*="bg-white/"], 
+.dark [class*="bg-gray-800/"],
+.dark [class*="bg-background/"],
+.dark [class*="bg-secondary/"],
+.dark [class*="opacity-"],
+.dark [class*="backdrop-"],
+.dark .bg-opacity,
+.dark .backdrop-blur {
+  @apply bg-gray-800 !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Force all cards to be opaque - no transparency */
+.dark .card,
+.dark [class*="card"],
+.dark [data-radix-popper-content-wrapper] > * {
+  @apply bg-gray-800 border-gray-700 !important;
+  backdrop-filter: none !important;
+  opacity: 1 !important;
+}
+
+/* Remove all backdrop-blur effects in dark mode */
+.dark [class*="backdrop-blur"] {
+  backdrop-filter: none !important;
+  @apply bg-gray-800 !important;
+  opacity: 1 !important;
+}
+
+/* Make dialogs completely opaque */
+.dark [role="dialog"],
+.dark div[data-state] {
+  @apply bg-gray-800 !important;
+  opacity: 1 !important;
+  backdrop-filter: none !important;
+}
+
+/* Specifically target Radix UI Dialog content */
+.dark [data-radix-popper-content-wrapper],
+.dark [data-state] > [role="dialog"] {
+  @apply bg-gray-800 !important;
+  opacity: 1 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.9) !important;
+}
+
+/* Ensure dropdown content is visible */
+.dark [data-radix-dropdown-menu-content] {
+  @apply bg-gray-800 !important;
+  opacity: 1 !important;
+}
+
+/* Ensure dialog content is visible */
+.dark [role="dialog"] {
+  @apply bg-gray-800 !important;
+  opacity: 1 !important;
+}
+
+/* Improve material detail buttons in dark mode */
+.dark .details-btn {
+  @apply bg-carbon-600 text-carbon-100 border-carbon-500;
+}
+
+/* Fix content panels in dark mode */
+.dark [data-orientation] [role="tabpanel"] {
+  @apply bg-transparent !important;
+}
+
+/* Ensure navbar extends full width in dark mode */
+.dark .navbar-container {
+  @apply w-full bg-gray-900;
+}
+
+/* Consistent dark mode styling for navigation */
+.dark .nav-container {
+  @apply bg-gray-900 border-gray-800;
+}

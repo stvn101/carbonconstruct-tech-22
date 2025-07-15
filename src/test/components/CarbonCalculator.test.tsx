@@ -1,0 +1,93 @@
+import { describe, it, expect, vi } from 'vitest';
+import { render, screen, fireEvent, waitFor } from '../utils/testing-library';
+import { testAccessibility } from '../utils/accessibility';
+import CarbonCalculator from '@/components/CarbonCalculator';
+
+// Mock the calculator hooks and services
+vi.mock('@/hooks/useCalculatorState', () => ({
+  useCalculatorState: () => ({
+    materials: [],
+    addMaterial: vi.fn(),
+    updateMaterial: vi.fn(),
+    removeMaterial: vi.fn(),
+    calculateEmissions: vi.fn().mockResolvedValue({ total: 1000, breakdown: {} }),
+    loading: false,
+    error: null,
+  })
+}));
+
+describe('CarbonCalculator', () => {
+  it('renders calculator interface correctly', () => {
+    render(<CarbonCalculator />);
+    
+    expect(screen.getByTestId('calculator-container')).toBeInTheDocument();
+    expect(screen.getByText(/carbon calculator/i)).toBeInTheDocument();
+  });
+
+  it('meets accessibility standards', async () => {
+    const { container } = render(<CarbonCalculator />);
+    await testAccessibility(container);
+  });
+
+  it('allows adding materials', async () => {
+    render(<CarbonCalculator />);
+    
+    const addButton = screen.getByTestId('add-material');
+    fireEvent.click(addButton);
+    
+    await waitFor(() => {
+      expect(screen.getByTestId('material-0-type')).toBeInTheDocument();
+    });
+  });
+
+  it('calculates emissions correctly', async () => {
+    render(<CarbonCalculator />);
+    
+    // Add a material
+    fireEvent.click(screen.getByTestId('add-material'));
+    
+    // Select material type and quantity
+    fireEvent.change(screen.getByTestId('material-0-type'), { 
+      target: { value: 'concrete' } 
+    });
+    fireEvent.change(screen.getByTestId('material-0-quantity'), { 
+      target: { value: '100' } 
+    });
+    
+    // Calculate
+    fireEvent.click(screen.getByTestId('calculate-button'));
+    
+    await waitFor(() => {
+      expect(screen.getByTestId('total-emissions')).toBeInTheDocument();
+    });
+  });
+
+  it('shows compliance information', async () => {
+    render(<CarbonCalculator />);
+    
+    // Switch to compliance tab
+    fireEvent.click(screen.getByTestId('compliance-tab'));
+    
+    await waitFor(() => {
+      expect(screen.getByTestId('ncc-compliance')).toBeInTheDocument();
+      expect(screen.getByTestId('nabers-rating')).toBeInTheDocument();
+    });
+  });
+
+  it('handles errors gracefully', async () => {
+    // Mock error state
+    vi.mocked(require('@/hooks/useCalculatorState').useCalculatorState).mockReturnValue({
+      materials: [],
+      addMaterial: vi.fn(),
+      updateMaterial: vi.fn(),
+      removeMaterial: vi.fn(),
+      calculateEmissions: vi.fn().mockRejectedValue(new Error('Calculation failed')),
+      loading: false,
+      error: 'Calculation failed',
+    });
+    
+    render(<CarbonCalculator />);
+    
+    expect(screen.getByText(/calculation failed/i)).toBeInTheDocument();
+  });
+});

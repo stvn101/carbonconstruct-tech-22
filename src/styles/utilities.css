@@ -1,0 +1,118 @@
+/* This file contains utility classes that don't fit in other categories */
+
+/* Helper tip styling */
+.helper-tip {
+  @apply bg-carbon-50 border-l-4 border-carbon-500 p-4 mb-4 rounded-sm shadow-sm;
+}
+
+.helper-tip-title {
+  @apply font-bold text-carbon-700 text-lg mb-2;
+}
+
+.helper-tip-content {
+  @apply text-carbon-600;
+}
+
+/* Tutorial steps */
+.tutorial-step {
+  @apply flex items-start gap-3 mb-6;
+}
+
+.tutorial-step-number {
+  @apply w-8 h-8 rounded-full bg-carbon-600 text-white flex items-center justify-center font-bold flex-shrink-0;
+}
+
+.tutorial-step-content {
+  @apply flex-1;
+}
+
+.tutorial-step-title {
+  @apply font-bold mb-1 text-lg;
+}
+
+.tutorial-step-description {
+  @apply text-muted-foreground;
+}
+
+/* Dark mode variants */
+.dark .helper-tip {
+  @apply bg-carbon-900 border-carbon-400 text-carbon-100;
+}
+
+.dark .helper-tip-title {
+  @apply text-carbon-200;
+}
+
+.dark .helper-tip-content {
+  @apply text-carbon-300;
+}
+
+.dark .tutorial-step-number {
+  @apply bg-carbon-500 text-carbon-50;
+}
+
+/* Accessible tab navigation focus indicators */
+:focus-visible {
+  @apply outline-2 outline-carbon-500 outline-offset-2 ring-2 ring-carbon-500/50 ring-offset-2;
+}
+
+/* Ensure focusable elements have proper z-index */
+button, 
+a,
+input,
+select,
+textarea,
+[tabindex="0"] {
+  @apply z-10 focus-visible:z-20;
+}
+
+/* Skip link for keyboard navigation */
+.skip-link {
+  @apply sr-only focus:not-sr-only fixed top-4 left-4 z-50 bg-carbon-600 text-white px-4 py-3 rounded-md;
+}
+
+/* Fix for button interaction issues */
+button, a {
+  @apply select-none touch-manipulation;
+}
+
+/* Feature access control - hide premium features */
+.premium-feature {
+  @apply hidden;
+}
+
+.premium-user .premium-feature {
+  @apply block;
+}
+
+/* Conditional navbar items */
+.navbar-item-free {
+  @apply block;
+}
+
+.navbar-item-premium {
+  @apply hidden;
+}
+
+.premium-user .navbar-item-free {
+  @apply hidden;
+}
+
+.premium-user .navbar-item-premium {
+  @apply block;
+}
+
+/* Improve form field tab order */
+.form-field {
+  @apply relative;
+}
+
+.form-field:focus-within {
+  @apply z-20;
+}
+
+/* Fix chart tooltip tab navigation */
+.recharts-tooltip-wrapper {
+  pointer-events: none;
+  z-index: 1000 !important;
+}

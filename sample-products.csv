@@ -1,0 +1,17 @@
+Product ID,Product Name,Manufacturer,Description,Building Layer,Cost,Quantity,Unit,Category,Subcategory,Certification Initiative,Certificate Number,Issue Date,Expiry Date,RPV Score
+STR-001,Sustainable Steel Beams,GreenSteel Industries,High-strength steel beams made from 90% recycled content,Structure,125000,50,tonnes,Structural Steel,Beams,GBCA-001,GBCA-STR-2024-001,2024-01-20,2027-01-20,85
+STR-002,Low Carbon Concrete,EcoConcrete Solutions,High-performance concrete with 40% reduced carbon footprint,Structure,85000,200,cubic metres,Concrete,Ready Mix,GBCA-001,GBCA-CON-2024-002,2024-02-15,2027-02-15,85
+STR-002,Low Carbon Concrete,EcoConcrete Solutions,High-performance concrete with 40% reduced carbon footprint,Structure,85000,200,cubic metres,Concrete,Ready Mix,CRADLE-002,C2C-CON-2024-001,2024-02-20,2026-02-20,92
+ENV-001,Triple Glazed Windows,ClearView Sustainable Windows,High-performance triple glazed windows with recycled aluminum frames,Envelope,45000,120,square metres,Windows,Glazed,GBCA-001,GBCA-WIN-2024-003,2024-03-01,2027-03-01,85
+ENV-002,Insulated Wall Panels,ThermalShield Products,High R-value wall panels with natural fiber insulation,Envelope,32000,500,square metres,Insulation,Wall Systems,GBCA-001,GBCA-INS-2024-004,2024-01-25,2027-01-25,85
+SYS-001,High Efficiency HVAC System,ClimateControl Technologies,Variable refrigerant flow system with heat recovery,Systems,95000,1,system,HVAC,Air Conditioning,ENERGY-003,ENE-HVAC-2024-001,2024-02-10,2027-02-10,78
+SYS-002,LED Lighting System,BrightGreen Lighting,Smart LED lighting with daylight sensors and occupancy controls,Systems,28000,200,fixtures,Lighting,LED,ENERGY-003,ENE-LED-2024-002,2024-03-05,2027-03-05,78
+FIN-001,Bamboo Flooring,Sustainable Surfaces,FSC certified bamboo flooring with low-VOC finish,Finishes,18000,300,square metres,Flooring,Timber,GBCA-001,GBCA-FLR-2024-005,2024-01-30,2027-01-30,85
+FIN-001,Bamboo Flooring,Sustainable Surfaces,FSC certified bamboo flooring with low-VOC finish,Finishes,18000,300,square metres,Flooring,Timber,CRADLE-002,C2C-FLR-2024-002,2024-02-05,2026-02-05,92
+FIN-002,Low-VOC Paint,EcoPaint Solutions,Zero-VOC interior paint with natural pigments,Finishes,8500,500,litres,Coatings,Interior Paint,GBCA-001,GBCA-PNT-2024-006,2024-02-25,2027-02-25,85
+STR-003,Standard Steel Beams,Traditional Steel Co,Standard steel beams without sustainability certification,Structure,75000,30,tonnes,Structural Steel,Beams,,,,,0
+FIN-003,Standard Carpet,FloorCorp,Standard commercial carpet without sustainability features,Finishes,12000,200,square metres,Flooring,Carpet,,,,,0
+ENV-003,Standard Windows,BasicGlass Ltd,Standard double glazed windows,Envelope,25000,80,square metres,Windows,Glazed,,,,,0
+SYS-003,Standard HVAC,OldTech Systems,Traditional HVAC system without efficiency features,Systems,65000,1,system,HVAC,Air Conditioning,,,,,0
+FIN-004,Standard Paint,RegularPaint Co,Standard interior paint with moderate VOC content,Finishes,5500,300,litres,Coatings,Interior Paint,,,,,0
+

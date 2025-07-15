@@ -1,0 +1,250 @@
+
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+@import './styles/theme-variables.css'; /* Import our unified theme */
+
+/* Ensure the page is scrollable */
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  overflow-y: auto;
+  position: relative;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+  transition: background-color 0.3s ease, color 0.3s ease;
+  font-feature-settings: "rlig" 1, "calt" 1;
+}
+
+#root {
+  min-height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* App specific styling */
+@layer base {
+  /* Selection styling */
+  ::selection {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--primary));
+  }
+  
+  /* Ensure all buttons have consistent styling */
+  button.btn-primary, 
+  a.btn-primary {
+    background-color: hsl(var(--primary)) !important;
+    color: hsl(var(--primary-foreground)) !important;
+    border-radius: var(--radius-md);
+    padding: var(--space-3) var(--space-6);
+    font-weight: 500;
+  }
+  
+  /* Ensure all cards have consistent styling */
+  .card, 
+  .card-component {
+    background-color: hsl(var(--card));
+    color: hsl(var(--card-foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  /* Add primary color border accent to cards on hover */
+  .card:hover, 
+  .card-component:hover {
+    border-color: hsl(var(--primary));
+  }
+  
+  /* Ensure all inputs have consistent styling */
+  input, 
+  select, 
+  textarea {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    border: 1px solid hsl(var(--border));
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-3);
+  }
+  
+  /* Add primary focus ring for inputs */
+  input:focus, 
+  select:focus, 
+  textarea:focus {
+    border-color: hsl(var(--primary));
+    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
+  }
+  
+  /* Improve focus states for accessibility */
+  :focus-visible {
+    outline: 2px solid hsl(var(--primary));
+    outline-offset: 2px;
+  }
+  
+  /* Consistent heading styles */
+  h1, h2, h3, h4, h5, h6 {
+    color: hsl(var(--foreground));
+    font-weight: 600;
+    line-height: 1.2;
+  }
+  
+  /* Add primary underline accent to headings */
+  h1::after, h2::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--primary) / 0.8));
+    margin-top: 0.3em;
+    border-radius: 2px;
+  }
+}
+
+/* Primary accent for active navigation items */
+.active-nav-item {
+  border-left: 3px solid hsl(var(--primary));
+}
+
+/* Primary accent for sustainability-related elements */
+.sustainability-element {
+  border-left: 4px solid hsl(var(--primary));
+}
+
+/* Keep the rest of the existing CSS */
+.content-top-spacing {
+  padding-top: 5rem; /* Equivalent to pt-20 in Tailwind */
+}
+
+main {
+  flex: 1;
+}
+
+/* Fix for modal scroll issues */
+[role="dialog"] {
+  max-height: 90vh;
+  overflow-y: auto;
+  background-color: hsl(var(--background)); /* Consistent background */
+  color: hsl(var(--foreground)); /* Consistent text color */
+}
+
+/* Ensure dropdown menus are consistently styled */
+[data-radix-popper-content-wrapper] {
+  background-color: hsl(var(--popover)) !important;
+  color: hsl(var(--popover-foreground)) !important;
+  z-index: var(--z-dropdown);
+}
+
+/* Z-index consistency */
+.z-navbar {
+  z-index: var(--z-navbar);
+}
+
+.z-dropdown {
+  z-index: var(--z-dropdown);
+}
+
+.z-tooltip {
+  z-index: var(--z-tooltip);
+}
+
+.z-modal {
+  z-index: var(--z-modal);
+}
+
+/* Touch target sizes for mobile */
+@media (max-width: 767px) {
+  button, 
+  a.button,
+  .clickable {
+    min-height: var(--touch-target-size, 44px);
+    min-width: var(--touch-target-size, 44px);
+  }
+  
+  /* Improve form element spacing on mobile */
+  .form-group {
+    margin-bottom: 1rem;
+  }
+  
+  /* Ensure labels are clear on mobile */
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  /* Larger text for mobile */
+  input, select, textarea, button {
+    font-size: 16px; /* Prevents iOS zoom on focus */
+  }
+}
+
+/* Ensure mobile-friendly containers */
+.container {
+  width: 100%;
+  padding-right: 1rem;
+  padding-left: 1rem;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+/* Fix backdrop and transparency issues */
+.dark [class*="backdrop-blur"],
+[role="dialog"],
+[data-radix-popper-content-wrapper] > div {
+  backdrop-filter: none !important;
+}
+
+.dark [data-radix-popper-content-wrapper] > div {
+  background-color: hsl(var(--popover)) !important;
+}
+
+/* Calculator specific color fixes */
+.calculator-section {
+  background-color: hsl(var(--card));
+  border-color: hsl(var(--border));
+  color: hsl(var(--card-foreground));
+}
+
+.calculator-primary-button {
+  background-color: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.calculator-primary-button:hover {
+  background-color: hsl(var(--primary) / 0.9);
+}
+
+.calculator-accent {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
