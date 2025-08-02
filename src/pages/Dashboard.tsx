@@ -29,12 +29,12 @@ const Dashboard = () => {
     if (tabParam && ["overview", "projects", "reports", "payments"].includes(tabParam)) {
       setActiveTab(tabParam);
     }
-    
+
     // Check if we're coming from a successful payment
     const paymentStatus = searchParams.get('payment');
     if (paymentStatus === 'success') {
       setShowPaymentSuccess(true);
-      
+
       // Verify payment with backend
       if (user) {
         supabase.functions.invoke('verify-payment')
@@ -51,14 +51,14 @@ const Dashboard = () => {
           element.setAttribute('title', 'Loading timed out. Please refresh the page.');
         }
       });
-      
+
       toast.error("Some components are taking too long to load. You may need to refresh the page.", {
         duration: 8000,
       });
     }, 20000); // 20 second timeout
-    
+
     setLoadingTimeout(timeout);
-    
+
     return () => {
       if (loadingTimeout) {
         clearTimeout(loadingTimeout);
@@ -83,7 +83,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="container mx-auto px-4 py-8 max-w-7xl content-top-spacing pt-24">
         <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-        
+
         {showPaymentSuccess && (
           <div className="mb-8">
             <PaymentSuccess onClose={() => setShowPaymentSuccess(false)} />
@@ -141,7 +141,7 @@ const Dashboard = () => {
           <TabsContent value="reports" className="pt-4">
             <ReportsTab />
           </TabsContent>
-          
+
           <TabsContent value="payments" className="pt-4">
             <div className="grid grid-cols-1 gap-8">
               <SubscriptionStatus />
@@ -153,5 +153,15 @@ const Dashboard = () => {
     </>
   );
 };
+import { ClaudePanel } from '@/home101/claude/ClaudePanel'
 
-export default Dashboard;
+const DashboardPage = () => {
+  return (
+    <>
+      <ClaudePanel />
+      <Dashboard />
+    </>
+  );
+};
+
+export default DashboardPage;
