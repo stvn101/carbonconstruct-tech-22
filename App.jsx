@@ -1,4 +1,23 @@
 import { useState, useEffect } from 'react'
+import { createClient } from '@supabase/supabase-js'
+
+const supabase = createClient(
+  import.meta.env.NEXT_PUBLIC_SUPABASE_URL,
+  import.meta.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+)
+
+useEffect(() => {
+  const testConnection = async () => {
+    const { data, error } = await supabase.from('YOUR_TABLE_NAME').select('*').limit(1)
+    if (error) {
+      console.error('❌ Supabase connection error:', error)
+    } else {
+      console.log('✅ Supabase connected. Sample data:', data)
+    }
+  }
+
+  testConnection()
+}, [])
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card.jsx'
 import { Button } from '@/components/ui/button.jsx'
 import { Input } from '@/components/ui/input.jsx'

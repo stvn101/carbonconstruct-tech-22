@@ -1,8 +1,7 @@
-
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
-import { componentTagger } from "lovable-tagger";
+import { componentTagger } from 'lovable-tagger';
 
 export default defineConfig(({ mode }) => ({
   plugins: [
@@ -10,15 +9,20 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   server: {
-    host: "::",
+    host: '0.0.0.0', // Bind to all IPv4 interfaces safely (not "::")
     port: 8080,
+    strictPort: true,
+    hmr: {
+      protocol: 'ws',
+      host: 'localhost', // Don't use external IPv6 host
+      port: 8080,
+      clientPort: 8080,
+    },
     allowedHosts: [
-      // Allow the specific host mentioned in the error
       '40569afc-2265-4f8d-91d9-12353c695c88.lovableproject.com',
-      // Allow all lovable domains for future flexibility
       '*.lovableproject.com',
-      '*.lovable.app'
-    ]
+      '*.lovable.app',
+    ],
   },
   resolve: {
     alias: {
@@ -26,9 +30,7 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    // Ensure sourcemaps are generated in production
     sourcemap: true,
-    // Optimize chunk size for better performance
     chunkSizeWarningLimit: 1000,
-  }
+  },
 }));
