@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,7 +8,6 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Routes, Route } from "react-router-dom";
 import { SafeRouter } from "@/components/routing/SafeRouter";
 import { PerformanceOptimizer } from "@/components/performance/PerformanceOptimizer";
-import { HelmetProvider } from "react-helmet-async";
 import { AuthProvider } from "@/contexts/auth";
 import { CriticalErrorBoundary } from "@/components/error/CriticalErrorBoundary";
 import { ProjectProvider } from "@/contexts/ProjectContext";
@@ -45,43 +45,35 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: (failureCount, error: any) => {
-        // Don't retry on 4xx errors  
         if (error?.status >= 400 && error?.status < 500) {
           return false;
         }
         return failureCount < 2;
       },
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      gcTime: 10 * 60 * 1000, // 10 minutes
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
     },
   },
 });
 
-
 function App() {
-  // Phase 4: Initialize production systems
   React.useEffect(() => {
     if (import.meta.env.PROD) {
-      // Initialize performance monitoring
       advancedPerformanceMonitor;
-      // Initialize security monitoring  
       enhancedSecurityMonitor;
-      // Initialize error recovery
       productionErrorRecovery;
-      
-      // Register service worker for production
+
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(console.error);
       }
     }
   }, []);
 
-  // Add error logging to catch any initialization issues
   React.useEffect(() => {
     const handleError = (event: ErrorEvent) => {
       console.error('Global error caught:', event.error);
     };
-    
+
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
       console.error('Unhandled promise rejection:', event.reason);
     };
@@ -97,82 +89,76 @@ function App() {
 
   return (
     <HelmetProvider>
+      <Helmet>
+        {/* Google Analytics */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-16L1HC6E06" />
+        <script>
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-16L1HC6E06');
+          `}
+        </script>
+      </Helmet>
+
       <QueryClientProvider client={queryClient}>
         <ThemeProvider defaultTheme="system" storageKey="carbonconstruct-theme">
-        <TooltipProvider>
-          <PerformanceOptimizer>
-          {/* Phase 1: Security Headers Implementation */}
-          <SecurityHeaders 
-            enableCSP={true}
-            enableHSTS={true}
-            enableFrameOptions={true}
-            enableContentTypeOptions={true}
-            enableReferrerPolicy={true}
-          />
-          
-          {/* Phase 1: Enhanced Security Monitoring */}
-          <EnhancedSecurityMonitorComponent />
-          
-          {/* Phase 1: WCAG 2.1 AA Accessibility Compliance */}
-          <AccessibilityEnhancer 
-            enableKeyboardNavigation={true}
-            enableScreenReaderSupport={true}
-            enableHighContrast={true}
-            enableFocusManagement={true}
-            enableAriaLiveRegions={true}
-            skipToContentEnabled={true}
-          />
-          
-          {/* Phase 1: PWA Installation Support */}
-          <PWAInstaller 
-            showBanner={true}
-            position="bottom"
-            theme="auto"
-          />
-          
-          {/* Phase 1: Production Monitoring & Error Tracking */}
-          <ProductionMonitorComponent />
-          
-           <Toaster />
-           <Sonner />
-             <SafeRouter>
-              <CriticalErrorBoundary>
-                <AuthProvider>
-                  <GrokProvider>
-                    <ClaudeProvider>
-                      <ProjectProvider>
-                        <div className="min-h-screen bg-background">
+          <TooltipProvider>
+            <PerformanceOptimizer>
+              <SecurityHeaders
+                enableCSP={true}
+                enableHSTS={true}
+                enableFrameOptions={true}
+                enableContentTypeOptions={true}
+                enableReferrerPolicy={true}
+              />
+              <EnhancedSecurityMonitorComponent />
+              <AccessibilityEnhancer
+                enableKeyboardNavigation={true}
+                enableScreenReaderSupport={true}
+                enableHighContrast={true}
+                enableFocusManagement={true}
+                enableAriaLiveRegions={true}
+                skipToContentEnabled={true}
+              />
+              <PWAInstaller showBanner={true} position="bottom" theme="auto" />
+              <ProductionMonitorComponent />
+              <Toaster />
+              <Sonner />
+
+              <SafeRouter>
+                <CriticalErrorBoundary>
+                  <AuthProvider>
+                    <GrokProvider>
+                      <ClaudeProvider>
+                        <ProjectProvider>
+                          <div className="min-h-screen bg-background">
                             <Routes>
                               <Route path="/" element={<Index />} />
                               {authRoutes}
                               {marketingRoutes}
                               {protectedRoutes}
                               {projectRoutes}
-                              {/* EPD Generator routes */}
                               <Route path="/epd-generator" element={<EPDGeneratorPage />} />
-                               <Route path="/epd/create" element={<EPDCreatePage />} />
-                               <Route path="/epd/:id" element={<EPDDetailPage />} />
-                               <Route path="/epd/export/:id" element={<EPDExportPage />} />
-                               <Route path="/verifier/dashboard" element={<VerifierDashboard />} />
-                               <Route path="/verifier/review/:id" element={<VerifierReview />} />
-                               <Route path="/dashboard/epds" element={<EPDAnalyticsDashboard />} />
-                               {/* Admin route for materials export */}
-                               <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
+                              <Route path="/epd/create" element={<EPDCreatePage />} />
+                              <Route path="/epd/:id" element={<EPDDetailPage />} />
+                              <Route path="/epd/export/:id" element={<EPDExportPage />} />
+                              <Route path="/verifier/dashboard" element={<VerifierDashboard />} />
+                              <Route path="/verifier/review/:id" element={<VerifierReview />} />
+                              <Route path="/dashboard/epds" element={<EPDAnalyticsDashboard />} />
+                              <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
                             </Routes>
-                            
-                            {/* Phase 3: Stability Monitoring - Only render after auth is ready */}
                             <StabilityMonitor />
-                            
-                            {/* Phase 3: Development Tools (dev only) */}
                             <DevelopmentTools />
-                         </div>
-                      </ProjectProvider>
-                    </ClaudeProvider>
-                  </GrokProvider>
-                </AuthProvider>
-              </CriticalErrorBoundary>
+                          </div>
+                        </ProjectProvider>
+                      </ClaudeProvider>
+                    </GrokProvider>
+                  </AuthProvider>
+                </CriticalErrorBoundary>
               </SafeRouter>
-          </PerformanceOptimizer>
+            </PerformanceOptimizer>
           </TooltipProvider>
         </ThemeProvider>
       </QueryClientProvider>
