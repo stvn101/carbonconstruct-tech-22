@@ -20,6 +20,8 @@ import {
 import { PieChart, Pie, Cell, ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip } from 'recharts';
 import { CalculationResult } from '@/lib/carbonCalculations';
 import { ProjectData, exportProjectToPDF, exportProjectToCSV } from '@/utils/exportUtils';
+import { ExportSummaryModal } from './ExportSummaryModal';
+import { ClaudeCompanion } from './ClaudeCompanion';
 import { toast } from 'sonner';
 
 interface CarbonDashboardProps {
@@ -35,6 +37,7 @@ export const CarbonDashboard: React.FC<CarbonDashboardProps> = ({
 }) => {
   const [isExporting, setIsExporting] = useState(false);
   const [exportType, setExportType] = useState<'pdf' | 'csv' | null>(null);
+  const [showExportModal, setShowExportModal] = useState(false);
 
   // Fallback for missing data
   if (!result) {
@@ -77,22 +80,28 @@ export const CarbonDashboard: React.FC<CarbonDashboardProps> = ({
     { name: 'Scope 3', value: result.scope3 || 0, color: '#ca8a04' }
   ];
 
-  const handleExport = async (type: 'pdf' | 'csv') => {
+  const handleExportClick = () => {
     if (!projectData) {
       toast.error('No project data available for export');
       return;
     }
+    setShowExportModal(true);
+  };
 
+  const handleConfirmExport = async (type: 'pdf' | 'csv') => {
+    if (!projectData) return;
+    
     setIsExporting(true);
     setExportType(type);
+    setShowExportModal(false);
 
     try {
       if (type === 'pdf') {
         await exportProjectToPDF(projectData);
-        toast.success('PDF report downloaded successfully');
+        toast.success('Professional PDF report downloaded successfully');
       } else {
         exportProjectToCSV(projectData);
-        toast.success('CSV data downloaded successfully');
+        toast.success('CSV data exported successfully');
       }
     } catch (error) {
       console.error('Export error:', error);
@@ -115,34 +124,30 @@ export const CarbonDashboard: React.FC<CarbonDashboardProps> = ({
         {/* Export Controls */}
         <div className="flex gap-3">
           <Button 
-            variant="outline" 
-            onClick={() => handleExport('pdf')}
+            onClick={handleExportClick}
             disabled={isExporting || !projectData}
             className="flex items-center gap-2"
           >
-            {isExporting && exportType === 'pdf' ? (
+            {isExporting ? (
               <Loader2 className="h-4 w-4 animate-spin" />
             ) : (
-              <FileText className="h-4 w-4" />
+              <Download className="h-4 w-4" />
             )}
-            Download PDF Report
-          </Button>
-          
-          <Button 
-            variant="outline"
-            onClick={() => handleExport('csv')}
-            disabled={isExporting || !projectData}
-            className="flex items-center gap-2"
-          >
-            {isExporting && exportType === 'csv' ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <FileSpreadsheet className="h-4 w-4" />
-            )}
-            Download CSV Data
+            {isExporting ? 'Exporting...' : 'Export Report'}
           </Button>
         </div>
       </div>
+
+      {/* Export Summary Modal */}
+      <ExportSummaryModal
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        onConfirmExport={handleConfirmExport}
+        projectData={projectData}
+        result={result}
+        isExporting={isExporting}
+        exportType={exportType}
+      />
 
       {/* Overview Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -336,6 +341,9 @@ export const CarbonDashboard: React.FC<CarbonDashboardProps> = ({
           </p>
         </CardContent>
       </Card>
+
+      {/* Claude Companion AI Assistant */}
+      <ClaudeCompanion result={result} />
     </div>
   );
 };
