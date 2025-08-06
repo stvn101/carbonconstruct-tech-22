@@ -16,7 +16,10 @@ describe('SummaryCard', () => {
     },
     breakdownByMaterial: {},
     breakdownByTransport: {},
-    breakdownByEnergy: {}
+    breakdownByEnergy: {},
+    scope1: 10,
+    scope2: 15,
+    scope3: 150
   };
 
   it('renders the total emissions correctly', () => {
@@ -38,7 +41,10 @@ describe('SummaryCard', () => {
         materials: 50,
         transport: 30,
         energy: 20
-      }
+      },
+      scope1: 5,
+      scope2: 10,
+      scope3: 35
     };
     render(<SummaryCard result={lowResult} />);
     expect(screen.getByText('Low Carbon Intensity')).toBeInTheDocument();
@@ -52,7 +58,10 @@ describe('SummaryCard', () => {
         materials: 60,
         transport: 30,
         energy: 10
-      }
+      },
+      scope1: 50,
+      scope2: 100,
+      scope3: 450
     };
     render(<SummaryCard result={highResult} />);
     expect(screen.getByText('High Carbon Intensity')).toBeInTheDocument();

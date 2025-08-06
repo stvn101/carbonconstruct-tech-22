@@ -11,7 +11,7 @@ export interface ProjectData {
   materials: MaterialInput[];
   transport: TransportInput[];
   energy: EnergyInput[];
-  result: CalculationResult;
+  result?: CalculationResult; // Make optional for compatibility
   status: string;
   tags: string[];
   total_emissions: number;
@@ -35,6 +35,14 @@ export async function exportProjectToPDF(project: ProjectData): Promise<void> {
   pdf.text(`Project: ${project.name}`, 20, 45);
   pdf.text(`Generated: ${new Date().toLocaleDateString()}`, 20, 52);
   
+  // Only show summary if result exists
+  if (!project.result) {
+    pdf.setFontSize(14);
+    pdf.text('No calculation results available', 20, 65);
+    pdf.save(`${project.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_carbon_report.pdf`);
+    return;
+  }
+  
   // Summary
   pdf.setFontSize(14);
   pdf.text('Executive Summary', 20, 65);
@@ -44,9 +52,9 @@ export async function exportProjectToPDF(project: ProjectData): Promise<void> {
     ['Material Emissions', `${(project.result.materialEmissions / 1000).toFixed(2)} t CO₂-e`],
     ['Transport Emissions', `${(project.result.transportEmissions / 1000).toFixed(2)} t CO₂-e`],
     ['Energy Emissions', `${(project.result.energyEmissions / 1000).toFixed(2)} t CO₂-e`],
-    ['Scope 1 Emissions', `${(project.result.scope1 / 1000).toFixed(2)} t CO₂-e`],
-    ['Scope 2 Emissions', `${(project.result.scope2 / 1000).toFixed(2)} t CO₂-e`],
-    ['Scope 3 Emissions', `${(project.result.scope3 / 1000).toFixed(2)} t CO₂-e`]
+    ['Scope 1 Emissions', `${((project.result.scope1 || 0) / 1000).toFixed(2)} t CO₂-e`],
+    ['Scope 2 Emissions', `${((project.result.scope2 || 0) / 1000).toFixed(2)} t CO₂-e`],
+    ['Scope 3 Emissions', `${((project.result.scope3 || 0) / 1000).toFixed(2)} t CO₂-e`]
   ];
 
   autoTable(pdf, {
@@ -136,7 +144,15 @@ export async function exportProjectToPDF(project: ProjectData): Promise<void> {
   pdf.save(`${project.name.replace(/[^a-z0-9]/gi, '_').toLowerCase()}_carbon_report.pdf`);
 }
 
+export function exportProjectToCSV(project: ProjectData): void {
+  exportToCSV(project);
+}
+
 export function exportToCSV(project: ProjectData): void {
+  if (!project.result) {
+    console.warn('No calculation results to export');
+    return;
+  }
   const headers = ['Category', 'Type', 'Quantity', 'Unit', 'Emissions (kg CO₂-e)'];
   const rows: string[][] = [headers];
 

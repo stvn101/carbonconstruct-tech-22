@@ -1,29 +1,39 @@
 export interface MaterialInput {
-  id: string;
+  id?: string; // Make optional for compatibility
   type: string;
-  quantity: number;
-  unit: string;
+  quantity: number | string; // Allow string for compatibility
+  unit?: string; // Make optional for compatibility
   carbonFootprint?: number;
   supplier?: string;
   region?: string;
+  name?: string; // Add for compatibility
 }
 
 export interface TransportInput {
-  id: string;
-  type: string;
-  distance: number;
-  unit: string;
+  id?: string; // Make optional for compatibility
+  type?: string; // Make optional for compatibility with carbonExports
+  distance: number | string; // Allow string for compatibility
+  unit?: string; // Make optional for compatibility
   fuelType?: string;
   loadFactor?: number;
+  mode?: string; // Add for compatibility
+  weight?: number | string; // Add for compatibility
 }
 
 export interface EnergyInput {
-  id: string;
+  id?: string; // Make optional for compatibility
   type: string;
-  amount: number;
-  unit: string;
+  amount?: number | string; // Make optional for compatibility
+  unit?: string; // Make optional for compatibility  
   source?: string;
   renewablePercentage?: number;
+  quantity?: number | string; // Add for compatibility
+}
+
+export interface CalculationInput {
+  materials: MaterialInput[];
+  transport: TransportInput[];
+  energy: EnergyInput[];
 }
 
 export interface CalculationResult {
@@ -34,9 +44,20 @@ export interface CalculationResult {
   breakdownByMaterial: Record<string, number>;
   breakdownByTransport: Record<string, number>;
   breakdownByEnergy: Record<string, number>;
-  scope1: number;
-  scope2: number;
-  scope3: number;
+  scope1?: number; // Make optional for compatibility
+  scope2?: number; // Make optional for compatibility
+  scope3?: number; // Make optional for compatibility
+  // Add compatibility properties for existing code
+  breakdown: {
+    materials: number;
+    transport: number;
+    energy: number;
+  };
+  // Additional compatibility properties
+  totalCO2?: number;
+  breakdownByCategory?: Record<string, number>;
+  sustainabilityScore?: number;
+  timestamp?: string;
 }
 
 // Australian emission factors (kg CO2-e per unit)
@@ -87,7 +108,8 @@ export function calculateMaterialEmissions(materials: MaterialInput[]): {
       EMISSION_FACTORS.materials[material.type as keyof typeof EMISSION_FACTORS.materials] || 
       0.5; // Default factor
 
-    const emissions = material.quantity * emissionFactor;
+    const quantity = typeof material.quantity === 'string' ? parseFloat(material.quantity) || 0 : material.quantity;
+    const emissions = quantity * emissionFactor;
     breakdown[material.type] = (breakdown[material.type] || 0) + emissions;
     total += emissions;
   });
@@ -103,11 +125,13 @@ export function calculateTransportEmissions(transport: TransportInput[]): {
   let total = 0;
 
   transport.forEach(item => {
-    const emissionFactor = EMISSION_FACTORS.transport[item.type as keyof typeof EMISSION_FACTORS.transport] || 0.3;
+    const transportType = item.type || item.mode || 'Road Transport - Heavy Vehicle';
+    const emissionFactor = EMISSION_FACTORS.transport[transportType as keyof typeof EMISSION_FACTORS.transport] || 0.3;
     const loadFactor = item.loadFactor || 1;
+    const distance = typeof item.distance === 'string' ? parseFloat(item.distance) || 0 : item.distance;
     
-    const emissions = item.distance * emissionFactor * loadFactor;
-    breakdown[item.type] = (breakdown[item.type] || 0) + emissions;
+    const emissions = distance * emissionFactor * loadFactor;
+    breakdown[transportType] = (breakdown[transportType] || 0) + emissions;
     total += emissions;
   });
 
@@ -124,8 +148,9 @@ export function calculateEnergyEmissions(energy: EnergyInput[]): {
   energy.forEach(item => {
     const emissionFactor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0.5;
     const renewableFactor = 1 - ((item.renewablePercentage || 0) / 100);
+    const amount = typeof item.amount === 'string' ? parseFloat(item.amount) || 0 : (item.amount || (typeof item.quantity === 'string' ? parseFloat(item.quantity) || 0 : item.quantity) || 0);
     
-    const emissions = item.amount * emissionFactor * renewableFactor;
+    const emissions = amount * emissionFactor * renewableFactor;
     breakdown[item.type] = (breakdown[item.type] || 0) + emissions;
     total += emissions;
   });
@@ -144,7 +169,8 @@ export function calculateScopeEmissions(
     .filter(item => scope1Sources.includes(item.type))
     .reduce((sum, item) => {
       const factor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0;
-      return sum + (item.amount * factor);
+      const amount = typeof item.amount === 'string' ? parseFloat(item.amount) || 0 : (item.amount || (typeof item.quantity === 'string' ? parseFloat(item.quantity) || 0 : item.quantity) || 0);
+      return sum + (amount * factor);
     }, 0);
 
   // Scope 2: Indirect emissions (purchased electricity)
@@ -152,7 +178,8 @@ export function calculateScopeEmissions(
   const scope2 = electricityItems.reduce((sum, item) => {
     const factor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0;
     const renewableFactor = 1 - ((item.renewablePercentage || 0) / 100);
-    return sum + (item.amount * factor * renewableFactor);
+    const amount = typeof item.amount === 'string' ? parseFloat(item.amount) || 0 : (item.amount || (typeof item.quantity === 'string' ? parseFloat(item.quantity) || 0 : item.quantity) || 0);
+    return sum + (amount * factor * renewableFactor);
   }, 0);
 
   // Scope 3: All other indirect emissions (materials, transport)
@@ -167,11 +194,33 @@ export function calculateTotalEmissions(
   materials: MaterialInput[],
   transport: TransportInput[],
   energy: EnergyInput[]
+): CalculationResult;
+export function calculateTotalEmissions(
+  input: CalculationInput
+): CalculationResult;
+export function calculateTotalEmissions(
+  materialsOrInput: MaterialInput[] | CalculationInput,
+  transport?: TransportInput[],
+  energy?: EnergyInput[]
 ): CalculationResult {
+  let materials: MaterialInput[];
+  let transportInputs: TransportInput[];
+  let energyInputs: EnergyInput[];
+
+  if (Array.isArray(materialsOrInput)) {
+    materials = materialsOrInput;
+    transportInputs = transport || [];
+    energyInputs = energy || [];
+  } else {
+    materials = materialsOrInput.materials;
+    transportInputs = materialsOrInput.transport;
+    energyInputs = materialsOrInput.energy;
+  }
+
   const materialResult = calculateMaterialEmissions(materials);
-  const transportResult = calculateTransportEmissions(transport);
-  const energyResult = calculateEnergyEmissions(energy);
-  const scopeEmissions = calculateScopeEmissions(materials, transport, energy);
+  const transportResult = calculateTransportEmissions(transportInputs);
+  const energyResult = calculateEnergyEmissions(energyInputs);
+  const scopeEmissions = calculateScopeEmissions(materials, transportInputs, energyInputs);
 
   return {
     totalEmissions: materialResult.total + transportResult.total + energyResult.total,
@@ -181,7 +230,14 @@ export function calculateTotalEmissions(
     breakdownByMaterial: materialResult.breakdown,
     breakdownByTransport: transportResult.breakdown,
     breakdownByEnergy: energyResult.breakdown,
-    ...scopeEmissions
+    breakdown: {
+      materials: materialResult.total,
+      transport: transportResult.total,
+      energy: energyResult.total,
+    },
+    scope1: scopeEmissions.scope1,
+    scope2: scopeEmissions.scope2,
+    scope3: scopeEmissions.scope3
   };
 }
 

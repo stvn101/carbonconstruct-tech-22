@@ -35,12 +35,8 @@ export const validateCalculationInput = (input: CalculationInput): ValidationRes
         errors.push(`Transport ${index + 1}: Type is required`);
       }
       const distance = Number(transport.distance) || 0;
-      const weight = Number(transport.weight) || 0;
       if (distance <= 0) {
         errors.push(`Transport ${index + 1}: Distance must be greater than 0`);
-      }
-      if (weight <= 0) {
-        errors.push(`Transport ${index + 1}: Weight must be greater than 0`);
       }
     });
   }

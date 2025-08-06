@@ -35,8 +35,7 @@ function areInputsEqual(a: CalculationInput, b: CalculationInput): boolean {
   if (a.transport.length !== b.transport.length) return false;
   for (let i = 0; i < a.transport.length; i++) {
     if (a.transport[i].type !== b.transport[i].type ||
-        a.transport[i].distance !== b.transport[i].distance ||
-        a.transport[i].weight !== b.transport[i].weight) {
+        a.transport[i].distance !== b.transport[i].distance) {
       return false;
     }
   }
