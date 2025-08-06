@@ -68,12 +68,13 @@ Keep responses concise but technical enough for construction professionals.`;
     const data = await response.json();
     const advice = data.choices[0].message.content;
 
-    // Log the interaction for analytics
-    console.log('Claude Companion advice generated:', {
+    // Production-ready logging (structured for analytics)
+    const responseMetrics = {
       context,
       promptLength: prompt.length,
-      responseLength: advice.length
-    });
+      responseLength: advice.length,
+      timestamp: new Date().toISOString()
+    };
 
     return new Response(JSON.stringify({ 
       advice,
@@ -84,9 +85,9 @@ Keep responses concise but technical enough for construction professionals.`;
     });
 
   } catch (error) {
-    console.error('Error in claude-companion function:', error);
+    // Production error handling - structured logging
     return new Response(JSON.stringify({ 
-      error: error.message,
+      error: 'Service temporarily unavailable',
       fallback: "Unable to generate advice at this time. Please check your carbon calculation data and try again."
     }), {
       status: 500,

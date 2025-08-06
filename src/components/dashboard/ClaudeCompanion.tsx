@@ -100,7 +100,7 @@ export const ClaudeCompanion: React.FC<ClaudeCompanionProps> = ({
 
       toast.success('Claude Companion advice generated');
     } catch (error) {
-      console.error('Error getting advice:', error);
+      // Production error handling - no console logs
       toast.error('Failed to get AI advice. Please try again.');
       setAdvice('Unable to connect to Claude Companion. Please check your connection and try again.');
     } finally {
