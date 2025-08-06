@@ -153,12 +153,9 @@ const Dashboard = () => {
     </>
   );
 };
-import { ClaudePanel } from '@/home101/claude/ClaudePanel'
-
 const DashboardPage = () => {
   return (
     <>
-      <ClaudePanel />
       <Dashboard />
     </>
   );

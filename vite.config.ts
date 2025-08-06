@@ -10,13 +10,13 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   server: {
     host: '0.0.0.0',     // ✅ binds to all interfaces
-    port: 5173,          // ✅ changed from 8080
+    port: 8080,          // ✅ set to required port
     strictPort: true,
     hmr: {
       protocol: 'ws',
       host: 'localhost',
-      port: 5173,
-      clientPort: 5173,
+      port: 8080,
+      clientPort: 8080,
     },
     allowedHosts: [
       '40569afc-2265-4f8d-91d9-12353c695c88.lovableproject.com',

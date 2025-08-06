@@ -83,6 +83,36 @@ export function checkRateLimit(
 }
 
 /**
+ * Get password strength score and label
+ */
+export function getPasswordStrength(password: string): { score: number; label: string } {
+  if (!password) {
+    return { score: 0, label: 'Very Weak' };
+  }
+
+  let score = 0;
+  
+  // Length check
+  if (password.length >= 8) score += 1;
+  if (password.length >= 12) score += 1;
+  
+  // Character variety checks
+  if (/[A-Z]/.test(password)) score += 1;
+  if (/[a-z]/.test(password)) score += 1;
+  if (/[0-9]/.test(password)) score += 1;
+  if (/[^A-Za-z0-9]/.test(password)) score += 1;
+  
+  // Penalty for repeated characters
+  if (/(.)\1\1/.test(password)) score -= 1;
+  
+  // Ensure score is between 0-4
+  score = Math.max(0, Math.min(4, score));
+  
+  const labels = ['Very Weak', 'Weak', 'Medium', 'Strong', 'Very Strong'];
+  return { score, label: labels[score] };
+}
+
+/**
  * Validate redirect URLs are on the same origin (prevent phishing)
  */
 export function validateRedirectUrl(url: string): boolean {

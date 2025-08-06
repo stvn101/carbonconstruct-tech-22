@@ -1,7 +1,7 @@
 // src/hooks/useAuthActions.ts
 
 import { useCallback } from 'react';
-import { supabase } from '@/lib/supabaseClient';
+import { supabase } from '@/integrations/supabase/client';
 import {
   handleAuthError,
   validatePassword,
@@ -15,7 +15,6 @@ export const useAuthActions = () => {
     async (email: string, password: string, redirectUrl?: string) => {
       const cleanedEmail = sanitizeInput(email);
       const cleanedPassword = sanitizeInput(password);
-      const redirectTo = validateRedirectUrl(redirectUrl);
 
       const passwordValidation = validatePassword(cleanedPassword);
       if (!passwordValidation.valid) {
@@ -31,7 +30,7 @@ export const useAuthActions = () => {
         email: cleanedEmail,
         password: cleanedPassword,
         options: {
-          emailRedirectTo: redirectTo,
+          emailRedirectTo: redirectUrl && validateRedirectUrl(redirectUrl) ? redirectUrl : undefined,
         },
       });
 
