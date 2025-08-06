@@ -13,7 +13,7 @@ import {
   DropdownMenuLabel,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { ChevronDown, Crown } from "lucide-react";
+import { ChevronDown, Crown, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface NavbarMainSectionProps {
@@ -35,11 +35,19 @@ const NavbarMainSection = ({ isMenuOpen, setIsMenuOpen }: NavbarMainSectionProps
     <div className="flex flex-col h-[120px] w-full mx-auto px-6">
       {/* Mobile layout - two rows */}
       <div className="md:hidden flex flex-col h-full">
-        {/* Top row - Logo centered */}
-        <div className="flex items-center justify-center flex-1 py-3">
+        {/* Top row - Logo centered with Home button on left */}
+        <div className="flex items-center justify-between flex-1 py-3">
+          <Link 
+            to="/" 
+            className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors px-2 py-1 rounded-lg hover:bg-accent"
+          >
+            <Home className="h-4 w-4" />
+            <span className="hidden xs:inline">Home</span>
+          </Link>
           <div className="scale-125">
             <NavbarLogo />
           </div>
+          <div className="w-16"></div> {/* Spacer for balance */}
         </div>
         
         {/* Bottom row - Navigation and Sign-in evenly spaced */}
@@ -110,8 +118,15 @@ const NavbarMainSection = ({ isMenuOpen, setIsMenuOpen }: NavbarMainSectionProps
 
       {/* Desktop layout - single row (original design) */}
       <div className="hidden md:flex items-center justify-between h-full">
-        <div className="flex items-center">
+        <div className="flex items-center gap-6">
           <NavbarLogo />
+          <Link 
+            to="/" 
+            className="flex items-center gap-2 text-sm font-medium text-foreground hover:text-primary transition-colors px-3 py-2 rounded-lg hover:bg-accent"
+          >
+            <Home className="h-4 w-4" />
+            Home
+          </Link>
         </div>
         
         {/* Desktop navigation and sign-in */}
