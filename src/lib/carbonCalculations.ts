@@ -1,22 +1,29 @@
-/**
- * This file contains optimized calculation functions for carbon emissions
- * with improved memory management and batch processing for large datasets.
- * 
- * Optimizations include:
- * - Batch processing of large datasets
- * - Memory-efficient calculations
- * - Type-safety for better performance
- * - Improved error handling
- */
+export interface MaterialInput {
+  id: string;
+  type: string;
+  quantity: number;
+  unit: string;
+  carbonFootprint?: number;
+  supplier?: string;
+  region?: string;
+}
 
-import { MaterialInput, TransportInput, EnergyInput } from "./carbonTypes";
-import { validateCalculationInput, validateCalculationResult } from "./calculationValidator";
-import { errorService } from "@/services/error/ErrorService";
+export interface TransportInput {
+  id: string;
+  type: string;
+  distance: number;
+  unit: string;
+  fuelType?: string;
+  loadFactor?: number;
+}
 
-export interface CalculationInput {
-  materials: MaterialInput[];
-  transport: TransportInput[];
-  energy: EnergyInput[];
+export interface EnergyInput {
+  id: string;
+  type: string;
+  amount: number;
+  unit: string;
+  source?: string;
+  renewablePercentage?: number;
 }
 
 export interface CalculationResult {
@@ -24,230 +31,168 @@ export interface CalculationResult {
   materialEmissions: number;
   transportEmissions: number;
   energyEmissions: number;
-  breakdown: {
-    materials: number;
-    transport: number;
-    energy: number;
-  };
   breakdownByMaterial: Record<string, number>;
   breakdownByTransport: Record<string, number>;
   breakdownByEnergy: Record<string, number>;
+  scope1: number;
+  scope2: number;
+  scope3: number;
 }
 
-// Material factors (kg CO2e per unit)
-const materialFactors: { [key: string]: number } = {
-  concrete: 0.15,
-  steel: 2.00,
-  wood: 0.05,
-  glass: 1.00,
-  insulation: 0.20,
-};
-
-// Transport factors (kg CO2e per km per tonne)
-const transportFactors: { [key: string]: number } = {
-  truck: 0.10,
-  train: 0.03,
-  ship: 0.01,
-};
-
-// Energy factors (kg CO2e per kWh)
-const energyFactors: { [key: string]: number } = {
-  electricity: 0.50,
-  naturalGas: 0.20,
-  renewableEnergy: 0.05,
-};
-
-/**
- * Optimized calculation of total emissions that can handle larger datasets
- * by processing data in batches and with improved memory usage
- */
-export const calculateTotalEmissions = (input: CalculationInput): CalculationResult => {
-  // Defensive validation of input
-  if (!input) {
-    errorService.logError("Invalid calculation input: input is null or undefined");
-    return getEmptyResult();
-  }
-
-  // Validate input data
-  const inputValidation = validateCalculationInput(input);
-  if (!inputValidation.isValid) {
-    errorService.logError("Calculation input validation failed", { 
-      errors: inputValidation.errors, 
-      warnings: inputValidation.warnings 
-    });
-    return getEmptyResult();
-  }
-
-  if (inputValidation.warnings.length > 0) {
-    errorService.logError("Calculation input validation warnings", { warnings: inputValidation.warnings }, 'warning');
-  }
-
-  console.log("Starting emission calculation with input:", JSON.stringify(input, null, 2));
-  
-  try {
-    // Materials calculation with batch processing
-    const materialResults = processMaterialsInBatches(input.materials || []);
-    
-    // Transport calculation with batch processing
-    const transportResults = processTransportInBatches(input.transport || []);
-    
-    // Energy calculation is typically small, so doesn't need batching
-    const energyResults = calculateEnergyEmissions(input.energy || []);
-    
-    // Combine all results
-    const totalEmissions = materialResults.total + transportResults.total + energyResults.total;
-    
-    // Create the final result object with detailed breakdowns
-    const result: CalculationResult = {
-      totalEmissions,
-      materialEmissions: materialResults.total,
-      transportEmissions: transportResults.total,
-      energyEmissions: energyResults.total,
-      breakdown: {
-        materials: materialResults.total / totalEmissions * 100 || 0,
-        transport: transportResults.total / totalEmissions * 100 || 0,
-        energy: energyResults.total / totalEmissions * 100 || 0
-      },
-      breakdownByMaterial: materialResults.breakdown,
-      breakdownByTransport: transportResults.breakdown,
-      breakdownByEnergy: energyResults.breakdown
-    };
-
-    // Validate the result
-    const resultValidation = validateCalculationResult(result);
-    if (!resultValidation.isValid) {
-      errorService.logError("Calculation result validation failed", { 
-        errors: resultValidation.errors,
-        result 
-      });
-      return getEmptyResult();
-    }
-
-    return result;
-  } catch (error) {
-    errorService.logError("Error in calculation", { error: error instanceof Error ? error.message : String(error) });
-    return getEmptyResult();
+// Australian emission factors (kg CO2-e per unit)
+export const EMISSION_FACTORS = {
+  materials: {
+    'Concrete': 0.11,
+    'Steel (Structural)': 1.8,
+    'Steel (Reinforcement)': 1.46,
+    'Timber (Hardwood)': 0.45,
+    'Timber (Softwood)': 0.33,
+    'Aluminum': 8.24,
+    'Glass': 0.85,
+    'Brick': 0.24,
+    'Insulation (Bulk)': 1.28,
+    'Insulation (Reflective)': 1.35,
+    'Plasterboard': 0.38,
+    'Carpet': 5.14,
+    'Paint': 2.91,
+    'Ceramic Tiles': 0.78
+  },
+  transport: {
+    'Road Transport - Light Vehicle': 0.18,
+    'Road Transport - Heavy Vehicle': 0.68,
+    'Rail Transport': 0.04,
+    'Sea Transport': 0.014,
+    'Air Transport': 0.67
+  },
+  energy: {
+    'Electricity - Grid (AU)': 0.79,
+    'Electricity - Solar': 0.048,
+    'Electricity - Wind': 0.026,
+    'Natural Gas': 0.184,
+    'LPG': 0.214,
+    'Diesel': 0.267,
+    'Petrol': 0.233
   }
 };
 
-/**
- * Process materials in batches to handle large datasets more efficiently
- */
-function processMaterialsInBatches(materials: MaterialInput[], batchSize = 100) {
-  const result = {
-    total: 0,
-    breakdown: {} as Record<string, number>
-  };
-  
-  // Process in batches
-  for (let i = 0; i < materials.length; i += batchSize) {
-    const batch = materials.slice(i, i + batchSize);
-    
-    for (const material of batch) {
-      if (!material || !material.type) continue;
-      
-      // Ensure we have valid numbers
-      const quantity = Number(material.quantity) || 0;
-      if (quantity <= 0) continue;
-      
-      const factor = getMaterialFactor(material.type);
-      const emissions = quantity * factor;
-      
-      result.total += emissions;
-      result.breakdown[material.type] = (result.breakdown[material.type] || 0) + emissions;
-    }
-  }
-  
-  return result;
+export function calculateMaterialEmissions(materials: MaterialInput[]): {
+  total: number;
+  breakdown: Record<string, number>;
+} {
+  const breakdown: Record<string, number> = {};
+  let total = 0;
+
+  materials.forEach(material => {
+    const emissionFactor = material.carbonFootprint || 
+      EMISSION_FACTORS.materials[material.type as keyof typeof EMISSION_FACTORS.materials] || 
+      0.5; // Default factor
+
+    const emissions = material.quantity * emissionFactor;
+    breakdown[material.type] = (breakdown[material.type] || 0) + emissions;
+    total += emissions;
+  });
+
+  return { total, breakdown };
 }
 
-/**
- * Process transport in batches to handle large datasets more efficiently
- */
-function processTransportInBatches(transport: TransportInput[], batchSize = 100) {
-  const result = {
-    total: 0,
-    breakdown: {} as Record<string, number>
-  };
-  
-  // Process in batches
-  for (let i = 0; i < transport.length; i += batchSize) {
-    const batch = transport.slice(i, i + batchSize);
+export function calculateTransportEmissions(transport: TransportInput[]): {
+  total: number;
+  breakdown: Record<string, number>;
+} {
+  const breakdown: Record<string, number> = {};
+  let total = 0;
+
+  transport.forEach(item => {
+    const emissionFactor = EMISSION_FACTORS.transport[item.type as keyof typeof EMISSION_FACTORS.transport] || 0.3;
+    const loadFactor = item.loadFactor || 1;
     
-    for (const item of batch) {
-      if (!item || !item.type) continue;
-      
-      // Ensure we have valid numbers
-      const distance = Number(item.distance) || 0;
-      const weight = Number(item.weight) || 0;
-      if (distance <= 0 || weight <= 0) continue;
-      
-      const factor = getTransportFactor(item.type);
-      const emissions = distance * weight * factor / 1000; // Convert to appropriate units
-      
-      result.total += emissions;
-      result.breakdown[item.type] = (result.breakdown[item.type] || 0) + emissions;
-    }
-  }
-  
-  return result;
+    const emissions = item.distance * emissionFactor * loadFactor;
+    breakdown[item.type] = (breakdown[item.type] || 0) + emissions;
+    total += emissions;
+  });
+
+  return { total, breakdown };
 }
 
-/**
- * Calculate energy emissions (typically a smaller dataset)
- */
-function calculateEnergyEmissions(energy: EnergyInput[]) {
-  const result = {
-    total: 0,
-    breakdown: {} as Record<string, number>
-  };
-  
-  for (const item of energy) {
-    if (!item || !item.type) continue;
+export function calculateEnergyEmissions(energy: EnergyInput[]): {
+  total: number;
+  breakdown: Record<string, number>;
+} {
+  const breakdown: Record<string, number> = {};
+  let total = 0;
+
+  energy.forEach(item => {
+    const emissionFactor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0.5;
+    const renewableFactor = 1 - ((item.renewablePercentage || 0) / 100);
     
-    // Ensure we have valid numbers
-    const amount = Number(item.amount) || 0;
-    if (amount <= 0) continue;
-    
-    const factor = getEnergyFactor(item.type);
-    const emissions = amount * factor;
-    
-    result.total += emissions;
-    result.breakdown[item.type] = (result.breakdown[item.type] || 0) + emissions;
-  }
-  
-  return result;
+    const emissions = item.amount * emissionFactor * renewableFactor;
+    breakdown[item.type] = (breakdown[item.type] || 0) + emissions;
+    total += emissions;
+  });
+
+  return { total, breakdown };
 }
 
-/**
- * Get an empty result object for error cases
- */
-function getEmptyResult(): CalculationResult {
+export function calculateScopeEmissions(
+  materials: MaterialInput[],
+  transport: TransportInput[],
+  energy: EnergyInput[]
+): { scope1: number; scope2: number; scope3: number } {
+  // Scope 1: Direct emissions (on-site combustion)
+  const scope1Sources = ['Natural Gas', 'LPG', 'Diesel', 'Petrol'];
+  const scope1 = energy
+    .filter(item => scope1Sources.includes(item.type))
+    .reduce((sum, item) => {
+      const factor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0;
+      return sum + (item.amount * factor);
+    }, 0);
+
+  // Scope 2: Indirect emissions (purchased electricity)
+  const electricityItems = energy.filter(item => item.type.includes('Electricity'));
+  const scope2 = electricityItems.reduce((sum, item) => {
+    const factor = EMISSION_FACTORS.energy[item.type as keyof typeof EMISSION_FACTORS.energy] || 0;
+    const renewableFactor = 1 - ((item.renewablePercentage || 0) / 100);
+    return sum + (item.amount * factor * renewableFactor);
+  }, 0);
+
+  // Scope 3: All other indirect emissions (materials, transport)
+  const materialEmissions = calculateMaterialEmissions(materials).total;
+  const transportEmissions = calculateTransportEmissions(transport).total;
+  const scope3 = materialEmissions + transportEmissions;
+
+  return { scope1, scope2, scope3 };
+}
+
+export function calculateTotalEmissions(
+  materials: MaterialInput[],
+  transport: TransportInput[],
+  energy: EnergyInput[]
+): CalculationResult {
+  const materialResult = calculateMaterialEmissions(materials);
+  const transportResult = calculateTransportEmissions(transport);
+  const energyResult = calculateEnergyEmissions(energy);
+  const scopeEmissions = calculateScopeEmissions(materials, transport, energy);
+
   return {
-    totalEmissions: 0,
-    materialEmissions: 0,
-    transportEmissions: 0,
-    energyEmissions: 0,
-    breakdown: {
-      materials: 0,
-      transport: 0,
-      energy: 0
-    },
-    breakdownByMaterial: {},
-    breakdownByTransport: {},
-    breakdownByEnergy: {}
+    totalEmissions: materialResult.total + transportResult.total + energyResult.total,
+    materialEmissions: materialResult.total,
+    transportEmissions: transportResult.total,
+    energyEmissions: energyResult.total,
+    breakdownByMaterial: materialResult.breakdown,
+    breakdownByTransport: transportResult.breakdown,
+    breakdownByEnergy: energyResult.breakdown,
+    ...scopeEmissions
   };
 }
 
-// Helper functions to get factors
-const getMaterialFactor = (type: string): number => {
-  return materialFactors[type] || 0;
-};
-
-const getTransportFactor = (type: string): number => {
-  return transportFactors[type] || 0;
-};
-
-const getEnergyFactor = (type: string): number => {
-  return energyFactors[type] || 0;
-};
+export function calculateComplianceScore(result: CalculationResult): number {
+  // Basic compliance scoring based on total emissions
+  const totalEmissions = result.totalEmissions;
+  
+  if (totalEmissions < 1000) return 100;
+  if (totalEmissions < 5000) return 85;
+  if (totalEmissions < 10000) return 70;
+  if (totalEmissions < 20000) return 55;
+  if (totalEmissions < 50000) return 40;
+  return 25;
+}
