@@ -6,13 +6,15 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { DashboardStats } from "@/components/dashboard/DashboardStats";
 import { ProjectsTab } from "@/components/dashboard/ProjectsTab";
 import { ReportsTab } from "@/components/dashboard/ReportsTab";
+import { CarbonDashboard } from "@/components/dashboard/CarbonDashboard";
 import SubscriptionStatus from "@/components/payment/SubscriptionStatus";
 import PaymentHistory from "@/components/payment/PaymentHistory";
 import PaymentSuccess from "@/components/payment/PaymentSuccess";
 import { supabase } from "@/integrations/supabase/client";
 import { useProjects } from "@/contexts/ProjectContext";
-import Navbar from "@/components/navbar/Navbar"; // Use correct Navbar import
+import Navbar from "@/components/navbar/Navbar";
 import { toast } from "sonner";
+import { useCalculator } from "@/hooks/useCalculator";
 
 const Dashboard = () => {
   const { user } = useAuth();
@@ -22,11 +24,14 @@ const Dashboard = () => {
   const [activeTab, setActiveTab] = useState("overview");
   const [showPaymentSuccess, setShowPaymentSuccess] = useState(false);
   const [loadingTimeout, setLoadingTimeout] = useState<NodeJS.Timeout | null>(null);
+  
+  // Initialize calculator for carbon assessment
+  const calculator = useCalculator();
 
   useEffect(() => {
     // Check if there's a tab parameter in the URL
     const tabParam = searchParams.get("tab");
-    if (tabParam && ["overview", "projects", "reports", "payments"].includes(tabParam)) {
+    if (tabParam && ["overview", "carbon", "projects", "reports", "payments"].includes(tabParam)) {
       setActiveTab(tabParam);
     }
 
@@ -77,6 +82,23 @@ const Dashboard = () => {
   // Get recent projects for the dashboard stats
   const recentProjects = projects?.slice(0, 5) || [];
   const projectsCount = projects?.length || 0;
+  
+  // Sample project data for carbon dashboard - in real app this would come from selected project
+  const sampleProjectData = calculator.result ? {
+    id: 'sample-project',
+    name: 'Current Carbon Assessment',
+    user_id: user?.id || '',
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    materials: calculator.materials,
+    transport: calculator.transport,
+    energy: calculator.energy,
+    result: calculator.result,
+    status: 'completed',
+    tags: ['sustainability', 'carbon'],
+    total_emissions: calculator.result.totalEmissions,
+    premium_only: false
+  } : undefined;
 
   return (
     <>
@@ -95,28 +117,35 @@ const Dashboard = () => {
             <div className="flex overflow-x-auto pb-2">
               <TabsTrigger
                 value="overview"
-                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-carbon-600 data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-primary data-[state=active]:shadow-none"
                 data-state={activeTab === "overview" ? "active" : "inactive"}
               >
                 Overview
               </TabsTrigger>
               <TabsTrigger
+                value="carbon"
+                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-primary data-[state=active]:shadow-none"
+                data-state={activeTab === "carbon" ? "active" : "inactive"}
+              >
+                Carbon Assessment
+              </TabsTrigger>
+              <TabsTrigger
                 value="projects"
-                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-carbon-600 data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-primary data-[state=active]:shadow-none"
                 data-state={activeTab === "projects" ? "active" : "inactive"}
               >
-                Recent Projects
+                Projects
               </TabsTrigger>
               <TabsTrigger
                 value="reports"
-                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-carbon-600 data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-primary data-[state=active]:shadow-none"
                 data-state={activeTab === "reports" ? "active" : "inactive"}
               >
                 Reports
               </TabsTrigger>
               <TabsTrigger
                 value="payments"
-                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-carbon-600 data-[state=active]:shadow-none"
+                className="rounded-none border-b-2 border-transparent px-4 py-2 data-[state=active]:border-primary data-[state=active]:shadow-none"
                 data-state={activeTab === "payments" ? "active" : "inactive"}
               >
                 Payments
@@ -132,6 +161,14 @@ const Dashboard = () => {
               />
               <SubscriptionStatus />
             </div>
+          </TabsContent>
+
+          <TabsContent value="carbon" className="pt-4">
+            <CarbonDashboard 
+              projectName="Current Assessment"
+              result={calculator.result}
+              projectData={sampleProjectData}
+            />
           </TabsContent>
 
           <TabsContent value="projects" className="pt-4">
