@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
@@ -12,13 +11,11 @@ import FeaturesSection from "@/components/FeaturesSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import CTASection from "@/components/CTASection";
 import RegionSelector from "@/components/international/RegionSelector";
-
 const Index = () => {
   useA11y({
     title: "CarbonConstruct Tech - Sustainable Carbon Management for Construction",
-    announceRouteChanges: true,
+    announceRouteChanges: true
   });
-
   useEffect(() => {
     // Register an intersection observer to detect when sections come into view
     const sections = ['features', 'demo']; // Only observe sections that actually exist
@@ -26,22 +23,19 @@ const Index = () => {
     const observerOptions = {
       root: null,
       rootMargin: '0px',
-      threshold: 0.1,
+      threshold: 0.1
     };
-
-    const sectionObserver = new IntersectionObserver((entries) => {
+    const sectionObserver = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           const sectionId = entry.target.id;
           console.log(`Section ${sectionId} is now visible`);
-
           if (typeof window !== 'undefined') {
             if ('requestIdleCallback' in window) {
               (window as any).requestIdleCallback(() => {
                 if ((window as any).fbq) {
                   (window as any).fbq('trackCustom', `View${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}Section`);
                 }
-
                 if ((window as any).gtag) {
                   (window as any).gtag('event', 'section_view', {
                     section_name: sectionId
@@ -52,7 +46,6 @@ const Index = () => {
               if ((window as any).fbq) {
                 (window as any).fbq('trackCustom', `View${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}Section`);
               }
-
               if ((window as any).gtag) {
                 (window as any).gtag('event', 'section_view', {
                   section_name: sectionId
@@ -71,7 +64,9 @@ const Index = () => {
         const element = document.getElementById(id);
         if (element) {
           setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
+            element.scrollIntoView({
+              behavior: 'smooth'
+            });
             console.log(`Scrolled to hash target: #${id}`);
           }, 800);
         }
@@ -90,26 +85,18 @@ const Index = () => {
         }
       });
     }, 500);
-
     return () => {
       sectionObserver.disconnect();
     };
   }, []);
-
-  return (
-    <motion.div 
-      className="min-h-screen flex flex-col mobile-friendly-container bg-background overflow-x-hidden"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.3 }}
-    >
-      <SEO 
-        title="CarbonConstruct Tech - Sustainable Carbon Management for Construction"
-        description="Track, manage, and reduce your construction project's carbon footprint with CarbonConstruct Tech. The first SaaS platform designed specifically for construction sustainability."
-        canonical="/"
-        keywords="carbon tracking, construction sustainability, green building, carbon footprint, construction management"
-        type="website"
-      />
+  return <motion.div className="min-h-screen flex flex-col mobile-friendly-container bg-background overflow-x-hidden" initial={{
+    opacity: 0
+  }} animate={{
+    opacity: 1
+  }} transition={{
+    duration: 0.3
+  }}>
+      <SEO title="CarbonConstruct Tech - Sustainable Carbon Management for Construction" description="Track, manage, and reduce your construction project's carbon footprint with CarbonConstruct Tech. The first SaaS platform designed specifically for construction sustainability." canonical="/" keywords="carbon tracking, construction sustainability, green building, carbon footprint, construction management" type="website" />
       <Navbar />
       <main id="main-content" tabIndex={-1} className="flex-1 pt-16 md:pt-16 bg-background">
         <div className="overflow-x-hidden w-full">
@@ -185,11 +172,7 @@ const Index = () => {
                     <div className="text-lg font-semibold">7 Countries</div>
                     <div className="text-sm text-muted-foreground">Global Support</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl font-bold text-primary">⚡</div>
-                    <div className="text-lg font-semibold">99.9%</div>
-                    <div className="text-sm text-muted-foreground">Uptime SLA</div>
-                  </div>
+                  
                   <div className="text-center">
                     <div className="text-2xl font-bold text-primary">🛡️</div>
                     <div className="text-lg font-semibold">Enterprise</div>
@@ -213,10 +196,7 @@ const Index = () => {
               </div>
               
               <div className="max-w-4xl mx-auto space-y-6">
-                <RegionSelector 
-                  selectedCountry="Australia"
-                  onCountryChange={(country) => console.log('Selected country:', country)}
-                />
+                <RegionSelector selectedCountry="Australia" onCountryChange={country => console.log('Selected country:', country)} />
               </div>
             </div>
           </section>
@@ -228,8 +208,6 @@ const Index = () => {
         <ThemeToggle />
       </div>
       <Footer />
-    </motion.div>
-  );
+    </motion.div>;
 };
-
 export default Index;
