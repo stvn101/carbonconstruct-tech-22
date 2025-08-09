@@ -9,6 +9,7 @@ import { EPDExportService } from '@/services/epdExportService';
 import { EpdExport } from '@/components/epd/EpdExport';
 import { EPDRecord } from '@/types/epd';
 import { toast } from 'sonner';
+import Footer from '@/components/Footer';
 
 const EPDExportPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -107,17 +108,21 @@ const EPDExportPage: React.FC = () => {
   };
 
   if (loading) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-96">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   if (!epd) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" onClick={() => navigate('/epd-generator')}>
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -133,7 +138,9 @@ const EPDExportPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   // Transform EPD data for EpdExport component
@@ -162,207 +169,210 @@ const EPDExportPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumb */}
-      <div className="mb-6">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate(`/epd/${epd.id}`)}
-          className="mb-4"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to EPD Details
-        </Button>
-        
-        <nav className="text-sm text-muted-foreground">
-          EPD Generator → {epd.product_name} → Export
-        </nav>
-      </div>
+    <>
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
+          <Button 
+            variant="ghost" 
+            onClick={() => navigate(`/epd/${epd.id}`)}
+            className="mb-4"
+          >
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to EPD Details
+          </Button>
+          
+          <nav className="text-sm text-muted-foreground">
+            EPD Generator → {epd.product_name} → Export
+          </nav>
+        </div>
 
-      {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold mb-2">Export EPD</h1>
-        <p className="text-muted-foreground">
-          Download your Environmental Product Declaration in various formats
-        </p>
-      </div>
+        {/* Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold mb-2">Export EPD</h1>
+          <p className="text-muted-foreground">
+            Download your Environmental Product Declaration in various formats
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        {/* Export Options */}
-        <div className="space-y-6">
-          {/* Server Export Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Upload className="w-5 h-5" />
-                Server Export (Recommended)
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Generate professional EPD files using our server-side processing for better quality and formatting.
-              </p>
-              
-              {exportedFiles ? (
-                <div className="space-y-3">
-                  <div className="flex items-center gap-2 text-green-600">
-                    <CheckCircle className="w-4 h-4" />
-                    <span className="text-sm font-medium">Files generated successfully</span>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-                    {exportedFiles.html && (
-                      <Button
-                        onClick={() => handleDownloadFile(
-                          exportedFiles.html!,
-                          `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.html`
-                        )}
-                        variant="outline"
-                        className="w-full justify-start"
-                      >
-                        <FileText className="w-4 h-4 mr-2" />
-                        Download HTML
-                      </Button>
-                    )}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Export Options */}
+          <div className="space-y-6">
+            {/* Server Export Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Upload className="w-5 h-5" />
+                  Server Export (Recommended)
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Generate professional EPD files using our server-side processing for better quality and formatting.
+                </p>
+                
+                {exportedFiles ? (
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2 text-green-600">
+                      <CheckCircle className="w-4 h-4" />
+                      <span className="text-sm font-medium">Files generated successfully</span>
+                    </div>
                     
-                    {exportedFiles.csv && (
-                      <Button
-                        onClick={() => handleDownloadFile(
-                          exportedFiles.csv!,
-                          `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.csv`
-                        )}
-                        variant="outline"
-                        className="w-full justify-start"
-                      >
-                        <Database className="w-4 h-4 mr-2" />
-                        Download CSV
-                      </Button>
-                    )}
-                    
-                    {exportedFiles.json && (
-                      <Button
-                        onClick={() => handleDownloadFile(
-                          exportedFiles.json!,
-                          `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.json`
-                        )}
-                        variant="outline"
-                        className="w-full justify-start"
-                      >
-                        <Code className="w-4 h-4 mr-2" />
-                        Download JSON
-                      </Button>
-                    )}
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+                      {exportedFiles.html && (
+                        <Button
+                          onClick={() => handleDownloadFile(
+                            exportedFiles.html!,
+                            `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.html`
+                          )}
+                          variant="outline"
+                          className="w-full justify-start"
+                        >
+                          <FileText className="w-4 h-4 mr-2" />
+                          Download HTML
+                        </Button>
+                      )}
+                      
+                      {exportedFiles.csv && (
+                        <Button
+                          onClick={() => handleDownloadFile(
+                            exportedFiles.csv!,
+                            `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.csv`
+                          )}
+                          variant="outline"
+                          className="w-full justify-start"
+                        >
+                          <Database className="w-4 h-4 mr-2" />
+                          Download CSV
+                        </Button>
+                      )}
+                      
+                      {exportedFiles.json && (
+                        <Button
+                          onClick={() => handleDownloadFile(
+                            exportedFiles.json!,
+                            `EPD_${epd?.product_name.replace(/[^a-zA-Z0-9]/g, '_')}_v${epd?.version_number}.json`
+                          )}
+                          variant="outline"
+                          className="w-full justify-start"
+                        >
+                          <Code className="w-4 h-4 mr-2" />
+                          Download JSON
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ) : (
+                ) : (
+                  <Button
+                    onClick={handleServerExport}
+                    disabled={serverExporting}
+                    className="w-full"
+                  >
+                    {serverExporting ? (
+                      <>
+                        <Clock className="w-4 h-4 mr-2 animate-spin" />
+                        Generating Files...
+                      </>
+                    ) : (
+                      <>
+                        <Upload className="w-4 h-4 mr-2" />
+                        Generate EPD Files
+                      </>
+                    )}
+                  </Button>
+                )}
+              </CardContent>
+            </Card>
+
+            {/* Client Export Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Client Export (Basic)</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <p className="text-sm text-muted-foreground">
+                  Generate basic EPD files directly in your browser. For professional documents, use server export above.
+                </p>
+                
                 <Button
-                  onClick={handleServerExport}
-                  disabled={serverExporting}
-                  className="w-full"
+                  onClick={() => handleExport('pdf')}
+                  disabled={exporting === 'pdf'}
+                  className="w-full justify-start"
+                  variant="outline"
                 >
-                  {serverExporting ? (
-                    <>
-                      <Clock className="w-4 h-4 mr-2 animate-spin" />
-                      Generating Files...
-                    </>
-                  ) : (
-                    <>
-                      <Upload className="w-4 h-4 mr-2" />
-                      Generate EPD Files
-                    </>
-                  )}
+                  <FileText className="w-4 h-4 mr-2" />
+                  {exporting === 'pdf' ? 'Generating PDF...' : 'Download PDF'}
                 </Button>
-              )}
-            </CardContent>
-          </Card>
+                
+                <Button
+                  onClick={() => handleExport('csv')}
+                  disabled={exporting === 'csv'}
+                  className="w-full justify-start"
+                  variant="outline"
+                >
+                  <Database className="w-4 h-4 mr-2" />
+                  {exporting === 'csv' ? 'Generating CSV...' : 'Download CSV'}
+                </Button>
+                
+                <Button
+                  onClick={() => handleExport('json')}
+                  disabled={exporting === 'json'}
+                  className="w-full justify-start"
+                  variant="outline"
+                >
+                  <Code className="w-4 h-4 mr-2" />
+                  {exporting === 'json' ? 'Generating JSON...' : 'Download JSON'}
+                </Button>
+              </CardContent>
+            </Card>
 
-          {/* Client Export Section */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Client Export (Basic)</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              <p className="text-sm text-muted-foreground">
-                Generate basic EPD files directly in your browser. For professional documents, use server export above.
-              </p>
-              
-              <Button
-                onClick={() => handleExport('pdf')}
-                disabled={exporting === 'pdf'}
-                className="w-full justify-start"
-                variant="outline"
-              >
-                <FileText className="w-4 h-4 mr-2" />
-                {exporting === 'pdf' ? 'Generating PDF...' : 'Download PDF'}
-              </Button>
-              
-              <Button
-                onClick={() => handleExport('csv')}
-                disabled={exporting === 'csv'}
-                className="w-full justify-start"
-                variant="outline"
-              >
-                <Database className="w-4 h-4 mr-2" />
-                {exporting === 'csv' ? 'Generating CSV...' : 'Download CSV'}
-              </Button>
-              
-              <Button
-                onClick={() => handleExport('json')}
-                disabled={exporting === 'json'}
-                className="w-full justify-start"
-                variant="outline"
-              >
-                <Code className="w-4 h-4 mr-2" />
-                {exporting === 'json' ? 'Generating JSON...' : 'Download JSON'}
-              </Button>
-            </CardContent>
-          </Card>
+            {/* Format Information */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Format Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4 text-sm">
+                <div>
+                  <h4 className="font-medium mb-1">PDF</h4>
+                  <p className="text-muted-foreground">
+                    Complete ISO-compliant EPD document suitable for official submissions
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium mb-1">CSV</h4>
+                  <p className="text-muted-foreground">
+                    Structured data export for analysis and database import
+                  </p>
+                </div>
+                
+                <div>
+                  <h4 className="font-medium mb-1">JSON</h4>
+                  <p className="text-muted-foreground">
+                    Machine-readable format for API integration and automation
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
 
-          {/* Format Information */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Format Information</CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4 text-sm">
-              <div>
-                <h4 className="font-medium mb-1">PDF</h4>
-                <p className="text-muted-foreground">
-                  Complete ISO-compliant EPD document suitable for official submissions
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium mb-1">CSV</h4>
-                <p className="text-muted-foreground">
-                  Structured data export for analysis and database import
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-medium mb-1">JSON</h4>
-                <p className="text-muted-foreground">
-                  Machine-readable format for API integration and automation
-                </p>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Preview */}
-        <div className="lg:col-span-2">
-          <Card>
-            <CardHeader>
-              <CardTitle>EPD Preview</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="max-h-96 overflow-y-auto">
-                <EpdExport data={exportData} className="scale-75 origin-top" />
-              </div>
-            </CardContent>
-          </Card>
+          {/* Preview */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle>EPD Preview</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="max-h-96 overflow-y-auto">
+                  <EpdExport data={exportData} className="scale-75 origin-top" />
+                </div>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 

@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { EPDRecord } from '@/types/epd';
 import { toast } from 'sonner';
 import { hashEpd } from '@/utils/epdHash';
+import Footer from '@/components/Footer';
 
 const VerifierReview: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -102,17 +103,21 @@ const VerifierReview: React.FC = () => {
   };
 
   if (loading) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-96">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   if (!epd) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" onClick={() => navigate('/verifier/dashboard')}>
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -128,7 +133,9 @@ const VerifierReview: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   return (
@@ -334,6 +341,7 @@ const VerifierReview: React.FC = () => {
           </Card>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

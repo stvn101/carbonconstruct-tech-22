@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { FileText, Clock, CheckCircle, XCircle, Eye } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
+import Footer from '@/components/Footer';
 
 interface EPDForReview {
   id: string;
@@ -72,13 +73,16 @@ const VerifierDashboard: React.FC = () => {
   };
 
   if (loading) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-96">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   return (
@@ -206,6 +210,7 @@ const VerifierDashboard: React.FC = () => {
           </div>
         </CardContent>
       </Card>
+    <Footer />
     </div>
   );
 };

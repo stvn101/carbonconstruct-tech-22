@@ -9,6 +9,7 @@ import { EPDService } from '@/services/epdService';
 import { EpdExport } from '@/components/epd/EpdExport';
 import { EPDRecord } from '@/types/epd';
 import { toast } from 'sonner';
+import Footer from '@/components/Footer';
 
 const EPDDetailPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,17 +55,21 @@ const EPDDetailPage: React.FC = () => {
   };
 
   if (loading) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <div className="flex items-center justify-center min-h-96">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
         </div>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   if (!epd) {
-    return (
+  return (
+    <>
       <div className="container mx-auto px-4 py-8">
         <Button variant="ghost" onClick={() => navigate('/epd-generator')}>
           <ArrowLeft className="w-4 h-4 mr-2" />
@@ -80,7 +85,9 @@ const EPDDetailPage: React.FC = () => {
           </CardContent>
         </Card>
       </div>
-    );
+      <Footer />
+    </>
+  );
   }
 
   // Transform EPD data for EpdExport component
@@ -109,165 +116,168 @@ const EPDDetailPage: React.FC = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
-      {/* Breadcrumb */}
-      <div className="mb-6">
-        <Button 
-          variant="ghost" 
-          onClick={() => navigate('/epd-generator')}
-          className="mb-4"
-        >
-          <ArrowLeft className="w-4 h-4 mr-2" />
-          Back to EPD Generator
-        </Button>
-        
-        <nav className="text-sm text-muted-foreground">
-          EPD Generator → {epd.product_name}
-        </nav>
-      </div>
-
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
-        <div>
-          <h1 className="text-3xl font-bold">{epd.product_name}</h1>
-          <p className="text-muted-foreground">
-            {epd.manufacturer_name} • Version {epd.version_number}
-          </p>
-        </div>
-        
-        <div className="flex items-center gap-2">
-          {getStatusBadge(epd.status)}
+    <>
+      <div className="container mx-auto px-4 py-8">
+        {/* Breadcrumb */}
+        <div className="mb-6">
           <Button 
-            variant="outline" 
-            onClick={() => navigate(`/epd/export/${epd.id}`)}
+            variant="ghost" 
+            onClick={() => navigate('/epd-generator')}
+            className="mb-4"
           >
-            <Download className="w-4 h-4 mr-2" />
-            Export
+            <ArrowLeft className="w-4 h-4 mr-2" />
+            Back to EPD Generator
           </Button>
-          {epd.status === 'draft' && (
-            <Button>
-              <Edit className="w-4 h-4 mr-2" />
-              Edit
-            </Button>
-          )}
+          
+          <nav className="text-sm text-muted-foreground">
+            EPD Generator → {epd.product_name}
+          </nav>
         </div>
-      </div>
 
-      {/* Main Content */}
-      <Tabs defaultValue="overview" className="space-y-6">
-        <TabsList>
-          <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="preview">EPD Preview</TabsTrigger>
-          <TabsTrigger value="data">Technical Data</TabsTrigger>
-        </TabsList>
+        {/* Header */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+          <div>
+            <h1 className="text-3xl font-bold">{epd.product_name}</h1>
+            <p className="text-muted-foreground">
+              {epd.manufacturer_name} • Version {epd.version_number}
+            </p>
+          </div>
+          
+          <div className="flex items-center gap-2">
+            {getStatusBadge(epd.status)}
+            <Button 
+              variant="outline" 
+              onClick={() => navigate(`/epd/export/${epd.id}`)}
+            >
+              <Download className="w-4 h-4 mr-2" />
+              Export
+            </Button>
+            {epd.status === 'draft' && (
+              <Button>
+                <Edit className="w-4 h-4 mr-2" />
+                Edit
+              </Button>
+            )}
+          </div>
+        </div>
 
-        <TabsContent value="overview">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Basic Information */}
-            <Card className="lg:col-span-2">
-              <CardHeader>
-                <CardTitle>Product Information</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Product Name</p>
-                    <p className="font-semibold">{epd.product_name}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Manufacturer</p>
-                    <p className="font-semibold">{epd.manufacturer_name}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Functional Unit</p>
-                    <p className="font-semibold">{epd.functional_unit}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">ISO Compliant</p>
-                    <p className="font-semibold">{epd.iso_compliant ? 'Yes' : 'No'}</p>
-                  </div>
-                </div>
-                
-                {epd.product_description && (
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
-                    <p className="text-sm">{epd.product_description}</p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+        {/* Main Content */}
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
+            <TabsTrigger value="preview">EPD Preview</TabsTrigger>
+            <TabsTrigger value="data">Technical Data</TabsTrigger>
+          </TabsList>
 
-            {/* Environmental Impact Summary */}
+          <TabsContent value="overview">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Basic Information */}
+              <Card className="lg:col-span-2">
+                <CardHeader>
+                  <CardTitle>Product Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Product Name</p>
+                      <p className="font-semibold">{epd.product_name}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Manufacturer</p>
+                      <p className="font-semibold">{epd.manufacturer_name}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">Functional Unit</p>
+                      <p className="font-semibold">{epd.functional_unit}</p>
+                    </div>
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground">ISO Compliant</p>
+                      <p className="font-semibold">{epd.iso_compliant ? 'Yes' : 'No'}</p>
+                    </div>
+                  </div>
+                  
+                  {epd.product_description && (
+                    <div>
+                      <p className="text-sm font-medium text-muted-foreground mb-2">Description</p>
+                      <p className="text-sm">{epd.product_description}</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Environmental Impact Summary */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Environmental Impact</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="text-center p-4 bg-primary/5 rounded-lg">
+                    <p className="text-2xl font-bold text-primary">{epd.total_co2e?.toFixed(2) || 'N/A'}</p>
+                    <p className="text-sm text-muted-foreground">Total CO₂e (kg)</p>
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">GWP Fossil</span>
+                      <span className="text-sm font-medium">{epd.gwp_fossil?.toFixed(2) || 'N/A'} kg</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">GWP Biogenic</span>
+                      <span className="text-sm font-medium">{epd.gwp_biogenic?.toFixed(2) || 'N/A'} kg</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="text-sm text-muted-foreground">GWP Total</span>
+                      <span className="text-sm font-medium">{epd.gwp_total?.toFixed(2) || 'N/A'} kg</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </TabsContent>
+
+          <TabsContent value="preview">
+            <EpdExport data={exportData} />
+          </TabsContent>
+
+          <TabsContent value="data">
             <Card>
               <CardHeader>
-                <CardTitle>Environmental Impact</CardTitle>
+                <CardTitle>Technical Data</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="text-center p-4 bg-primary/5 rounded-lg">
-                  <p className="text-2xl font-bold text-primary">{epd.total_co2e?.toFixed(2) || 'N/A'}</p>
-                  <p className="text-sm text-muted-foreground">Total CO₂e (kg)</p>
-                </div>
-                
-                <div className="space-y-2">
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">GWP Fossil</span>
-                    <span className="text-sm font-medium">{epd.gwp_fossil?.toFixed(2) || 'N/A'} kg</span>
+              <CardContent>
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold mb-2">Lifecycle Stage Data</h4>
+                    <pre className="bg-muted p-4 rounded-lg text-sm overflow-auto">
+                      {JSON.stringify(epd.epd_stage_data, null, 2)}
+                    </pre>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">GWP Biogenic</span>
-                    <span className="text-sm font-medium">{epd.gwp_biogenic?.toFixed(2) || 'N/A'} kg</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-sm text-muted-foreground">GWP Total</span>
-                    <span className="text-sm font-medium">{epd.gwp_total?.toFixed(2) || 'N/A'} kg</span>
+                  
+                  <div>
+                    <h4 className="font-semibold mb-2">Metadata</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                      <div>
+                        <span className="font-medium">Created:</span> {new Date(epd.created_at).toLocaleString()}
+                      </div>
+                      <div>
+                        <span className="font-medium">Updated:</span> {new Date(epd.updated_at).toLocaleString()}
+                      </div>
+                      <div>
+                        <span className="font-medium">Verification Status:</span> {epd.verification_status}
+                      </div>
+                      <div>
+                        <span className="font-medium">Version:</span> {epd.version_number}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
-          </div>
-        </TabsContent>
-
-        <TabsContent value="preview">
-          <EpdExport data={exportData} />
-        </TabsContent>
-
-        <TabsContent value="data">
-          <Card>
-            <CardHeader>
-              <CardTitle>Technical Data</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-4">
-                <div>
-                  <h4 className="font-semibold mb-2">Lifecycle Stage Data</h4>
-                  <pre className="bg-muted p-4 rounded-lg text-sm overflow-auto">
-                    {JSON.stringify(epd.epd_stage_data, null, 2)}
-                  </pre>
-                </div>
-                
-                <div>
-                  <h4 className="font-semibold mb-2">Metadata</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                    <div>
-                      <span className="font-medium">Created:</span> {new Date(epd.created_at).toLocaleString()}
-                    </div>
-                    <div>
-                      <span className="font-medium">Updated:</span> {new Date(epd.updated_at).toLocaleString()}
-                    </div>
-                    <div>
-                      <span className="font-medium">Verification Status:</span> {epd.verification_status}
-                    </div>
-                    <div>
-                      <span className="font-medium">Version:</span> {epd.version_number}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
-    </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+      <Footer />
+    </>
   );
 };
 
