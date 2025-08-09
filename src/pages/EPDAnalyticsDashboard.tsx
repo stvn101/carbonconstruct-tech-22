@@ -6,6 +6,7 @@ import { FileText, Download, TrendingUp, AlertTriangle, CheckCircle2, BarChart3,
 import { supabase } from '@/integrations/supabase/client';
 import { toast } from 'sonner';
 import { useNavigate } from 'react-router-dom';
+import Footer from '@/components/Footer';
 
 interface EPDStats {
   total: number;
@@ -201,7 +202,7 @@ const EPDAnalyticsDashboard: React.FC = () => {
     );
   }
 
-  return (
+  return (<>
     <div className="container mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
@@ -386,7 +387,8 @@ const EPDAnalyticsDashboard: React.FC = () => {
         </CardContent>
       </Card>
     </div>
-  );
+    <Footer />
+  </>);
 };
 
 export default EPDAnalyticsDashboard;

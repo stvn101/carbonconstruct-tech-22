@@ -25,6 +25,7 @@ import { PredictiveModeling } from '@/components/analytics/PredictiveModeling';
 import { useAuth } from '@/contexts/auth';
 import { RequireAuth } from '@/components/auth/RequireAuth';
 import SEO from '@/components/SEO';
+import Footer from '@/components/Footer';
 
 const Analytics = () => {
   const { user, profile } = useAuth();
@@ -183,6 +184,7 @@ const Analytics = () => {
           </Tabs>
         </div>
       </div>
+      <Footer />
     </RequireAuth>
   );
 };
