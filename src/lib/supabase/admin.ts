@@ -1,10 +1,16 @@
-// Server-only client — uses service role (DO NOT import in client components)
-import * as supabaseJs from '@supabase/supabase-js';
+import { createClient } from '@supabase/supabase-js';
 
-const createClientFn = (supabaseJs as any)['create' + 'Client'];
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL!;
+const service =
+  process.env.SUPABASE_SERVICE_ROLE ??
+  process.env.SUPABASE_SERVICE_ROLE_KEY;
 
-export const adminSupabase = createClientFn(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE!,
-  { auth: { persistSession: false } }
-);
+if (!url || !service) {
+  console.error('Missing Supabase server envs: NEXT_PUBLIC_SUPABASE_URL and/or SUPABASE_SERVICE_ROLE{_KEY}.');
+  throw new Error('Supabase service role not configured');
+}
+
+export const adminSupabase = createClient(url, service, {
+  auth: { persistSession: false },
+});
+
