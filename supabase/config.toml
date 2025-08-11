@@ -1,5 +1,4 @@
-
-project_id = "jaqzoyouuzhchuyzafii"
+project_id = "hkgryypdqiyigoztvran"
 
 [functions.grok-ai]
 verify_jwt = true
@@ -9,3 +8,7 @@ verify_jwt = true
 
 [functions.claude-ai]
 verify_jwt = true
+
+[functions.send-email]
+# Allow unauthenticated demo form submissions to send emails
+verify_jwt = false
