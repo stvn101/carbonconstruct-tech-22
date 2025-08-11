@@ -46,3 +46,25 @@ export const pingSupabaseConnection = async (): Promise<boolean> => {
     return false;
   }
 };
+
+// Added to satisfy imports expecting a retry helper
+export const checkSupabaseConnectionWithRetry = async (
+  maxRetries = 3,
+  baseDelayMs = 1000
+): Promise<boolean> => {
+  if (isOffline()) return false;
+
+  for (let attempt = 0; attempt <= maxRetries; attempt++) {
+    const ok = await checkSupabaseConnection();
+    if (ok) return true;
+
+    // Final attempt failed
+    if (attempt === maxRetries) break;
+
+    // Exponential backoff with jitter
+    const delay = baseDelayMs * Math.pow(2, attempt) + Math.floor(Math.random() * 200);
+    await new Promise((res) => setTimeout(res, delay));
+  }
+
+  return false;
+};

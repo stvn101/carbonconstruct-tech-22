@@ -1,2 +1,9 @@
-// Centralized Supabase client import (TECH-22)
-export { supabase } from '../../lib/supabase/client';
+// Centralized Supabase client (TECH-22)
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL as string;
+const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY as string;
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+  auth: { persistSession: true, autoRefreshToken: true },
+});
