@@ -3,8 +3,8 @@
  */
 import { isOffline } from '@/utils/errorHandling/networkChecker';
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || '';
-const SUPABASE_ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY || '';
+const SUPABASE_URL = (import.meta as any).env.VITE_SUPABASE_URL || '';
+const SUPABASE_ANON_KEY = (import.meta as any).env.VITE_SUPABASE_PUBLISHABLE_KEY || '';
 
 export const checkSupabaseConnection = async (): Promise<boolean> => {
   if (isOffline()) return false;
