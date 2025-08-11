@@ -11,6 +11,9 @@ import FeaturesSection from "@/components/FeaturesSection";
 import BenefitsSection from "@/components/BenefitsSection";
 import CTASection from "@/components/CTASection";
 import RegionSelector from "@/components/international/RegionSelector";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import { sendEmail } from "@/utils/email/emailService";
 const Index = () => {
   useA11y({
     title: "CarbonConstruct Tech - Sustainable Carbon Management for Construction",
@@ -89,6 +92,27 @@ const Index = () => {
       sectionObserver.disconnect();
     };
   }, []);
+
+  // Dev tools toggle: add ?dev=1 to URL or set localStorage cc_dev_tools=1
+  const devToolsEnabled = typeof window !== 'undefined' &&
+    (new URLSearchParams(window.location.search).has('dev') || localStorage.getItem('cc_dev_tools') === '1');
+
+  const { toast } = useToast();
+
+  const handleSendTestEmail = async () => {
+    try {
+      await sendEmail({
+        to: 'info@carbonconstruct.com.au',
+        subject: 'Edge Function Test: send-email',
+        html: '<h2>Edge Function Test</h2><p>If you received this, hkgry functions are reachable.</p>'
+      });
+      toast({ title: 'Email sent', description: 'send-email edge function responded successfully.' });
+    } catch (err: any) {
+      console.error('Test email failed', err);
+      toast({ title: 'Email failed', description: String(err?.message || err), variant: 'destructive' });
+    }
+  };
+
   return <motion.div className="min-h-screen flex flex-col mobile-friendly-container bg-background overflow-x-hidden" initial={{
     opacity: 0
   }} animate={{
@@ -200,6 +224,21 @@ const Index = () => {
               </div>
             </div>
           </section>
+          
+          {/* Dev tools: Send Email Test */}
+          {devToolsEnabled && (
+            <section className="py-6">
+              <div className="container mx-auto px-4">
+                <div className="flex items-center justify-between border rounded-lg p-4 bg-background">
+                  <div>
+                    <h3 className="text-lg font-semibold">Edge Function Test</h3>
+                    <p className="text-sm text-muted-foreground">Calls send-email on hkgry project.</p>
+                  </div>
+                  <Button onClick={handleSendTestEmail}>Send Test Email</Button>
+                </div>
+              </div>
+            </section>
+          )}
           
           <CTASection />
         </div>
