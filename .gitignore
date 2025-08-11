@@ -44,3 +44,7 @@ node_modules
 .supabase
 .DS_Store
 *.log
+
+# Env files
+.env*
+!.env.example
