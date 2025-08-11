@@ -14,8 +14,8 @@ export const checkSupabaseConnection = async (): Promise<boolean> => {
   if (isOffline()) return false;
 
   try {
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
-      method: 'HEAD',
+    const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+      method: 'GET',
       headers: {
         apikey: SUPABASE_ANON_KEY,
       },
@@ -35,8 +35,8 @@ export const pingSupabaseConnection = async (): Promise<boolean> => {
   try {
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), 10000);
-    const response = await fetch(`${SUPABASE_URL}/rest/v1/`, {
-      method: 'HEAD',
+    const response = await fetch(`${SUPABASE_URL}/auth/v1/settings`, {
+      method: 'GET',
       headers: {
         apikey: SUPABASE_ANON_KEY,
       },
