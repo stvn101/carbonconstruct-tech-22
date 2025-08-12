@@ -4,6 +4,7 @@ import { ExtendedMaterialData } from '@/lib/materials/materialTypes';
 import { EXTENDED_MATERIALS } from '@/lib/materials/index';
 import { logger } from '@/services/logging/EnhancedLoggingService';
 import { performanceMonitor } from '@/services/performance/PerformanceMonitor';
+import { supabase } from '@/integrations/supabase/client';
 
 export interface UseSimplifiedMaterialsReturn {
   allMaterials: ExtendedMaterialData[];
@@ -31,15 +32,15 @@ export const useSimplifiedMaterials = (): UseSimplifiedMaterialsReturn => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
 
-  // Initialize materials data
-  const initializeMaterials = useCallback(() => {
+  // Initialize materials data with unified_materials fallback
+  const initializeMaterials = useCallback(async () => {
     const timer = performanceMonitor.startTimer('materials-initialization');
-    
-    try {
-      logger.info('Initializing simplified materials', 'UseSimplifiedMaterials');
-      setLoading(true);
-      setError(null);
-      
+
+    logger.info('Initializing simplified materials', 'UseSimplifiedMaterials');
+    setLoading(true);
+    setError(null);
+
+    const loadLocal = () => {
       // Convert EXTENDED_MATERIALS object to array with proper typing
       const materialsArray: ExtendedMaterialData[] = Object.entries(EXTENDED_MATERIALS).map(([key, material]) => ({
         id: key,
@@ -61,16 +62,70 @@ export const useSimplifiedMaterials = (): UseSimplifiedMaterialsReturn => {
         environmental_impact_score: material.sustainabilityScore,
         carbon_intensity_category: material.factor < 0.1 ? 'low' : material.factor < 0.5 ? 'medium' : 'high'
       }));
-      
+
       setAllMaterials(materialsArray);
-      logger.debug('Materials initialized successfully', 'UseSimplifiedMaterials', {
+      logger.debug('Local materials initialized successfully', 'UseSimplifiedMaterials', {
         count: materialsArray.length
       });
-      
+    };
+
+    try {
+      const sourcePref = typeof window !== 'undefined' ? (localStorage.getItem('cc_materials_source') || 'auto') : 'auto';
+      const tryUnified = sourcePref === 'unified' || sourcePref === 'auto';
+
+      if (tryUnified) {
+        const { data, error } = await supabase
+          .from('unified_materials')
+          .select('id,name,category,region,embodied_carbon,unit,source', { count: 'exact' })
+          .limit(500);
+
+        if (error) {
+          throw error;
+        }
+
+        if (data && data.length > 0) {
+          const mapped: ExtendedMaterialData[] = data.map((row: any) => {
+            const ec = typeof row.embodied_carbon === 'number' ? row.embodied_carbon : Number(row.embodied_carbon);
+            const factor = Number.isFinite(ec) ? ec : undefined;
+            const regionName = row.region === 'AU' ? 'Australia' : (row.region || 'Australia');
+            const carbonIntensity = typeof factor === 'number'
+              ? (factor < 0.1 ? 'low' : factor < 0.5 ? 'medium' : 'high')
+              : undefined;
+
+            return {
+              id: row.id,
+              name: row.name,
+              category: row.category || 'general',
+              carbon_footprint_kgco2e_kg: factor,
+              factor,
+              unit: row.unit || 'kg',
+              region: regionName,
+              tags: [row.category, regionName, row.source].filter(Boolean) as string[],
+              recyclability: 'Medium',
+              source: row.source,
+              environmental_impact_score: undefined,
+              carbon_intensity_category: carbonIntensity,
+              scope1_emissions: typeof factor === 'number' ? factor * 0.6 : undefined,
+              scope2_emissions: typeof factor === 'number' ? factor * 0.2 : undefined,
+              scope3_emissions: typeof factor === 'number' ? factor * 0.2 : undefined,
+            } as ExtendedMaterialData;
+          });
+
+          setAllMaterials(mapped);
+          logger.debug('Unified materials loaded', 'UseSimplifiedMaterials', {
+            count: mapped.length,
+            sourcePref
+          });
+          return;
+        }
+      }
+
+      // Fallback to local source
+      loadLocal();
     } catch (err) {
-      const error = err instanceof Error ? err : new Error('Failed to initialize materials');
-      logger.error('Failed to initialize materials', 'UseSimplifiedMaterials', { error });
-      setError(error);
+      const e = err as Error;
+      logger.info('Unified materials unavailable, falling back to local', 'UseSimplifiedMaterials', { error: e?.message });
+      loadLocal();
     } finally {
       setLoading(false);
       timer();
