@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Code, Bug, Zap, Monitor } from 'lucide-react';
+import { Code, Bug, Zap, Monitor, X } from 'lucide-react';
 import { logger } from '@/services/logging/EnhancedLoggingService';
 import { useNavigationService } from '@/hooks/useNavigationService';
 import centralizedErrorReporting from '@/services/error/CentralizedErrorReporting';
@@ -14,6 +14,7 @@ import bundleOptimizer from '@/services/performance/BundleOptimizer';
  * Provides debugging tools and insights for development
  */
 export const DevelopmentTools: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
   const [logs, setLogs] = useState(logger.getLogs());
   const [performanceMetrics, setPerformanceMetrics] = useState<any>(null);
   const { getCurrentPath, getCurrentUrl } = useNavigationService();
@@ -56,13 +57,39 @@ export const DevelopmentTools: React.FC = () => {
     return null; // Only show in development
   }
 
+  // Minimized by default – show a small toggle button
+  if (!isOpen) {
+    return (
+      <Button
+        className="fixed bottom-4 right-4 z-50 h-9"
+        variant="secondary"
+        size="sm"
+        onClick={() => setIsOpen(true)}
+        aria-label="Open Dev Tools"
+      >
+        <Code className="h-4 w-4 mr-2" /> Dev
+      </Button>
+    );
+  }
+
   return (
     <Card className="fixed bottom-4 right-4 w-96 max-h-96 z-50 bg-background/95 backdrop-blur">
       <CardHeader className="pb-2">
-        <CardTitle className="flex items-center gap-2 text-sm">
-          <Code className="h-4 w-4" />
-          Dev Tools
-          <Badge variant="outline" className="text-xs">DEV</Badge>
+        <CardTitle className="flex items-center justify-between gap-2 text-sm">
+          <span className="flex items-center gap-2">
+            <Code className="h-4 w-4" />
+            Dev Tools
+            <Badge variant="outline" className="text-xs">DEV</Badge>
+          </span>
+          <Button
+            size="icon"
+            variant="ghost"
+            className="h-6 w-6"
+            onClick={() => setIsOpen(false)}
+            aria-label="Close Dev Tools"
+          >
+            <X className="h-4 w-4" />
+          </Button>
         </CardTitle>
       </CardHeader>
       <CardContent className="p-2">
