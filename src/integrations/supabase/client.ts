@@ -11,9 +11,9 @@ const lsAnon = typeof window !== 'undefined' ? localStorage.getItem('cc_supabase
 const publicUrl = (env.VITE_SUPABASE_URL as string) || (env.NEXT_PUBLIC_SUPABASE_URL as string) || '';
 const publicAnon = (env.VITE_SUPABASE_PUBLISHABLE_KEY as string) || (env.VITE_SUPABASE_ANON_KEY as string) || '';
 
-// Safe fallbacks (publishable anon key only)
-const fallbackUrl = 'https://oemgqlxumfnstbjdiqmr.supabase.co';
-const fallbackAnon = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9lbWdxbHh1bWZuc3RiamRpcW1yIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTM4NTE1MjQsImV4cCI6MjA2OTQyNzUyNH0._XCqy43NyHrlSLKLgQ40FDBckF5Ljuzjrd4cBqV1MxU';
+// Safe fallbacks (publishable anon key only) - hkgryypdqiyigoztvran project
+const fallbackUrl = 'https://hkgryypdqiyigoztvran.supabase.co';
+const fallbackAnon = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrZ3J5eXBkcWl5aWdvenR2cmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MDY4ODYsImV4cCI6MjA3MDQ4Mjg4Nn0.kYBkBkZcdZpK9r-KWDKRAMzrONa0BkECtdYhfdpFOuU';
 
 const supabaseUrl = (lsUrl || publicUrl || fallbackUrl) as string;
 const supabaseAnonKey = (lsAnon || publicAnon || fallbackAnon) as string;
