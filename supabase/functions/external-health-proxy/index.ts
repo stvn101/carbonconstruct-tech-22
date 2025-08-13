@@ -1,44 +1,32 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
-const corsHeaders = {
-  "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-};
+const TARGET = Deno.env.get("TARGET_URL") ?? "https://stvn.carbonconstruct.net/api/health";
 
-serve(async (req: Request) => {
-  // Handle CORS preflight
-  if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders });
-  }
-
-  const targetUrl = "https://stvn.carbonconstruct.net/api/health";
-
+serve(async () => {
   try {
-    console.log("[external-health-proxy] Fetching:", targetUrl);
-
-    const upstream = await fetch(targetUrl, {
-      headers: { Accept: "application/json" },
-    });
-
-    const contentType = upstream.headers.get("content-type") ?? "application/json";
-    const text = await upstream.text();
-
-    // Return the exact upstream body and status, preserving content-type
-    return new Response(text, {
-      status: upstream.status,
+    const res = await fetch(TARGET, {
       headers: {
-        ...corsHeaders,
-        "content-type": contentType,
+        "User-Agent": "Mozilla/5.0",
+        "Referer": "https://stvn.carbonconstruct.net/",
+        "Accept": "application/json",
       },
     });
-  } catch (error) {
-    console.error("[external-health-proxy] Error:", error);
-    return new Response(
-      JSON.stringify({ ok: false, error: (error as Error).message }),
-      {
-        status: 500,
-        headers: { ...corsHeaders, "content-type": "application/json" },
-      }
-    );
+    const text = await res.text();
+
+    const headers = new Headers(res.headers);
+    if (!headers.get("Content-Type")) headers.set("Content-Type", "application/json");
+    headers.set("Access-Control-Allow-Origin", "*");
+    headers.set("Access-Control-Allow-Methods", "GET,OPTIONS");
+    headers.set("Access-Control-Allow-Headers", "Content-Type,Authorization");
+
+    let body = text;
+    try { JSON.parse(text); } catch { body = JSON.stringify({ raw: text }); }
+
+    return new Response(body, { status: res.status, headers });
+  } catch (e: any) {
+    return new Response(JSON.stringify({ ok:false, error:e?.message ?? "unknown", target: TARGET }), {
+      status: 502,
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+    });
   }
 });
