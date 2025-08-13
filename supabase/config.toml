@@ -12,3 +12,6 @@ verify_jwt = true
 [functions.send-email]
 # Allow unauthenticated demo form submissions to send emails
 verify_jwt = false
+
+[functions.external-health-proxy]
+verify_jwt = false
