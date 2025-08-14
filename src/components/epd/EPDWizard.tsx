@@ -1,3 +1,4 @@
+// src/components/epd/EPDWizard.tsx
 import React, { useEffect, useMemo, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -38,7 +39,13 @@ const storage = {
     } catch {
       /* ignore quota/denied */
     }
-  }
+  },
+  remove(key: string) {
+    if (!IS_BROWSER) return;
+    try {
+      window.localStorage.removeItem(key);
+    } catch {/* ignore */}
+  },
 };
 
 // numeric parsing that never leaks NaN
@@ -110,6 +117,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
         toast.error(`Failed to create EPD: ${msg}`);
         return;
       }
+
+      // Clear saved draft on success so stale data doesn't reappear
+      storage.remove(DRAFT_KEY);
 
       toast.success('EPD created successfully!');
       onClose();
