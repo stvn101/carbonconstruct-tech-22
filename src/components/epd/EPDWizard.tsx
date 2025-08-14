@@ -10,7 +10,7 @@ import { X, ArrowLeft, ArrowRight, CheckCircle, Factory, Truck, Zap, Trash2 } fr
 import { EPDFormData } from '@/types/epd';
 import { EPDService } from '@/services/epdService';
 import { toast } from 'sonner';
-import { safeLocal } from '@/utils/safeLocal'; // ✅ robust localStorage wrapper
+import { safeLocal } from '@/utils/safeLocal'; // robust localStorage wrapper
 
 interface EPDWizardProps {
   onClose: () => void;
@@ -19,7 +19,6 @@ interface EPDWizardProps {
 // ---- helpers ---------------------------------------------------------------
 
 // Single-key draft store keeps the whole form in one place.
-// (Purely additive: doesn’t affect server or other app behavior.)
 const DRAFT_KEY = 'epd_wizard_draft_v1';
 
 const DEFAULT_FORM: EPDFormData = {
@@ -34,12 +33,11 @@ const DEFAULT_FORM: EPDFormData = {
   manufacturer_abn: '',
 
   // Step 3: Material Breakdown
-  materials: [
-    { name: '', quantity: 0, unit: 'kg', carbon_footprint: 0 }
-  ],
+  materials: [{ name: '', quantity: 0, unit: 'kg', carbon_footprint: 0 }],
 
   // Step 4: Transport & Energy
   transport: { mode: 'truck', distance: 100, fuel_type: 'diesel' },
+
   energy: { electricity: 0, gas: 0, renewable_percentage: 0 },
 
   // Step 5: Waste Scenarios
@@ -62,21 +60,22 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Load once from local storage (or defaults). Saves dev time if the page
-  // refreshes; doesn’t change server behavior or validations.
+  // Load once from local storage (or defaults).
   const [formData, setFormData] = useState<EPDFormData>(() => {
     const draft = safeLocal.get<EPDFormData | null>(DRAFT_KEY, null);
     return draft ?? DEFAULT_FORM;
   });
 
-  // Auto-save the entire form whenever it changes (debounced-light via microtask).
+  // Auto-save the entire form whenever it changes.
   useEffect(() => {
-    // No debounce delay needed here—writes are tiny; this is robust & simple.
     safeLocal.set(DRAFT_KEY, formData);
   }, [formData]);
 
   const totalSteps = 5;
-  const progressPercentage = useMemo(() => (currentStep / totalSteps) * 100, [currentStep]);
+  const progressPercentage = useMemo(
+    () => (currentStep / totalSteps) * 100,
+    [currentStep]
+  );
 
   const steps = [
     { number: 1, title: 'Product Description', icon: Factory },
@@ -87,11 +86,11 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   ];
 
   const handleNext = () => {
-    if (currentStep < totalSteps) setCurrentStep(s => s + 1);
+    if (currentStep < totalSteps) setCurrentStep((s) => s + 1);
   };
 
   const handlePrevious = () => {
-    if (currentStep > 1) setCurrentStep(s => s - 1);
+    if (currentStep > 1) setCurrentStep((s) => s - 1);
   };
 
   const handleSubmit = async () => {
@@ -100,15 +99,24 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
       const { data, error } = await EPDService.createEPD(formData);
 
       if (error) {
-        const msg = typeof error === 'string' ? error : (error?.message ?? 'Unknown error');
+        const msg =
+          typeof error === 'string' ? error : error?.message ?? 'Unknown error';
         toast.error(`Failed to create EPD: ${msg}`);
         return;
       }
 
       toast.success('EPD created successfully!');
+
+      // ✅ Clear saved draft so the wizard starts fresh next time
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem(DRAFT_KEY);
+      }
+
       onClose();
     } catch (err: any) {
-      toast.error(`An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`);
+      toast.error(
+        `An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`
+      );
       console.error(err);
     } finally {
       setIsLoading(false);
@@ -116,7 +124,7 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   };
 
   const addMaterial = () => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       materials: [
         ...prev.materials,
@@ -126,16 +134,22 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   };
 
   const removeMaterial = (index: number) => {
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
       materials: prev.materials.filter((_, i) => i !== index)
     }));
   };
 
-  const updateMaterial = (index: number, field: keyof EPDFormData['materials'][number], value: any) => {
-    setFormData(prev => ({
+  const updateMaterial = (
+    index: number,
+    field: keyof EPDFormData['materials'][number],
+    value: any
+  ) => {
+    setFormData((prev) => ({
       ...prev,
-      materials: prev.materials.map((m, i) => (i === index ? { ...m, [field]: value } : m))
+      materials: prev.materials.map((m, i) =>
+        i === index ? { ...m, [field]: value } : m
+      )
     }));
   };
 
@@ -149,7 +163,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               <Input
                 id="product_name"
                 value={formData.product_name}
-                onChange={(e) => setFormData(prev => ({ ...prev, product_name: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    product_name: e.target.value
+                  }))
+                }
                 placeholder="e.g., High-Performance Concrete Block"
                 className="mt-1"
               />
@@ -160,7 +179,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               <Textarea
                 id="product_description"
                 value={formData.product_description}
-                onChange={(e) => setFormData(prev => ({ ...prev, product_description: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    product_description: e.target.value
+                  }))
+                }
                 placeholder="Detailed description of the product, its intended use, and key characteristics"
                 className="mt-1"
                 rows={4}
@@ -171,7 +195,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               <Label htmlFor="functional_unit">Functional Unit *</Label>
               <Select
                 value={formData.functional_unit}
-                onValueChange={(value) => setFormData(prev => ({ ...prev, functional_unit: value }))}
+                onValueChange={(value) =>
+                  setFormData((prev) => ({ ...prev, functional_unit: value }))
+                }
               >
                 <SelectTrigger id="functional_unit" className="mt-1">
                   <SelectValue />
@@ -199,7 +225,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               <Input
                 id="manufacturer_name"
                 value={formData.manufacturer_name}
-                onChange={(e) => setFormData(prev => ({ ...prev, manufacturer_name: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    manufacturer_name: e.target.value
+                  }))
+                }
                 placeholder="Company or organization name"
                 className="mt-1"
               />
@@ -210,18 +241,30 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               <Input
                 id="manufacturer_location"
                 value={formData.manufacturer_location}
-                onChange={(e) => setFormData(prev => ({ ...prev, manufacturer_location: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    manufacturer_location: e.target.value
+                  }))
+                }
                 placeholder="City, State, Country"
                 className="mt-1"
               />
             </div>
 
             <div>
-              <Label htmlFor="manufacturer_abn">ABN (Australian Business Number)</Label>
+              <Label htmlFor="manufacturer_abn">
+                ABN (Australian Business Number)
+              </Label>
               <Input
                 id="manufacturer_abn"
                 value={formData.manufacturer_abn}
-                onChange={(e) => setFormData(prev => ({ ...prev, manufacturer_abn: e.target.value }))}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    manufacturer_abn: e.target.value
+                  }))
+                }
                 placeholder="12 345 678 901"
                 className="mt-1"
               />
@@ -246,7 +289,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     <Label>Material Name</Label>
                     <Input
                       value={material.name}
-                      onChange={(e) => updateMaterial(index, 'name', e.target.value)}
+                      onChange={(e) =>
+                        updateMaterial(index, 'name', e.target.value)
+                      }
                       placeholder="e.g., Portland Cement"
                       className="mt-1"
                     />
@@ -257,7 +302,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     <Input
                       type="number"
                       value={material.quantity}
-                      onChange={(e) => updateMaterial(index, 'quantity', asFloat(e.target.value))}
+                      onChange={(e) =>
+                        updateMaterial(index, 'quantity', asFloat(e.target.value))
+                      }
                       className="mt-1"
                     />
                   </div>
@@ -266,7 +313,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     <Label>Unit</Label>
                     <Select
                       value={material.unit}
-                      onValueChange={(value) => updateMaterial(index, 'unit', value)}
+                      onValueChange={(value) =>
+                        updateMaterial(index, 'unit', value)
+                      }
                     >
                       <SelectTrigger className="mt-1">
                         <SelectValue />
@@ -287,7 +336,13 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                         type="number"
                         step="0.01"
                         value={material.carbon_footprint}
-                        onChange={(e) => updateMaterial(index, 'carbon_footprint', asFloat(e.target.value))}
+                        onChange={(e) =>
+                          updateMaterial(
+                            index,
+                            'carbon_footprint',
+                            asFloat(e.target.value)
+                          )
+                        }
                         className="mt-1"
                       />
                     </div>
@@ -324,7 +379,10 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                   <Select
                     value={formData.transport.mode}
                     onValueChange={(value) =>
-                      setFormData(prev => ({ ...prev, transport: { ...prev.transport, mode: value } }))
+                      setFormData((prev) => ({
+                        ...prev,
+                        transport: { ...prev.transport, mode: value }
+                      }))
                     }
                   >
                     <SelectTrigger className="mt-1">
@@ -344,9 +402,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     type="number"
                     value={formData.transport.distance}
                     onChange={(e) =>
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
-                        transport: { ...prev.transport, distance: asInt(e.target.value) }
+                        transport: {
+                          ...prev.transport,
+                          distance: asInt(e.target.value)
+                        }
                       }))
                     }
                     className="mt-1"
@@ -358,7 +419,7 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                   <Select
                     value={formData.transport.fuel_type}
                     onValueChange={(value) =>
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
                         transport: { ...prev.transport, fuel_type: value }
                       }))
@@ -389,9 +450,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     step="0.1"
                     value={formData.energy.electricity}
                     onChange={(e) =>
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
-                        energy: { ...prev.energy, electricity: asFloat(e.target.value) }
+                        energy: {
+                          ...prev.energy,
+                          electricity: asFloat(e.target.value)
+                        }
                       }))
                     }
                     className="mt-1"
@@ -405,7 +469,7 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     step="0.1"
                     value={formData.energy.gas}
                     onChange={(e) =>
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
                         energy: { ...prev.energy, gas: asFloat(e.target.value) }
                       }))
@@ -422,9 +486,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                     max="100"
                     value={formData.energy.renewable_percentage}
                     onChange={(e) =>
-                      setFormData(prev => ({
+                      setFormData((prev) => ({
                         ...prev,
-                        energy: { ...prev.energy, renewable_percentage: asInt(e.target.value) }
+                        energy: {
+                          ...prev.energy,
+                          renewable_percentage: asInt(e.target.value)
+                        }
                       }))
                     }
                     className="mt-1"
@@ -452,9 +519,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                   max="100"
                   value={formData.waste.recycling_rate}
                   onChange={(e) =>
-                    setFormData(prev => ({
+                    setFormData((prev) => ({
                       ...prev,
-                      waste: { ...prev.waste, recycling_rate: asInt(e.target.value) }
+                      waste: {
+                        ...prev.waste,
+                        recycling_rate: asInt(e.target.value)
+                      }
                     }))
                   }
                   className="mt-1"
@@ -469,9 +539,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                   max="100"
                   value={formData.waste.landfill_rate}
                   onChange={(e) =>
-                    setFormData(prev => ({
+                    setFormData((prev) => ({
                       ...prev,
-                      waste: { ...prev.waste, landfill_rate: asInt(e.target.value) }
+                      waste: {
+                        ...prev.waste,
+                        landfill_rate: asInt(e.target.value)
+                      }
                     }))
                   }
                   className="mt-1"
@@ -486,9 +559,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
                   max="100"
                   value={formData.waste.incineration_rate}
                   onChange={(e) =>
-                    setFormData(prev => ({
+                    setFormData((prev) => ({
                       ...prev,
-                      waste: { ...prev.waste, incineration_rate: asInt(e.target.value) }
+                      waste: {
+                        ...prev.waste,
+                        incineration_rate: asInt(e.target.value)
+                      }
                     }))
                   }
                   className="mt-1"
@@ -519,7 +595,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
       <div className="flex items-center justify-between mb-8">
         <div>
           <h1 className="text-2xl font-bold">Create New EPD</h1>
-          <p className="text-muted-foreground">ISO 14025 Compliant Environmental Product Declaration</p>
+          <p className="text-muted-foreground">
+            ISO 14025 Compliant Environmental Product Declaration
+          </p>
         </div>
         <Button variant="ghost" onClick={onClose} aria-label="Close">
           <X className="w-4 h-4" />
@@ -529,8 +607,12 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
       {/* Progress */}
       <div className="mb-8">
         <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-medium">Step {currentStep} of {totalSteps}</span>
-          <span className="text-sm text-muted-foreground">{Math.round(progressPercentage)}% Complete</span>
+          <span className="text-sm font-medium">
+            Step {currentStep} of {totalSteps}
+          </span>
+          <span className="text-sm text-muted-foreground">
+            {Math.round(progressPercentage)}% Complete
+          </span>
         </div>
         <Progress value={progressPercentage} className="w-full" />
       </div>
@@ -555,7 +637,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
               >
                 {isCompleted ? <CheckCircle className="w-4 h-4" /> : step.number}
               </div>
-              <span className={`text-sm ${isActive ? 'font-medium' : 'text-muted-foreground'}`}>
+              <span
+                className={`text-sm ${isActive ? 'font-medium' : 'text-muted-foreground'}`}
+              >
                 {step.title}
               </span>
             </div>
@@ -573,21 +657,13 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
 
       {/* Navigation Buttons */}
       <div className="flex justify-between">
-        <Button
-          variant="outline"
-          onClick={handlePrevious}
-          disabled={currentStep === 1}
-        >
+        <Button variant="outline" onClick={handlePrevious} disabled={currentStep === 1}>
           <ArrowLeft className="w-4 h-4 mr-2" />
           Previous
         </Button>
 
         {currentStep === totalSteps ? (
-          <Button
-            onClick={handleSubmit}
-            disabled={isLoading}
-            className="bg-primary hover:bg-primary/90"
-          >
+          <Button onClick={handleSubmit} disabled={isLoading} className="bg-primary hover:bg-primary/90">
             {isLoading ? 'Creating EPD...' : 'Create EPD'}
           </Button>
         ) : (
