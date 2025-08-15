@@ -86,10 +86,15 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
     storage.get<EPDFormData>(DRAFT_KEY, DEFAULT_FORM)
   );
 
-  // Auto-save draft whenever the user edits the form
+  // Auto-save draft whenever the user edits the form (debounced)
   useEffect(() => {
     if (!autosaveEnabled.current) return; // [ADDED] stop writes after successful save
-    storage.set(DRAFT_KEY, formData);
+    const timer = setTimeout(() => {
+      if (autosaveEnabled.current) {
+        storage.set(DRAFT_KEY, formData);
+      }
+    }, 800); // save after user stops typing for ~0.8s
+    return () => clearTimeout(timer);
   }, [formData]);
 
   const totalSteps = 5;
@@ -115,8 +120,8 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
     setIsLoading(true);
 
     // [ADDED] DEV bypass: verify draft-clear without auth/backend
-    // Flip with VITE_DEV_MOCK_SAVE=1 in .env.local (preview/dev only)
-    if ((import.meta as any).env?.VITE_DEV_MOCK_SAVE === '1') {
+    // Flip with VITE_DEV_MOCK_SAVE=true in .env.local (preview/dev only)
+    if ((import.meta as any).env?.VITE_DEV_MOCK_SAVE === 'true') {
       autosaveEnabled.current = false;      // stop autosave from re-writing
       storage.remove(DRAFT_KEY);            // clear the draft now
       toast.success('EPD saved (dev mock).');
@@ -140,10 +145,15 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
 
       toast.success('EPD created successfully!');
       onClose();
-    } catch (err: any) {
-      toast.error(`An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`);
-      console.error(err);
-    } finally {
+      } catch (err: any) {
+        toast.error(
+          `An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`
+        );
+        if ((import.meta as any).env?.DEV) {
+          // eslint-disable-next-line no-console
+          console.error(err);
+        }
+      } finally {
       setIsLoading(false);
     }
   };
