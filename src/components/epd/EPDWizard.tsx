@@ -1,5 +1,5 @@
 // src/components/epd/EPDWizard.tsx
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react'; // [CHANGED] added useRef
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -78,6 +78,9 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
 
+  // [ADDED] gate autosave so it doesn’t re-write immediately after we clear
+  const autosaveEnabled = useRef(true);
+
   // Load once from draft (browser) or fall back to defaults (SSR/build)
   const [formData, setFormData] = useState<EPDFormData>(() =>
     storage.get<EPDFormData>(DRAFT_KEY, DEFAULT_FORM)
@@ -85,6 +88,7 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
 
   // Auto-save draft whenever the user edits the form
   useEffect(() => {
+    if (!autosaveEnabled.current) return; // [ADDED] stop writes after successful save
     storage.set(DRAFT_KEY, formData);
   }, [formData]);
 
@@ -109,6 +113,18 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+
+    // [ADDED] DEV bypass: verify draft-clear without auth/backend
+    // Flip with VITE_DEV_MOCK_SAVE=1 in .env.local (preview/dev only)
+    if ((import.meta as any).env?.VITE_DEV_MOCK_SAVE === '1') {
+      autosaveEnabled.current = false;      // stop autosave from re-writing
+      storage.remove(DRAFT_KEY);            // clear the draft now
+      toast.success('EPD saved (dev mock).');
+      setIsLoading(false);
+      onClose();
+      return;
+    }
+
     try {
       const { data, error } = await EPDService.createEPD(formData);
 
@@ -118,7 +134,8 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
         return;
       }
 
-      // Clear saved draft on success so stale data doesn't reappear
+      // [ADDED] stop autosave THEN clear saved draft so it doesn’t reappear
+      autosaveEnabled.current = false;
       storage.remove(DRAFT_KEY);
 
       toast.success('EPD created successfully!');
@@ -559,7 +576,7 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
           const isActive = step.number === currentStep;
           const isCompleted = step.number < currentStep;
 
-          return (
+        return (
             <div key={step.number} className="flex items-center gap-2">
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium border-2 ${
