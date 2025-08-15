@@ -1,4 +1,9 @@
+
 import React, { useEffect, useMemo, useState } from 'react';
+
+// src/components/epd/EPDWizard.tsx
+import React, { useEffect, useMemo, useRef, useState } from 'react'; // [CHANGED] added useRef
+
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +20,7 @@ import { safeLocal } from '@/utils/safeLocal'; // ✅ robust localStorage wrappe
 interface EPDWizardProps {
   onClose: () => void;
 }
+
 
 // ---- helpers ---------------------------------------------------------------
 
@@ -58,9 +64,69 @@ const asFloat = (v: string) => {
 
 // ---- component -------------------------------------------------------------
 
+/* ------------------------- local helpers (safe/SSR) ------------------------ */
+
+const IS_BROWSER = typeof window !== 'undefined';
+const DRAFT_KEY = 'epd_wizard_draft_v1';
+
+// tiny SSR-safe storage shim (no external imports needed)
+const storage = {
+  get<T>(key: string, fallback: T): T {
+    if (!IS_BROWSER) return fallback;
+    try {
+      const raw = window.localStorage.getItem(key);
+      return raw ? (JSON.parse(raw) as T) : fallback;
+    } catch {
+      return fallback;
+    }
+  },
+  set<T>(key: string, value: T) {
+    if (!IS_BROWSER) return;
+    try {
+      window.localStorage.setItem(key, JSON.stringify(value));
+    } catch {
+      /* ignore quota/denied */
+    }
+  },
+  remove(key: string) {
+    if (!IS_BROWSER) return;
+    try {
+      window.localStorage.removeItem(key);
+    } catch {/* ignore */}
+  },
+};
+
+// numeric parsing that never leaks NaN
+const asInt = (v: string) => {
+  const n = parseInt(v, 10);
+  return Number.isFinite(n) ? n : 0;
+};
+const asFloat = (v: string) => {
+  const n = parseFloat(v);
+  return Number.isFinite(n) ? n : 0;
+};
+
+// canonical default form (used if no draft exists)
+const DEFAULT_FORM: EPDFormData = {
+  product_name: '',
+  product_description: '',
+  functional_unit: '1 kg',
+  manufacturer_name: '',
+  manufacturer_location: '',
+  manufacturer_abn: '',
+  materials: [{ name: '', quantity: 0, unit: 'kg', carbon_footprint: 0 }],
+  transport: { mode: 'truck', distance: 100, fuel_type: 'diesel' },
+  energy: { electricity: 0, gas: 0, renewable_percentage: 0 },
+  waste: { recycling_rate: 10, landfill_rate: 80, incineration_rate: 10 }
+};
+
+/* -------------------------------- component -------------------------------- */
+
+
 export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
 
   // Load once from local storage (or defaults). Saves dev time if the page
   // refreshes; doesn’t change server behavior or validations.
@@ -68,6 +134,26 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
     const draft = safeLocal.get<EPDFormData | null>(DRAFT_KEY, null);
     return draft ?? DEFAULT_FORM;
   });
+
+  // [ADDED] gate autosave so it doesn’t re-write immediately after we clear
+  const autosaveEnabled = useRef(true);
+
+  // Load once from draft (browser) or fall back to defaults (SSR/build)
+  const [formData, setFormData] = useState<EPDFormData>(() =>
+    storage.get<EPDFormData>(DRAFT_KEY, DEFAULT_FORM)
+  );
+
+  // Auto-save draft whenever the user edits the form (debounced)
+  useEffect(() => {
+    if (!autosaveEnabled.current) return; // [ADDED] stop writes after successful save
+    const timer = setTimeout(() => {
+      if (autosaveEnabled.current) {
+        storage.set(DRAFT_KEY, formData);
+      }
+    }, 800); // save after user stops typing for ~0.8s
+    return () => clearTimeout(timer);
+  }, [formData]);
+
 
   // Auto-save the entire form whenever it changes (debounced-light via microtask).
   useEffect(() => {
@@ -96,6 +182,18 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
 
   const handleSubmit = async () => {
     setIsLoading(true);
+
+    // [ADDED] DEV bypass: verify draft-clear without auth/backend
+    // Flip with VITE_DEV_MOCK_SAVE=true in .env.local (preview/dev only)
+    if ((import.meta as any).env?.VITE_DEV_MOCK_SAVE === 'true') {
+      autosaveEnabled.current = false;      // stop autosave from re-writing
+      storage.remove(DRAFT_KEY);            // clear the draft now
+      toast.success('EPD saved (dev mock).');
+      setIsLoading(false);
+      onClose();
+      return;
+    }
+
     try {
       const { data, error } = await EPDService.createEPD(formData);
 
@@ -105,12 +203,28 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
         return;
       }
 
+      // [ADDED] stop autosave THEN clear saved draft so it doesn’t reappear
+      autosaveEnabled.current = false;
+      storage.remove(DRAFT_KEY);
+
       toast.success('EPD created successfully!');
       onClose();
+
     } catch (err: any) {
       toast.error(`An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`);
       console.error(err);
     } finally {
+
+      } catch (err: any) {
+        toast.error(
+          `An unexpected error occurred${err?.message ? `: ${err.message}` : ''}`
+        );
+        if ((import.meta as any).env?.DEV) {
+          // eslint-disable-next-line no-console
+          console.error(err);
+        }
+      } finally {
+
       setIsLoading(false);
     }
   };
@@ -118,10 +232,13 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
   const addMaterial = () => {
     setFormData(prev => ({
       ...prev,
+
       materials: [
         ...prev.materials,
         { name: '', quantity: 0, unit: 'kg', carbon_footprint: 0 }
       ]
+
+      materials: [...prev.materials, { name: '', quantity: 0, unit: 'kg', carbon_footprint: 0 }]n
     }));
   };
 
@@ -132,7 +249,13 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
     }));
   };
 
+
   const updateMaterial = (index: number, field: keyof EPDFormData['materials'][number], value: any) => {
+ const updateMaterial = (
+    index: number,
+    field: keyof EPDFormData['materials'][number],
+    value: any
+  ) => {
     setFormData(prev => ({
       ...prev,
       materials: prev.materials.map((m, i) => (i === index ? { ...m, [field]: value } : m))
@@ -542,7 +665,10 @@ export const EPDWizard: React.FC<EPDWizardProps> = ({ onClose }) => {
           const isActive = step.number === currentStep;
           const isCompleted = step.number < currentStep;
 
+
           return (
+          return (
+
             <div key={step.number} className="flex items-center gap-2">
               <div
                 className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium border-2 ${
