@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/HeroSection";
@@ -14,11 +13,13 @@ import RegionSelector from "@/components/international/RegionSelector";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { sendEmail } from "@/utils/email/emailService";
+
 const Index = () => {
   useA11y({
     title: "CarbonConstruct Tech - Sustainable Carbon Management for Construction",
     announceRouteChanges: true
   });
+  
   useEffect(() => {
     // Register an intersection observer to detect when sections come into view
     const sections = ['features', 'demo']; // Only observe sections that actually exist
@@ -113,14 +114,15 @@ const Index = () => {
     }
   };
 
-  return <motion.div className="min-h-screen flex flex-col mobile-friendly-container bg-background overflow-x-hidden" initial={{
-    opacity: 0
-  }} animate={{
-    opacity: 1
-  }} transition={{
-    duration: 0.3
-  }}>
-      <SEO title="CarbonConstruct Tech - Sustainable Carbon Management for Construction" description="Track, manage, and reduce your construction project's carbon footprint with CarbonConstruct Tech. The first SaaS platform designed specifically for construction sustainability." canonical="/" keywords="carbon tracking, construction sustainability, green building, carbon footprint, construction management" type="website" />
+  return (
+    <div className="min-h-screen flex flex-col mobile-friendly-container bg-background overflow-x-hidden animate-fade-in">
+      <SEO 
+        title="CarbonConstruct Tech - Sustainable Carbon Management for Construction" 
+        description="Track, manage, and reduce your construction project's carbon footprint with CarbonConstruct Tech. The first SaaS platform designed specifically for construction sustainability." 
+        canonical="/" 
+        keywords="carbon tracking, construction sustainability, green building, carbon footprint, construction management" 
+        type="website" 
+      />
       <Navbar />
       <main id="main-content" tabIndex={-1} className="flex-1 pt-16 md:pt-16 bg-background">
         <div className="overflow-x-hidden w-full">
@@ -247,6 +249,8 @@ const Index = () => {
         <ThemeToggle />
       </div>
       <Footer />
-    </motion.div>;
+    </div>
+  );
 };
+
 export default Index;
