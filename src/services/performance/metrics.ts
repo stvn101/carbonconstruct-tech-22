@@ -10,9 +10,10 @@ export const trackMetric = ({
 }) => {
   if (process.env.NODE_ENV === 'production' && process.env.VITE_SENTRY_DSN) {
     // Use the correct Sentry metrics method - distribution is appropriate for performance metrics
-    import('@sentry/browser').then(Sentry => {
-      Sentry.metrics.distribution(metric, value, { tags });
-    });
+    // Sentry metrics commented out - module doesn't support metrics
+    // import('@sentry/browser').then(Sentry => {
+    //   Sentry.metrics.distribution(metric, value, { tags });
+    // });
   } else {
     console.debug(`[Performance] Metric: ${metric} = ${value}`, tags);
   }

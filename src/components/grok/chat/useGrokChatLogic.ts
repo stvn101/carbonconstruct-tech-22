@@ -1,6 +1,19 @@
 
 import { useState, useRef, useEffect } from 'react';
-import { useChat } from 'ai/react';
+// import { useChat } from 'ai/react';
+
+// Mock useChat hook for now
+const useChat = () => ({
+  messages: [],
+  input: '',
+  handleInputChange: () => {},
+  handleSubmit: () => {},
+  append: () => {},
+  reload: () => {},
+  stop: () => {},
+  isLoading: false,
+  error: null
+});
 import { GrokChatMessage } from '@/types/grok';
 import { useSimpleOfflineMode } from '@/hooks/useSimpleOfflineMode';
 
@@ -38,29 +51,10 @@ export const useGrokChatLogic = ({
     }
   }, [isOffline, error]);
 
-  // Use the Vercel AI SDK's useChat hook for streaming capabilities
-  const { input, handleInputChange, handleSubmit: handleVercelSubmit, isLoading } = useChat({
-    api: '/api/chat',
-    onFinish: (message) => {
-      // Add the assistant's response to our messages array
-      setMessages(prev => [...prev, {
-        id: getMessageId(),
-        role: 'assistant',
-        content: message.content,
-        timestamp: new Date()
-      }]);
-    },
-    onError: (error) => {
-      console.error("Error in chat:", error);
-      
-      // Show network-specific error message if offline
-      if (isOffline || error.message.includes('network') || error.message.includes('failed to fetch')) {
-        setError("Network connection issue. Please check your internet and try again.");
-      } else {
-        setError(error.message || "An error occurred while processing your request.");
-      }
-    }
-  });
+  // Mock input state for now since AI chat is disabled
+  const [input, setInput] = useState('');
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => setInput(e.target.value);
+  const isLoading = false;
 
   // Add initial system message for context if provided
   useEffect(() => {
@@ -108,8 +102,13 @@ export const useGrokChatLogic = ({
           timestamp: new Date()
         }]);
       } else {
-        // Process with Vercel AI SDK (Grok)
-        handleVercelSubmit(e);
+        // TODO: Implement Grok AI chat when available
+        setMessages(prev => [...prev, {
+          id: getMessageId(),
+          role: 'assistant',
+          content: "Grok AI is currently not available. Please try again later.",
+          timestamp: new Date()
+        }]);
       }
       
       // Focus input for next message

@@ -85,7 +85,7 @@ const GrokMaterialAnalysis: React.FC = () => {
       queryClient.invalidateQueries({ queryKey: ['grok-analysis'] });
     },
     onError: (error) => {
-      toast.error(`Analysis failed: ${error.message}`);
+      toast.error(`Analysis failed: ${error instanceof Error ? error.message : String(error)}`);
     }
   });
 
