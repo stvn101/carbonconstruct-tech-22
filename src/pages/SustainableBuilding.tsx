@@ -46,30 +46,25 @@ const SustainableBuilding = () => {
       <main className="flex-1 pt-24">
         <ErrorBoundary feature="Sustainable Building">
           <section className="py-16 md:py-24 container mx-auto px-4">
-            <motion.div
-              initial="initial"
-              animate="animate"
-              variants={staggerContainer}
-              className="max-w-4xl mx-auto text-center mb-16"
-            >
-              <motion.div variants={fadeInUp} className="mb-6">
+            <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
+              <div className="mb-6">
                 <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-carbon-100 mb-4">
                   <LeafyGreen className="h-8 w-8 text-carbon-700" />
                 </div>
-              </motion.div>
-              <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-6">
+              </div>
+              <h1 className="text-4xl md:text-5xl font-bold mb-6">
                 Sustainable Building Solutions
-              </motion.h1>
-              <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-8">
+              </h1>
+              <p className="text-lg text-muted-foreground mb-8">
                 Build a greener future with sustainable construction practices, Australian-focused materials, 
                 and carbon-reducing strategies that benefit both the environment and your bottom line.
-              </motion.p>
-              <motion.div variants={fadeInUp}>
+              </p>
+              <div>
                 <Button asChild size="lg">
                   <Link to="/calculator">Try Our Calculator</Link>
                 </Button>
-              </motion.div>
-            </motion.div>
+              </div>
+            </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
               {[
@@ -104,19 +99,17 @@ const SustainableBuilding = () => {
                   description: "Stay ahead with the latest sustainable building technologies and practices from around the world."
                 }
               ].map((item, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + index * 0.1 }}
-                  className="bg-white dark:bg-gray-800 border border-border rounded-lg p-6 hover:shadow-md transition-shadow"
+                  className="bg-white dark:bg-gray-800 border border-border rounded-lg p-6 hover:shadow-md transition-shadow animate-fade-in"
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                 >
                   <div className="h-12 w-12 rounded-full bg-carbon-100 flex items-center justify-center mb-4">
                     {item.icon}
                   </div>
                   <h3 className="text-xl font-bold mb-2">{item.title}</h3>
                   <p className="text-muted-foreground">{item.description}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
             
