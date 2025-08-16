@@ -4,4 +4,4 @@ Clean install-ready version with Claude integration and Green Star scoring UI.
 
 - Claude logic: `src/home101/claude`
 - Green Star UI: `src/pages/GreenStarPage.tsx`
-- Edge functions, Supabase, and full calculator included.
+- Edge functions, Supabase, and full calculator included.# Force rebuild Sat Aug 16 14:59:54 AUSEST 2025
