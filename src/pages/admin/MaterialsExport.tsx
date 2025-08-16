@@ -1,17 +1,12 @@
-
 import React from 'react';
-import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import MaterialsExportManager from '@/components/admin/MaterialsExportManager';
 
 const MaterialsExportPage = () => {
   return (
-    <motion.div 
-      className="min-h-screen flex flex-col"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.4 }}
+    <div 
+      className="min-h-screen flex flex-col animate-fade-in"
     >
       <Navbar />
       
@@ -31,7 +26,7 @@ const MaterialsExportPage = () => {
       </main>
       
       <Footer />
-    </motion.div>
+    </div>
   );
 };
 

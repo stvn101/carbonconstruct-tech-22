@@ -1,3 +1,6 @@
+tech22-fix-supabase-routing
+export { supabase } from '@/lib/supabase/client';
+
 // Centralized Supabase client (TECH-22)
 import { createClient } from '@supabase/supabase-js';
 
@@ -31,3 +34,4 @@ if (lsUrl || lsAnon) {
 export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: { persistSession: true, autoRefreshToken: true },
 });
+main

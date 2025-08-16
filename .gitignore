@@ -48,3 +48,6 @@ node_modules
 # Env files
 .env*
 !.env.example
+carbonconstruct-tech-22/
+carbonconstruct-tech-22/
+supabase/.temp/
