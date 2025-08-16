@@ -1,12 +1,10 @@
 
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { LeafyGreen, Lightbulb, BarChart, Building, Recycle } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { fadeInUp, staggerContainer } from '@/utils/animationVariants';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
 const SustainableBuilding = () => {
