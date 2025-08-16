@@ -1,5 +1,3 @@
-import { motion } from "framer-motion";
-import { useEffect } from "react";
 import Navbar from "@/components/navbar/Navbar";
 import HeroSection from "@/components/HeroSection";
 import ThemeToggle from "@/components/ThemeToggle";
