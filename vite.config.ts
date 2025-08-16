@@ -32,5 +32,13 @@ export default defineConfig(({ mode }) => ({
   build: {
     sourcemap: true,
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      external: ['framer-motion'],
+      output: {
+        globals: {
+          'framer-motion': 'FramerMotion'
+        }
+      }
+    },
   },
 }));
