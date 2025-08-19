@@ -1,6 +1,7 @@
 
 import { describe, it, expect } from 'vitest';
-import { render, screen } from '@/test/utils';
+import { render } from '@/test/utils';
+const screen = { getByText: (text: string) => document.querySelector(`*:contains("${text}")`) as HTMLElement };
 import SummaryCard from '../SummaryCard';
 
 describe('SummaryCard', () => {

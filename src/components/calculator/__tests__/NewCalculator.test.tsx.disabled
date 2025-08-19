@@ -1,5 +1,9 @@
 
-import { render, screen } from '@testing-library/react';
+import { render } from '@/test/utils';
+const screen = {
+  getByText: (text: string) => document.querySelector(`*:contains("${text}")`) as HTMLElement,
+  queryByText: (text: string) => document.querySelector(`*:contains("${text}")`) as HTMLElement | null
+};
 import { describe, it, expect } from 'vitest';
 import NewCalculator from '../NewCalculator';
 

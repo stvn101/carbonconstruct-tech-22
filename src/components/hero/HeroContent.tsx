@@ -2,8 +2,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Building2, LeafyGreen } from "lucide-react";
-import { m as motion } from "framer-motion";
-import { staggerContainer, fadeInUp } from "@/utils/animationVariants";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from '@/contexts/auth';
 import { useScrollTo } from "@/hooks/useScrollTo";
@@ -137,34 +135,19 @@ const HeroContent = () => {
   };
 
   return (
-    <motion.div 
-      className="md:w-1/2 mb-8 md:mb-0 md:pr-8 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm"
-      initial="initial"
-      whileInView="animate"
-      viewport={{ once: true, amount: 0.3 }}
-      variants={staggerContainer}
-    >
+    <div className="md:w-1/2 mb-8 md:mb-0 md:pr-8 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-sm animate-fade-in">
       <div className="text-center flex flex-col items-center justify-center h-full">
-        <motion.h1 
-          className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-center"
-          variants={fadeInUp}
-        >
+        <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight text-center">
           <span className="text-foreground dark:text-foreground">Build Greener, </span> 
           <br />
           <span className="text-carbon-700 dark:text-carbon-300">Measure Smarter</span>
-        </motion.h1>
+        </h1>
         
-        <motion.p 
-          className="text-lg md:text-xl text-carbon-800 dark:text-carbon-200 mb-8 max-w-lg mx-auto text-center"
-          variants={fadeInUp}
-        >
+        <p className="text-lg md:text-xl text-carbon-800 dark:text-carbon-200 mb-8 max-w-lg mx-auto text-center">
           Track, manage, and reduce your construction project's carbon footprint with the first SaaS platform designed specifically for construction sustainability.
-        </motion.p>
+        </p>
         
-        <motion.div 
-          className="flex flex-col sm:flex-row gap-4 justify-center mb-8"
-          variants={fadeInUp}
-        >
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-8">
           <Button 
             size="lg" 
             onClick={handleTryCalculator}
@@ -182,39 +165,28 @@ const HeroContent = () => {
           >
             Learn More
           </Button>
-        </motion.div>
+        </div>
         
-        <motion.div 
-          className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center items-center w-full"
-          variants={fadeInUp}
-        >
-          <motion.div 
-            className="flex items-center justify-center cursor-pointer w-full sm:w-auto"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+        <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 justify-center items-center w-full">
+          <div className="flex items-center justify-center cursor-pointer w-full sm:w-auto hover:scale-105 transition-transform">
             <Link to="/construction-companies" className="flex items-center bg-carbon-50 dark:bg-carbon-800 p-4 rounded-xl hover:bg-carbon-100 dark:hover:bg-carbon-700 transition-colors w-full sm:w-auto justify-center">
               <div className="bg-carbon-100 dark:bg-carbon-700 rounded-full p-3 mr-3">
                 <Building2 className="h-5 w-5 text-carbon-700 dark:text-carbon-200" />
               </div>
               <p className="text-sm font-medium text-carbon-800 dark:text-carbon-200">For Construction Companies</p>
             </Link>
-          </motion.div>
-          <motion.div 
-            className="flex items-center justify-center cursor-pointer w-full sm:w-auto"
-            whileHover={{ scale: 1.05 }}
-            transition={{ type: "spring", stiffness: 400, damping: 10 }}
-          >
+          </div>
+          <div className="flex items-center justify-center cursor-pointer w-full sm:w-auto hover:scale-105 transition-transform">
             <Link to="/sustainable-building" className="flex items-center bg-carbon-50 dark:bg-carbon-800 p-4 rounded-xl hover:bg-carbon-100 dark:hover:bg-carbon-700 transition-colors w-full sm:w-auto justify-center">
               <div className="bg-carbon-100 dark:bg-carbon-700 rounded-full p-3 mr-3">
                 <LeafyGreen className="h-5 w-5 text-carbon-700 dark:text-carbon-200" />
               </div>
               <p className="text-sm font-medium text-carbon-800 dark:text-carbon-200">Sustainable Building</p>
             </Link>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

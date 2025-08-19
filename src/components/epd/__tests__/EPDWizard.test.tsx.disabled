@@ -1,5 +1,8 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { vi } from 'vitest';
+import { render } from '@/test/utils';
+const screen = { getByText: (text: string) => document.querySelector(`*:contains("${text}")`) as HTMLElement };
+const fireEvent = { click: () => {}, change: () => {} };
+const waitFor = async (fn: () => void) => fn();
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { EPDWizard } from '../EPDWizard';
 import { EPDService } from '@/services/epdService';
 

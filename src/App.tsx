@@ -25,6 +25,7 @@ import EPDExportPage from "./pages/EPDExport";
 import VerifierDashboard from "./pages/VerifierDashboard";
 import VerifierReview from "./pages/VerifierReview";
 import EPDAnalyticsDashboard from "./pages/EPDAnalyticsDashboard";
+import MaterialsDatabasePage from "@/pages/MaterialsDatabase";
 import MaterialsExportPage from "@/pages/admin/MaterialsExport";
 
 // Phase 1 Implementation: Critical Legal & Compliance Foundation
@@ -51,7 +52,7 @@ const queryClient = new QueryClient({
         return failureCount < 2;
       },
       staleTime: 5 * 60 * 1000,
-      gcTime: 10 * 60 * 1000,
+      cacheTime: 10 * 60 * 1000,
     },
   },
 });
@@ -147,7 +148,8 @@ function App() {
                               <Route path="/verifier/dashboard" element={<VerifierDashboard />} />
                               <Route path="/verifier/review/:id" element={<VerifierReview />} />
                               <Route path="/dashboard/epds" element={<EPDAnalyticsDashboard />} />
-                              <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
+                               <Route path="/materials" element={<MaterialsDatabasePage />} />
+                               <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
                             </Routes>
                             <StabilityMonitor />
                             <DevelopmentTools />

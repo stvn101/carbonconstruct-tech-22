@@ -1,12 +1,10 @@
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import Navbar from '@/components/navbar/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Building2, CheckCircle, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { fadeInUp, staggerContainer } from '@/utils/animationVariants';
 
 const ConstructionCompanies = () => {
   return (
@@ -14,37 +12,28 @@ const ConstructionCompanies = () => {
       <Navbar />
       <main className="flex-1 pt-24">
         <section className="py-16 md:py-24 container mx-auto px-4">
-          <motion.div
-            initial="initial"
-            animate="animate"
-            variants={staggerContainer}
-            className="max-w-4xl mx-auto text-center mb-16"
-          >
-            <motion.div variants={fadeInUp} className="mb-6">
+          <div className="max-w-4xl mx-auto text-center mb-16 animate-fade-in">
+            <div className="mb-6">
               <div className="inline-flex h-16 w-16 items-center justify-center rounded-lg bg-carbon-100 mb-4">
                 <Building2 className="h-8 w-8 text-carbon-700" />
               </div>
-            </motion.div>
-            <motion.h1 variants={fadeInUp} className="text-4xl md:text-5xl font-bold mb-6">
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Solutions for Construction Companies
-            </motion.h1>
-            <motion.p variants={fadeInUp} className="text-lg text-muted-foreground mb-8">
+            </h1>
+            <p className="text-lg text-muted-foreground mb-8">
               CarbonConstruct helps construction companies in Australia measure, manage, and reduce their carbon footprint
               through intelligent tools and actionable insights.
-            </motion.p>
-            <motion.div variants={fadeInUp}>
+            </p>
+            <div>
               <Button asChild size="lg">
                 <Link to="/pricing">Start Your Free Trial</Link>
               </Button>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           <div className="grid md:grid-cols-2 gap-12 lg:gap-16 mt-20">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-            >
+            <div className="animate-fade-in">
               <h2 className="text-2xl font-bold mb-6">Why Construction Companies Choose Us</h2>
               <ul className="space-y-4">
                 {[
@@ -67,14 +56,9 @@ const ConstructionCompanies = () => {
                   </Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4 }}
-              className="bg-gradient-to-br from-carbon-50 to-carbon-100 dark:from-carbon-900 dark:to-carbon-800 rounded-xl p-8"
-            >
+            <div className="bg-gradient-to-br from-carbon-50 to-carbon-100 dark:from-carbon-900 dark:to-carbon-800 rounded-xl p-8 animate-fade-in">
               <h2 className="text-2xl font-bold mb-6">Getting Started is Easy</h2>
               <ol className="space-y-6">
                 {[
@@ -98,7 +82,7 @@ const ConstructionCompanies = () => {
                   <Link to="/auth">Start Free Trial Now</Link>
                 </Button>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
       </main>

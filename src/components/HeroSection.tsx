@@ -1,7 +1,6 @@
 
 import React, { lazy, Suspense, useState, useEffect, useCallback } from "react";
 import SkeletonHero from "./hero/SkeletonHero";
-import { LazyMotion, domAnimation } from "framer-motion";
 import ErrorBoundary from "./ErrorBoundary";
 
 // Lazily load non-critical components
@@ -102,16 +101,14 @@ const HeroSection = () => {
           <SkeletonHero />
         ) : (
           <ErrorBoundary feature="Hero Section" fallbackComponent={FallbackHero}>
-            <LazyMotion features={domAnimation}>
-              <div className="flex flex-col md:flex-row items-center">
-                <Suspense fallback={<div className="md:w-1/2 animate-pulse h-64 bg-secondary/20 rounded-lg" />}>
-                  <HeroContent />
-                </Suspense>
-                <Suspense fallback={<div className="md:w-1/2 animate-pulse h-64 bg-secondary/20 rounded-lg" />}>
-                  <DashboardPreview onLoad={handleResourceLoad} />
-                </Suspense>
-              </div>
-            </LazyMotion>
+            <div className="flex flex-col md:flex-row items-center animate-fade-in">
+              <Suspense fallback={<div className="md:w-1/2 animate-pulse h-64 bg-secondary/20 rounded-lg" />}>
+                <HeroContent />
+              </Suspense>
+              <Suspense fallback={<div className="md:w-1/2 animate-pulse h-64 bg-secondary/20 rounded-lg" />}>
+                <DashboardPreview onLoad={handleResourceLoad} />
+              </Suspense>
+            </div>
           </ErrorBoundary>
         )}
       </div>
