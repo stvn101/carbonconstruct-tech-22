@@ -1,54 +1,37 @@
-
-import { supabase } from "@/integrations/supabase/client";
+// [CHANGED] src/utils/email/emailService.ts
+import { supabase } from '@/integrations/supabase/client';
 
 export interface SendEmailParams {
   to: string;
   subject: string;
   html: string;
-  from?: string;
+  from?: string; // optional override
 }
 
-// Force hkgry project usage to avoid accidental fallback to any other project
-const HKG_URL = 'https://hkgryypdqiyigoztvran.supabase.co';
-const HKG_ANON = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhrZ3J5eXBkcWl5aWdvenR2cmFuIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ5MDY4ODYsImV4cCI6MjA3MDQ4Mjg4Nn0.kYBkBkZcdZpK9r-KWDKRAMzrONa0BkECtdYhfdpFOuU';
+// Read sender defaults from env (set in .env.local / Vercel)
+const FROM_DEFAULT = (import.meta as any)?.env?.VITE_RESEND_FROM as
+  | string
+  | undefined;
 
-const getPreferredSupabase = () => {
-  const lsUrl = typeof window !== 'undefined' ? localStorage.getItem('cc_supabase_url') : null;
-  const lsAnon = typeof window !== 'undefined' ? localStorage.getItem('cc_supabase_anon') : null;
-  return { url: lsUrl || HKG_URL, anon: lsAnon || HKG_ANON };
-};
+/**
+ * Send an email via the Supabase Edge Function `send-email`.
+ * - Single path, env-only. No URL/key fallbacks, no localStorage overrides.
+ * - Fails fast with a clear error if the function call fails.
+ */
+export async function sendEmail(params: SendEmailParams) {
+  const body = { ...params, from: params.from ?? FROM_DEFAULT };
 
-export const sendEmail = async (params: SendEmailParams) => {
-  try {
-    const { data, error } = await supabase.functions.invoke('send-email', {
-      body: params,
-    });
+  const { data, error } = await supabase.functions.invoke('send-email', {
+    body,
+  });
 
-    if (error) throw error;
-    return data;
-  } catch (error) {
-    // Fallback: call the hkgry function endpoint directly to avoid project mismatch
-    const { url, anon } = getPreferredSupabase();
-    console.warn('[sendEmail] invoke failed, retrying via direct fetch to', url);
-    try {
-      const resp = await fetch(`${url}/functions/v1/send-email`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: anon,
-          Authorization: `Bearer ${anon}`,
-        },
-        body: JSON.stringify(params),
-      });
-
-      if (!resp.ok) {
-        const text = await resp.text();
-        throw new Error(`send-email fetch failed ${resp.status}: ${text}`);
-      }
-      return await resp.json();
-    } catch (fallbackErr) {
-      console.error('Error sending email (fallback):', fallbackErr);
-      throw fallbackErr;
-    }
+  if (error) {
+    // Surface a concise, actionable error
+    throw new Error(
+      `[sendEmail] functions.invoke('send-email') failed: ${error.message ?? String(
+        error
+      )}`
+    );
   }
-};
+  return data;
+}
