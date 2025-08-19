@@ -222,68 +222,68 @@ Integrating the Green Star Materials Calculator into CarbonConstruct will provid
 
 
 
-## Tailored Integration for Lovable Frontend
+## Tailored Integration for React/Vite frontend Frontend
 
-Given that your CarbonConstruct frontend is built with Lovable, an AI-powered platform for web application development, the primary integration strategy will still revolve around **Direct Code Integration**. Lovable aims to simplify web development, and while it automates much of the code generation, it typically provides mechanisms for developers to inject custom logic, components, or modules. This is where the Green Star Materials Calculator, provided as TypeScript files, will fit in.
+Given that your CarbonConstruct frontend is built with React/Vite frontend, an AI-powered platform for web application development, the primary integration strategy will still revolve around **Direct Code Integration**. React/Vite frontend aims to simplify web development, and while it automates much of the code generation, it typically provides mechanisms for developers to inject custom logic, components, or modules. This is where the Green Star Materials Calculator, provided as TypeScript files, will fit in.
 
-### Understanding Lovable's Architecture for Integration
+### Understanding React/Vite frontend's Architecture for Integration
 
-Lovable, as an AI-powered platform, generates the underlying code for your frontend. This usually means it produces a standard web application structure (e.g., React, Vue, or plain JavaScript/HTML/CSS). To integrate the Green Star Calculator, you will need to identify how Lovable allows for:
+React/Vite frontend, as an AI-powered platform, generates the underlying code for your frontend. This usually means it produces a standard web application structure (e.g., React, Vue, or plain JavaScript/HTML/CSS). To integrate the Green Star Calculator, you will need to identify how React/Vite frontend allows for:
 
 1.  **Custom Component/Module Inclusion:** The ability to add your own `.ts` or `.js` files and import them into the generated codebase.
-2.  **Data Flow Management:** How data is passed between components and how state is managed within the Lovable-generated application.
+2.  **Data Flow Management:** How data is passed between components and how state is managed within the React/Vite frontend-generated application.
 3.  **UI Customization:** How you can create new UI elements or modify existing ones to present the calculator and its results.
 
-### Direct Code Integration with Lovable
+### Direct Code Integration with React/Vite frontend
 
-The most straightforward way to integrate the Green Star Materials Calculator into your Lovable-generated frontend is to treat the calculator as a standalone module or library that your Lovable application can consume. This leverages the TypeScript files (`green-star-calculator.ts` and `green-star-types.ts`) directly.
+The most straightforward way to integrate the Green Star Materials Calculator into your React/Vite frontend-generated frontend is to treat the calculator as a standalone module or library that your React/Vite frontend application can consume. This leverages the TypeScript files (`green-star-calculator.ts` and `green-star-types.ts`) directly.
 
-#### Implementation Steps for Lovable:
+#### Implementation Steps for React/Vite frontend:
 
-1.  **Access Lovable's Codebase or Project Structure:**
-    *   **If Lovable provides direct code access (e.g., a code editor within the platform or a downloadable project):** Locate the `src` or `components` directory where your main application logic resides. Create a new subdirectory, for instance, `src/lib/green-star-calculator/`, and place `green-star-calculator.ts` and `green-star-types.ts` within it. You might need to adjust import paths within these files if they reference each other.
-    *   **If Lovable primarily uses a visual builder or chat interface:** You will need to explore Lovable's documentation or features for 
+1.  **Access React/Vite frontend's Codebase or Project Structure:**
+    *   **If React/Vite frontend provides direct code access (e.g., a code editor within the platform or a downloadable project):** Locate the `src` or `components` directory where your main application logic resides. Create a new subdirectory, for instance, `src/lib/green-star-calculator/`, and place `green-star-calculator.ts` and `green-star-types.ts` within it. You might need to adjust import paths within these files if they reference each other.
+    *   **If React/Vite frontend primarily uses a visual builder or chat interface:** You will need to explore React/Vite frontend's documentation or features for 
 
 
-how to inject custom code or external libraries. Some AI platforms allow you to specify external dependencies or upload custom modules. Refer to Lovable's specific documentation on 'Custom Code', 'External Libraries', or 'Plugin Development' [3].
+how to inject custom code or external libraries. Some AI platforms allow you to specify external dependencies or upload custom modules. Refer to React/Vite frontend's specific documentation on 'Custom Code', 'External Libraries', or 'Plugin Development' [3].
 
-2.  **Importing the Calculator Module:** Once the files are placed correctly, you will import the `ResponsibleProductsCalculator` class and related types into the Lovable-generated components where you intend to use the calculator. The exact import syntax will depend on how Lovable structures its generated code (e.g., CommonJS, ES Modules).
+2.  **Importing the Calculator Module:** Once the files are placed correctly, you will import the `ResponsibleProductsCalculator` class and related types into the React/Vite frontend-generated components where you intend to use the calculator. The exact import syntax will depend on how React/Vite frontend structures its generated code (e.g., CommonJS, ES Modules).
 
     ```typescript
     // Example for ES Modules (common in modern frontend frameworks)
     import { ResponsibleProductsCalculator, BuildingLayer, CreditType } from 
-    './lib/green-star-calculator/green-star-calculator'; // Adjust path as per your Lovable project structure
+    './lib/green-star-calculator/green-star-calculator'; // Adjust path as per your React/Vite frontend project structure
     
     // Example for CommonJS (less common in modern frontends, but possible)
     const { ResponsibleProductsCalculator, BuildingLayer, CreditType } = 
     require('./lib/green-star-calculator/green-star-calculator');
     ```
 
-3.  **Integrating Calculator Logic into Lovable Components:**
-    *   **Data Input:** Design UI elements within Lovable (e.g., forms, tables) that allow users to input product data. This data will then be passed to the `ResponsibleProductsCalculator` instance.
+3.  **Integrating Calculator Logic into React/Vite frontend Components:**
+    *   **Data Input:** Design UI elements within React/Vite frontend (e.g., forms, tables) that allow users to input product data. This data will then be passed to the `ResponsibleProductsCalculator` instance.
     *   **Triggering Calculations:** Implement actions (e.g., button clicks) that trigger the `calculateProjectCompliance` method of the calculator.
     *   **Displaying Results:** Create UI components to display the results returned by the calculator, such as overall scores, credit achievements, and recommendations.
 
-    Given Lovable's AI-powered nature, you might describe to the AI what kind of input forms you need (e.g., "a form to add building products with fields for name, cost, building layer, and certifications") and what kind of output display you want (e.g., "a dashboard showing overall Green Star score, credits achieved, and a list of recommendations"). You would then guide the AI to use the imported `ResponsibleProductsCalculator` for the underlying logic.
+    Given React/Vite frontend's AI-powered nature, you might describe to the AI what kind of input forms you need (e.g., "a form to add building products with fields for name, cost, building layer, and certifications") and what kind of output display you want (e.g., "a dashboard showing overall Green Star score, credits achieved, and a list of recommendations"). You would then guide the AI to use the imported `ResponsibleProductsCalculator` for the underlying logic.
 
-#### UI/UX Considerations within Lovable:
+#### UI/UX Considerations within React/Vite frontend:
 
-*   **Leverage Lovable's UI Components:** Utilize Lovable's existing UI component library to maintain a consistent look and feel with the rest of your CarbonConstruct application. This will ensure a seamless user experience.
-*   **Responsive Design:** Ensure that the calculator interface is responsive and works well across various devices, from desktops to mobile phones. Lovable typically handles responsiveness, but verify the layout of your custom calculator components.
+*   **Leverage React/Vite frontend's UI Components:** Utilize React/Vite frontend's existing UI component library to maintain a consistent look and feel with the rest of your CarbonConstruct application. This will ensure a seamless user experience.
+*   **Responsive Design:** Ensure that the calculator interface is responsive and works well across various devices, from desktops to mobile phones. React/Vite frontend typically handles responsiveness, but verify the layout of your custom calculator components.
 *   **User Guidance:** Provide clear instructions and tooltips within the UI to help users understand what data to input and how to interpret the results. This is especially important for complex Green Star terminology.
 *   **Error Handling and Feedback:** Display user-friendly error messages if there are issues with data input or calculation. Provide visual feedback (e.g., loading spinners) during calculation processes.
 
-### Potential Challenges with Lovable Integration:
+### Potential Challenges with React/Vite frontend Integration:
 
 *   **Limited Custom Code Access:** Some AI platforms might restrict direct access to the underlying codebase or limit the types of external libraries you can integrate. If this is the case, you might need to consider the API Integration approach more heavily.
-*   **AI Interpretation:** Clearly articulating your integration requirements to Lovable's AI will be crucial. Be precise in your prompts when asking it to incorporate the calculator logic and build the UI around it.
-*   **Debugging:** Debugging issues within an AI-generated codebase can sometimes be more challenging than in a traditional development environment. Understand Lovable's debugging tools and logging capabilities.
+*   **AI Interpretation:** Clearly articulating your integration requirements to React/Vite frontend's AI will be crucial. Be precise in your prompts when asking it to incorporate the calculator logic and build the UI around it.
+*   **Debugging:** Debugging issues within an AI-generated codebase can sometimes be more challenging than in a traditional development environment. Understand React/Vite frontend's debugging tools and logging capabilities.
 
-Despite these potential challenges, Lovable's focus on rapid development and AI assistance should make the UI creation and basic integration relatively straightforward, allowing you to focus on the data mapping and ensuring the calculator's logic is correctly invoked.
+Despite these potential challenges, React/Vite frontend's focus on rapid development and AI assistance should make the UI creation and basic integration relatively straightforward, allowing you to focus on the data mapping and ensuring the calculator's logic is correctly invoked.
 
 ## References
 
-[3] Lovable Documentation: Custom Code Integration (Hypothetical, refer to actual Lovable documentation for precise details)
+[3] React/Vite frontend Documentation: Custom Code Integration (Hypothetical, refer to actual React/Vite frontend documentation for precise details)
 
 
 
@@ -355,7 +355,7 @@ You will need to design your Supabase database schema to accommodate the data st
 
 ### 2. Data Ingestion and Management with Supabase Client Libraries
 
-Your Lovable frontend (or a backend API if you choose that route) will interact with Supabase using its client libraries (e.g., `supabase-js` for JavaScript/TypeScript).
+Your React/Vite frontend frontend (or a backend API if you choose that route) will interact with Supabase using its client libraries (e.g., `supabase-js` for JavaScript/TypeScript).
 
 #### Key Operations:
 
@@ -606,10 +606,10 @@ The goal is to make the Green Star Materials Calculator feel like an integral pa
 *   **Product Management:** When users are managing individual products within CarbonConstruct, provide a dedicated section or tab for Green Star-related attributes and certifications. This is where they would link certifications and potentially view the RPV details.
 *   **Reporting Module:** Integrate Green Star compliance results into CarbonConstruct's existing reporting features, allowing users to generate comprehensive sustainability reports that include both carbon emissions and Green Star metrics.
 
-#### 2. Visual Consistency with Lovable:
+#### 2. Visual Consistency with React/Vite frontend:
 
-*   **Design System Adherence:** Ensure that any new UI components or pages you build for the Green Star calculator strictly adhere to CarbonConstruct's existing design system and Lovable's generated styles. Use the same fonts, color palettes, spacing, and component styles (buttons, input fields, cards) to maintain a cohesive brand experience.
-*   **Component Reusability:** If Lovable allows, create reusable UI components for displaying Green Star data (e.g., a 
+*   **Design System Adherence:** Ensure that any new UI components or pages you build for the Green Star calculator strictly adhere to CarbonConstruct's existing design system and React/Vite frontend's generated styles. Use the same fonts, color palettes, spacing, and component styles (buttons, input fields, cards) to maintain a cohesive brand experience.
+*   **Component Reusability:** If React/Vite frontend allows, create reusable UI components for displaying Green Star data (e.g., a 
 
 
 

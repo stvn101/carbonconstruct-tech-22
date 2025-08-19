@@ -176,7 +176,7 @@ The application has been deployed to: **https://lnscvqlx.manus.space**
 2. **File Extensions**: Ensure all React components use .jsx extensions consistently
 3. **Production Build**: Generate optimized production build
 4. **Testing**: Comprehensive testing of all calculator functions
-5. **Integration**: Ready for integration with your Supabase + Lovable tech stack
+5. **Integration**: Ready for integration with your Supabase + React/Vite frontend tech stack
 
 ## 🎯 **Business Value**
 
@@ -193,7 +193,7 @@ This carbon calculator provides:
 
 The calculator is designed to integrate seamlessly with your CarbonConstruct SaaS:
 - **Supabase Backend**: Ready for database integration
-- **Lovable Frontend**: Compatible with your existing tech stack
+- **React/Vite frontend Frontend**: Compatible with your existing tech stack
 - **API Ready**: Structured data format for backend integration
 - **Export Functions**: Multiple format support for data portability
 

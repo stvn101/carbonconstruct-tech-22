@@ -1,0 +1,43 @@
+[1mdiff --git a/CarbonConstruct Calculator Tool-new/Carbon Calculator Pro - Comprehensive Environmental Impact Assessment Tool.md b/CarbonConstruct Calculator Tool-new/Carbon Calculator Pro - Comprehensive Environmental Impact Assessment Tool.md[m
+[1mindex c26fb3d..bd1130e 100644[m
+[1m--- a/CarbonConstruct Calculator Tool-new/Carbon Calculator Pro - Comprehensive Environmental Impact Assessment Tool.md[m	
+[1m+++ b/CarbonConstruct Calculator Tool-new/Carbon Calculator Pro - Comprehensive Environmental Impact Assessment Tool.md[m	
+[36m@@ -176,7 +176,7 @@[m [mThe application has been deployed to: **https://lnscvqlx.manus.space**[m
+2. **File Extensions**: Ensure all React components use .jsx extensions consistently[m
+3. **Production Build**: Generate optimized production build[m
+4. **Testing**: Comprehensive testing of all calculator functions[m
+5. **Integration**: Ready for integration with your Supabase + [31m[-Lovable-][m[32m{+React/Vite frontend+}[m tech stack
+
+## 🎯 **Business Value**[m
+
+[36m@@ -193,7 +193,7 @@[m [mThis carbon calculator provides:[m
+
+The calculator is designed to integrate seamlessly with your CarbonConstruct SaaS:[m
+- **Supabase Backend**: Ready for database integration[m
+- [31m[-**Lovable-][m[32m{+**React/Vite frontend+}[m Frontend**: Compatible with your existing tech stack
+- **API Ready**: Structured data format for backend integration[m
+- **Export Functions**: Multiple format support for data portability[m
+
+[1mdiff --git a/Integrating the Green Star Materials Calculator into CarbonConstruct SaaS.md b/Integrating the Green Star Materials Calculator into CarbonConstruct SaaS.md[m
+[1mindex a0ad78f..4be2639 100644[m
+[1m--- a/Integrating the Green Star Materials Calculator into CarbonConstruct SaaS.md[m	
+[1m+++ b/Integrating the Green Star Materials Calculator into CarbonConstruct SaaS.md[m	
+[36m@@ -222,68 +222,68 @@[m [mIntegrating the Green Star Materials Calculator into CarbonConstruct will provid[m
+
+
+
+## Tailored Integration for [31m[-Lovable-][m[32m{+React/Vite frontend+}[m Frontend
+
+Given that your CarbonConstruct frontend is built with [31m[-Lovable,-][m[32m{+React/Vite frontend,+}[m an AI-powered platform for web application development, the primary integration strategy will still revolve around **Direct Code Integration**. [31m[-Lovable-][m[32m{+React/Vite frontend+}[m aims to simplify web development, and while it automates much of the code generation, it typically provides mechanisms for developers to inject custom logic, components, or modules. This is where the Green Star Materials Calculator, provided as TypeScript files, will fit in.
+
+### Understanding [31m[-Lovable's-][m[32m{+React/Vite frontend's+}[m Architecture for Integration
+
+[31m[-Lovable,-][m[32m{+React/Vite frontend,+}[m as an AI-powered platform, generates the underlying code for your frontend. This usually means it produces a standard web application structure (e.g., React, Vue, or plain JavaScript/HTML/CSS). To integrate the Green Star Calculator, you will need to identify how [31m[-Lovable-][m[32m{+React/Vite frontend+}[m allows for:
+
+1.  **Custom Component/Module Inclusion:** The ability to add your own `.ts` or `.js` files and import them into the generated codebase.[m
+2.  **Data Flow Management:** How data is passed between components and how state is managed within the [31m[-Lovable-generated-][m[32m{+React/Vite frontend-generated+}[m application.
+3.  **UI Customization:** How you can create new UI elements or modify existing ones to present the calculator and its results.[m
+
+### Direct Code Integration with [31m[-Lovable-][m[32m{+React/Vite frontend+}[m
+
+The most straightforward way to integrate the Green Star Materials Calculator into your [31m[-Lovable-generated-][m[32m{+React/Vite frontend-generated+}[m frontend is to treat the calculator as a standalone module or library that your [31m[-Lovable-][m[32m{+React/Vite frontend+}[m application can consume. This leverages the TypeScript files (`green-star-calculator.ts` and `green-star-
