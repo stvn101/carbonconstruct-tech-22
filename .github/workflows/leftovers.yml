@@ -1,0 +1,12 @@
+name: Check for leftovers
+on: [push, pull_request]
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Block Lovable leftovers
+        run: |
+          ! git grep -nE 'Lovable|onboarding@resend\.dev|forceSupabaseProject' -- \
+            ':(exclude)dist/*' ':(exclude)node_modules/*' || \
+          (echo "Lovable-era leftovers found. Clean them up." && exit 1)
