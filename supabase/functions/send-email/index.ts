@@ -1,56 +1,61 @@
+import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 
-import { serve } from "https://deno.land/std@0.168.0/http/server.ts"
-import { Resend } from "npm:resend@2.0.0"
-
-const resend = new Resend(Deno.env.get('RESEND_API_KEY'));
-
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
-  'Access-Control-Allow-Methods': 'POST, OPTIONS',
+type EmailPayload = {
+  from?: string;              // optional; defaults to RESEND_FROM
+  to: string | string[];      // string or array
+  subject: string;
+  text?: string;
+  html?: string;
+  replyTo?: string;           // optional per-request override
 };
 
-interface EmailRequest {
-  to: string;
-  subject: string;
-  html: string;
-  from?: string;
-}
+const CORS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Content-Type": "application/json",
+} as const;
+
+const ascii = (s?: string) => (s ?? "").normalize("NFKD").replace(/[^\x00-\x7F]/g, "-");
+
+// Secrets (set in Supabase → Project → Config → Secrets)
+const RESEND_API_KEY = Deno.env.get("RESEND_API_KEY");
+const RESEND_FROM    = Deno.env.get("RESEND_FROM")    ?? "noreply@tech.carbonconstruct.net";
+const SUPPORT_EMAIL  = Deno.env.get("SUPPORT_EMAIL")  ?? "support@carbonconstruct.com.au";
 
 serve(async (req) => {
-  // Handle CORS preflight requests
-  if (req.method === 'OPTIONS') {
-    return new Response(null, { headers: corsHeaders });
+  if (req.method === "OPTIONS") return new Response(null, { headers: CORS });
+  if (req.method !== "POST") return new Response(JSON.stringify({ error: "Method Not Allowed" }), { status: 405, headers: CORS });
+
+  if (!RESEND_API_KEY) {
+    return new Response(JSON.stringify({ error: "RESEND_API_KEY missing" }), { status: 500, headers: CORS });
   }
 
-  try {
-    const { to, subject, html, from = "Lovable <onboarding@resend.dev>" }: EmailRequest = await req.json();
+  let payload: EmailPayload;
+  try { payload = await req.json(); }
+  catch { return new Response(JSON.stringify({ error: "Invalid JSON body" }), { status: 400, headers: CORS }); }
 
-    console.log(`Sending email to ${to} with subject: ${subject}`);
-    
-    const data = await resend.emails.send({
-      from,
-      to,
-      subject,
-      html,
-    });
-
-    console.log('Email sent successfully:', data);
-
-    return new Response(JSON.stringify(data), {
-      headers: { 
-        'Content-Type': 'application/json',
-        ...corsHeaders 
-      },
-    });
-  } catch (error) {
-    console.error('Error in send-email function:', error);
-    return new Response(
-      JSON.stringify({ error: error.message }),
-      {
-        status: 500,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders },
-      }
-    );
+  const to = Array.isArray(payload.to) ? payload.to : [payload.to].filter(Boolean);
+  if (!to.length || !payload.subject) {
+    return new Response(JSON.stringify({ error: "Missing 'to' or 'subject'" }), { status: 400, headers: CORS });
   }
+
+  const from    = (payload.from && payload.from.trim()) || RESEND_FROM;
+  const replyTo = payload.replyTo || SUPPORT_EMAIL;
+  const text    = ascii(payload.text);
+  const html    = payload.html;
+
+  const r = await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: { Authorization: `Bearer ${RESEND_API_KEY}`, "Content-Type": "application/json" },
+    body: JSON.stringify({ from, to, subject: payload.subject, text, html, reply_to: replyTo }),
+  });
+
+  const result = await r.json().catch(() => ({}));
+  if (r.ok && result?.id) {
+    console.log("Email sent", { id: result.id, from, to, replyTo });
+    return new Response(JSON.stringify({ data: { id: result.id }, error: null }), { status: 200, headers: CORS });
+  }
+  console.error("Email send failed", { status: r.status, result });
+  return new Response(JSON.stringify({ error: result || "Unknown error", status: r.status }), { status: 502, headers: CORS });
 });
