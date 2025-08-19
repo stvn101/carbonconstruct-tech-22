@@ -51,3 +51,12 @@ node_modules
 carbonconstruct-tech-22/
 carbonconstruct-tech-22/
 supabase/.temp/
+
+# builds & local
+dist/
+.vercel/
+.supabase/
+*.log
+bun.lockb
+.env
+.env.*
