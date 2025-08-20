@@ -59,7 +59,7 @@ const queryClient = new QueryClient({
 
 function App() {
   React.useEffect(() => {
-    if (import.meta.env.PROD) {
+    if (import.meta.env.MODE === 'production') {
       advancedPerformanceMonitor;
       enhancedSecurityMonitor;
       productionErrorRecovery;
@@ -91,16 +91,20 @@ function App() {
   return (
     <HelmetProvider>
       <Helmet>
-        {/* Google Analytics */}
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-16L1HC6E06" />
-        <script>
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-16L1HC6E06');
-          `}
-        </script>
+        {import.meta.env.MODE === 'production' && (
+          <>
+            {/* Google Analytics */}
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-16L1HC6E06" />
+            <script>
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);} 
+                gtag('js', new Date());
+                gtag('config', 'G-16L1HC6E06');
+              `}
+            </script>
+          </>
+        )}
       </Helmet>
 
       <QueryClientProvider client={queryClient}>

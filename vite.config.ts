@@ -3,10 +3,10 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { componentTagger } from 'lovable-tagger';
 
-export default defineConfig(({ mode }) => ({
+export default defineConfig(({ mode, command }) => ({
   plugins: [
     react(),
-    mode === 'development' && componentTagger(),
+    command === 'serve' && componentTagger(),
   ].filter(Boolean),
   server: {
     host: '0.0.0.0',
