@@ -29,8 +29,8 @@ export const validateProductionReadiness = (): ValidationResult => {
     errors.push('Supabase URL not configured');
   }
 
-  if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
-    errors.push('Supabase anonymous key not configured');
+  if (!import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY && !import.meta.env.VITE_SUPABASE_ANON_KEY) {
+    errors.push('Supabase authentication key not configured (need PUBLISHABLE_KEY or ANON_KEY)');
   }
 
   // Performance recommendations

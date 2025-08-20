@@ -37,10 +37,8 @@ import ProductionMonitorComponent from "@/components/monitoring/ProductionMonito
 import StabilityMonitor from "@/components/monitoring/StabilityMonitor";
 import { DevelopmentTools } from "@/components/dev/DevelopmentTools";
 
-// Phase 4: Production Optimizations
-import advancedPerformanceMonitor from "@/services/performance/AdvancedPerformanceMonitor";
-import enhancedSecurityMonitor from "@/services/security/EnhancedSecurityComplianceMonitor";
-import productionErrorRecovery from "@/services/error/ProductionErrorRecovery";
+// Diagnostics
+import { DiagnosticsOverlay } from "@/components/dev/DiagnosticsOverlay";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -60,9 +58,14 @@ const queryClient = new QueryClient({
 function App() {
   React.useEffect(() => {
     if (import.meta.env.MODE === 'production') {
-      advancedPerformanceMonitor;
-      enhancedSecurityMonitor;
-      productionErrorRecovery;
+      // Defer monitoring imports to prevent early crashes
+      Promise.all([
+        import("@/services/performance/AdvancedPerformanceMonitor"),
+        import("@/services/security/EnhancedSecurityComplianceMonitor"),
+        import("@/services/error/ProductionErrorRecovery")
+      ]).catch(error => {
+        console.warn('[App] Monitoring services failed to load:', error);
+      });
 
       if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/sw.js').catch(console.error);
@@ -157,6 +160,7 @@ function App() {
                             </Routes>
                             <StabilityMonitor />
                             <DevelopmentTools />
+                            <DiagnosticsOverlay />
                           </div>
                         </ProjectProvider>
                       </ClaudeProvider>
