@@ -340,13 +340,13 @@ class EnhancedSecurityComplianceMonitor {
 
       if (!response.ok) {
         // Log failed security reporting (in production, this would go to monitoring)
-        if (process.env.NODE_ENV !== 'production') {
+        if (import.meta.env.DEV) {
           console.warn("Failed to report security event:", response.status);
         }
       }
     } catch (error) {
       // Log security reporting error (in production, this would go to monitoring)
-      if (process.env.NODE_ENV !== 'production') {
+      if (import.meta.env.DEV) {
         console.warn("Security reporting error:", error);
       }
     }

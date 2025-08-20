@@ -52,7 +52,7 @@ export class SecurityEventLogger {
     }
     
     // Send to monitoring service in production
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.PROD) {
       this.sendToMonitoringService(event);
     }
   }

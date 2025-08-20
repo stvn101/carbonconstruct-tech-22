@@ -178,7 +178,7 @@ class ProductionMonitor {
     if (issues.length > 0) {
       console.warn('📊 Performance issues detected:', issues);
       
-      if (process.env.NODE_ENV === 'production') {
+      if (import.meta.env.PROD) {
         this.sendPerformanceReport(metrics, issues);
       }
     }
@@ -219,7 +219,7 @@ class ProductionMonitor {
   }
   
   private async sendErrorReport(errorEvent: ErrorEvent, severity: 'critical') {
-    if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
+    if (import.meta.env.PROD && window.location.hostname !== 'localhost') {
       try {
         await fetch('/api/monitor/error', {
           method: 'POST',
@@ -229,7 +229,7 @@ class ProductionMonitor {
             severity,
             error: errorEvent,
             session: this.currentSession,
-            environment: process.env.NODE_ENV
+            environment: import.meta.env.MODE
           })
         }).catch(() => null);
       } catch (error) {
@@ -239,7 +239,7 @@ class ProductionMonitor {
   }
   
   private async sendPerformanceReport(metrics: PerformanceMetrics, issues: string[]) {
-    if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
+    if (import.meta.env.PROD && window.location.hostname !== 'localhost') {
       try {
         await fetch('/api/monitor/performance', {
           method: 'POST',
@@ -265,7 +265,7 @@ class ProductionMonitor {
   }
   
   private async sendHeartbeat() {
-    if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
+    if (import.meta.env.PROD && window.location.hostname !== 'localhost') {
       try {
         await fetch('/api/monitor/heartbeat', {
           method: 'POST',
@@ -332,7 +332,7 @@ class ProductionMonitor {
   }
   
   private async sendSessionReport() {
-    if (process.env.NODE_ENV === 'production' && window.location.hostname !== 'localhost') {
+    if (import.meta.env.PROD && window.location.hostname !== 'localhost') {
       try {
         await fetch('/api/monitor/session', {
           method: 'POST',

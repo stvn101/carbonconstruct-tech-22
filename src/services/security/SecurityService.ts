@@ -373,12 +373,12 @@ class SecurityService {
       });
 
       if (!response.ok) {
-        if (process.env.NODE_ENV !== 'production') {
+        if (import.meta.env.DEV) {
           console.warn('Failed to send security event to monitoring service');
         }
       }
     } catch (error) {
-      if (process.env.NODE_ENV !== 'production') {
+      if (import.meta.env.DEV) {
         console.warn('Error sending security event:', error);
       }
     }

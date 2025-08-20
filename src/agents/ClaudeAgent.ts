@@ -17,7 +17,8 @@ export class ClaudeAgent {
   private baseUrl = "https://api.openai.com/v1/chat/completions";
 
   constructor(apiKey?: string) {
-    this.apiKey = apiKey || process.env.OPENAI_API_KEY || '';
+    const envKey = (typeof process !== 'undefined' && (process as any).env?.OPENAI_API_KEY) || (import.meta as any).env?.VITE_OPENAI_API_KEY || '';
+    this.apiKey = apiKey || envKey;
     if (!this.apiKey) {
       throw new Error('OpenAI API key is required');
     }

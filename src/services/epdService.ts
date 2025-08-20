@@ -446,7 +446,7 @@ export class EPDService {
     `;
 
     // Send to internal verification team (configure in environment)
-    const internalEmail = process.env.VERIFICATION_TEAM_EMAIL || "verification@carbonconstruct.com";
+    const internalEmail = import.meta.env.VITE_VERIFICATION_TEAM_EMAIL || "verification@carbonconstruct.com";
     
     await sendEmail({
       to: internalEmail,

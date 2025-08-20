@@ -492,12 +492,12 @@ class PerformanceOptimizer {
     };
 
     // Send to analytics service
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.PROD) {
       this.sendMetricsToService(report);
     }
 
     // Log in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log('📊 Performance Metrics:', report);
     }
 
