@@ -4,19 +4,19 @@ import { createClient } from '@supabase/supabase-js';
 
 type Env = {
   VITE_SUPABASE_URL?: string;
-  VITE_SUPABASE_ANON_KEY?: string;
+  VITE_SUPABASE_PUBLISHABLE_KEY?: string;
 };
 
-const { VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY } = (import.meta as any)
+const { VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY } = (import.meta as any)
   .env as Env;
 
 // Fail fast if envs are missing so we never silently bind to the wrong project.
-if (!VITE_SUPABASE_URL || !VITE_SUPABASE_ANON_KEY) {
+if (!VITE_SUPABASE_URL || !VITE_SUPABASE_PUBLISHABLE_KEY) {
   throw new Error(
-    'Supabase env missing: set VITE_SUPABASE_URL and VITE_SUPABASE_ANON_KEY.',
+    'Supabase env missing: set VITE_SUPABASE_URL and VITE_SUPABASE_PUBLISHABLE_KEY.',
   );
 }
 
-export const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_ANON_KEY, {
+export const supabase = createClient(VITE_SUPABASE_URL, VITE_SUPABASE_PUBLISHABLE_KEY, {
   auth: { persistSession: true, autoRefreshToken: true },
 });
