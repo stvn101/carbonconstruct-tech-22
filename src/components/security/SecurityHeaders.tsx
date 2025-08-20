@@ -33,8 +33,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
     defaultSrc: ["'self'"],
     scriptSrc: [
       "'self'",
-      "'unsafe-inline'", // Required for Vite dev mode
-      "'unsafe-eval'", // Required for Vite dev mode
+      ...(import.meta.env.DEV ? ["'unsafe-inline'", "'unsafe-eval'"] : ["'unsafe-inline'"]), // Minimize unsafe eval in prod
       "*.supabase.co",
       "*.lovable.app",
       "*.stripe.com",

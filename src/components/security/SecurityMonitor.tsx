@@ -79,12 +79,12 @@ const SecurityMonitorComponent = () => {
     // Monitor auth state changes for security events
     const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       if (event === 'SIGNED_IN') {
-        securityMonitor.logEvent('auth_failure', {
+        securityMonitor.logEvent('suspicious_activity', {
           event: 'successful_login',
           userId: session?.user?.id
         });
       } else if (event === 'SIGNED_OUT') {
-        securityMonitor.logEvent('auth_failure', {
+        securityMonitor.logEvent('suspicious_activity', {
           event: 'logout'
         });
       }

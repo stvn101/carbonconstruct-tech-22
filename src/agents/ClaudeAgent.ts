@@ -17,10 +17,11 @@ export class ClaudeAgent {
   private baseUrl = "https://api.openai.com/v1/chat/completions";
 
   constructor(apiKey?: string) {
-    const envKey = (typeof process !== 'undefined' && (process as any).env?.OPENAI_API_KEY) || (import.meta as any).env?.VITE_OPENAI_API_KEY || '';
-    this.apiKey = apiKey || envKey;
+    // SECURITY: API keys should only be accessed via backend edge functions
+    // Frontend access has been removed for security compliance
+    this.apiKey = apiKey || '';
     if (!this.apiKey) {
-      throw new Error('OpenAI API key is required');
+      console.warn('ClaudeAgent: API key should be provided via backend edge function');
     }
   }
 
