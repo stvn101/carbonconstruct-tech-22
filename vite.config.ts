@@ -42,13 +42,7 @@ export default defineConfig(({ mode }) => ({
       },
     },
     target: 'esnext',
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: mode === 'production',
-        drop_debugger: true,
-      },
-    },
+    minify: mode === 'production' ? 'esbuild' : false,
   },
   optimizeDeps: {
     include: [
