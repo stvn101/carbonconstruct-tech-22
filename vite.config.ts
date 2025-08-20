@@ -38,6 +38,7 @@ export default defineConfig(({ mode, command }) => ({
           vendor: ['react', 'react-dom'],
           ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
           utils: ['clsx', 'tailwind-merge', 'date-fns'],
+          calculator: ['@/components/calculator/NewCalculator']
         },
       },
     },
@@ -52,6 +53,7 @@ export default defineConfig(({ mode, command }) => ({
       '@radix-ui/react-dropdown-menu',
       'lucide-react',
     ],
+    exclude: ['@/components/calculator/NewCalculator']
   },
   preview: {
     port: 8080,
