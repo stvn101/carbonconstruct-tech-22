@@ -5,12 +5,16 @@ import { componentTagger } from 'lovable-tagger';
 
 export default defineConfig(({ mode }) => ({
   plugins: [
-    react(),
+    react({
+      babel: {
+        plugins: mode === 'development' ? ['babel-plugin-react-compiler'] : [],
+      },
+    }),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   server: {
-    host: '0.0.0.0',     // ✅ binds to all interfaces
-    port: 8080,          // ✅ set to required port
+    host: '0.0.0.0',
+    port: 8080,
     strictPort: true,
     hmr: {
       protocol: 'ws',
@@ -30,7 +34,37 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
-    sourcemap: true,
+    sourcemap: mode !== 'production',
     chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu'],
+          utils: ['clsx', 'tailwind-merge', 'date-fns'],
+        },
+      },
+    },
+    target: 'esnext',
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: mode === 'production',
+        drop_debugger: true,
+      },
+    },
+  },
+  optimizeDeps: {
+    include: [
+      'react',
+      'react-dom',
+      '@radix-ui/react-dialog',
+      '@radix-ui/react-dropdown-menu',
+      'lucide-react',
+    ],
+  },
+  preview: {
+    port: 8080,
+    strictPort: true,
   },
 }));

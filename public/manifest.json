@@ -1,24 +1,20 @@
-
 {
   "name": "CarbonConstruct Tech",
-  "short_name": "CarbonConstruct Tech",
-  "description": "Track, manage and reduce your construction project's carbon footprint",
-  "start_url": "/",
+  "short_name": "CarbonConstruct",
+  "description": "Sustainable Carbon Management for Australian Construction Industry",
+  "theme_color": "#2B8A3E",
+  "background_color": "#F8F9FA",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#38a169",
+  "orientation": "portrait",
+  "scope": "/",
+  "start_url": "/",
   "icons": [
     {
-      "src": "/lovable-uploads/0aacd2f7-c0c5-4370-88aa-a5b60fe6a30a.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "/lovable-uploads/0aacd2f7-c0c5-4370-88aa-a5b60fe6a30a.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
     }
-  ]
+  ],
+  "categories": ["business", "productivity", "utilities"],
+  "prefer_related_applications": false
 }
