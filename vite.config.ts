@@ -5,11 +5,7 @@ import { componentTagger } from 'lovable-tagger';
 
 export default defineConfig(({ mode }) => ({
   plugins: [
-    react({
-      babel: {
-        plugins: mode === 'development' ? ['babel-plugin-react-compiler'] : [],
-      },
-    }),
+    react(),
     mode === 'development' && componentTagger(),
   ].filter(Boolean),
   server: {
