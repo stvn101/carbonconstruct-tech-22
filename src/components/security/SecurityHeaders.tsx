@@ -122,7 +122,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
       
       // Safe frame detection without navigation (prevents SecurityError)
       if (window.top !== window.self) {
-        if (process.env.NODE_ENV === 'development') {
+        if (import.meta.env.DEV) {
           console.info('🔍 Running in frame (development mode)');
         } else {
           console.warn('🚨 Potential clickjacking attempt detected');
@@ -130,7 +130,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
         }
       }
       
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         console.log('✅ X-Frame-Options protection enabled (dev mode)');
       }
     }
@@ -158,7 +158,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
     // Additional security measures
     
     // Production security measures (disabled in development for better DX)
-    if (process.env.NODE_ENV === 'production') {
+    if (import.meta.env.PROD) {
       const handleContextMenu = (e: MouseEvent) => {
         e.preventDefault();
         return false;
@@ -186,7 +186,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
 
     // Security event monitoring (optimized for development)
     const monitorSecurityEvents = () => {
-      if (process.env.NODE_ENV === 'development') {
+      if (import.meta.env.DEV) {
         // Minimal monitoring in development to reduce console noise
         return () => {}; // No-op cleanup
       }
@@ -233,7 +233,7 @@ const SecurityHeaders: React.FC<SecurityHeadersConfig> = ({
 
     const cleanup = monitorSecurityEvents();
     
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.DEV) {
       console.log('🔒 Security headers initialized (development mode)');
     } else {
       console.log('🔒 Security headers and monitoring initialized');

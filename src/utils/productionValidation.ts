@@ -19,17 +19,17 @@ export const validateProductionReadiness = (): ValidationResult => {
   const recommendations: string[] = [];
 
   // Check for console logs in production
-  if (process.env.NODE_ENV === 'production') {
+  if (import.meta.env.PROD) {
     // Validation would be done at build time
     recommendations.push('All debug logging has been removed for production');
   }
 
   // Check required environment variables
-  if (!process.env.VITE_SUPABASE_URL) {
+  if (!import.meta.env.VITE_SUPABASE_URL) {
     errors.push('Supabase URL not configured');
   }
 
-  if (!process.env.VITE_SUPABASE_ANON_KEY) {
+  if (!import.meta.env.VITE_SUPABASE_ANON_KEY) {
     errors.push('Supabase anonymous key not configured');
   }
 

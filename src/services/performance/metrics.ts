@@ -8,7 +8,7 @@ export const trackMetric = ({
   value: number; 
   tags?: { [key: string]: string } 
 }) => {
-  if (process.env.NODE_ENV === 'production' && process.env.VITE_SENTRY_DSN) {
+  if (import.meta.env.PROD && import.meta.env.VITE_SENTRY_DSN) {
     // Use the correct Sentry metrics method - distribution is appropriate for performance metrics
     // Sentry metrics commented out - module doesn't support metrics
     // import('@sentry/browser').then(Sentry => {

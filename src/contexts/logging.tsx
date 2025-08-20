@@ -11,7 +11,7 @@ interface LoggingContextType {
 const LoggingContext = createContext<LoggingContextType | undefined>(undefined);
 
 export const LoggingProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [enableLogging, setEnableLogging] = useState<boolean>(process.env.NODE_ENV === 'development');
+  const [enableLogging, setEnableLogging] = useState<boolean>(import.meta.env.DEV);
   const [logLevel, setLogLevel] = useState<'error' | 'warn' | 'info' | 'debug'>('error');
 
   return (

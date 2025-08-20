@@ -48,7 +48,7 @@ export const CriticalErrorFallback: React.FC<CriticalErrorFallbackProps> = ({
           </Button>
         </div>
         
-        {process.env.NODE_ENV === 'development' && (
+        {import.meta.env.DEV && (
           <details className="mt-4">
             <summary className="text-sm font-medium cursor-pointer">
               Error Details (Development)

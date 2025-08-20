@@ -45,7 +45,7 @@ const GrokChat: React.FC<GrokChatProps> = ({
   } = useGrokChatLogic({ initialContext });
 
   // Log component render for debugging in development
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.DEV) {
     console.debug('[GrokChat] Rendering with:', { 
       messageCount: messages.length, 
       hasError: !!error, 

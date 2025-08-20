@@ -70,7 +70,7 @@ export const StabilityMonitor: React.FC = () => {
   }, [loading, isLoading, user, dbConnection]);
 
   // Only show in development or when there are issues
-  if (process.env.NODE_ENV === 'production' && 
+  if (import.meta.env.PROD && 
       metrics.authStable && 
       metrics.dbConnected) {
     return null;
