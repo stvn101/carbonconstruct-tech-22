@@ -18,7 +18,8 @@ import {
   Info,
   Mail,
   DollarSign,
-  Play
+  Play,
+  Upload
 } from 'lucide-react';
 
 export function useUserNavLinks() {
@@ -126,6 +127,12 @@ export function useUserNavLinks() {
       title: 'Notifications',
       icon: <Bell className="h-4 w-4" />,
       premium: true
+    },
+    {
+      path: '/data-migration',
+      title: 'Data Migration',
+      icon: <Upload className="h-4 w-4" />,
+      premium: false
     }
   ];
 
