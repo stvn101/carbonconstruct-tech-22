@@ -8,7 +8,8 @@ import {
   Award,
   Leaf,
   Settings,
-  User
+  User,
+  Upload
 } from 'lucide-react';
 
 const NavigationMenu = () => {
@@ -50,6 +51,12 @@ const NavigationMenu = () => {
       href: '/profile',
       icon: User,
       description: 'User profile and settings'
+    },
+    {
+      title: 'Data Migration',
+      href: '/data-migration',
+      icon: Upload,
+      description: 'Import existing project data'
     }
   ];
 

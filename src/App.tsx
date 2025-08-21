@@ -27,6 +27,7 @@ import VerifierReview from "./pages/VerifierReview";
 import EPDAnalyticsDashboard from "./pages/EPDAnalyticsDashboard";
 import MaterialsDatabasePage from "@/pages/MaterialsDatabase";
 import MaterialsExportPage from "@/pages/admin/MaterialsExport";
+import DataMigration from "@/pages/DataMigration";
 
 // Phase 1 Implementation: Critical Legal & Compliance Foundation
 import SecurityHeaders from "@/components/security/SecurityHeaders";
@@ -155,8 +156,9 @@ function App() {
                               <Route path="/verifier/dashboard" element={<VerifierDashboard />} />
                               <Route path="/verifier/review/:id" element={<VerifierReview />} />
                               <Route path="/dashboard/epds" element={<EPDAnalyticsDashboard />} />
-                               <Route path="/materials" element={<MaterialsDatabasePage />} />
-                               <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
+                                <Route path="/materials" element={<MaterialsDatabasePage />} />
+                                <Route path="/admin/materials-export" element={<MaterialsExportPage />} />
+                                <Route path="/data-migration" element={<DataMigration />} />
                             </Routes>
                             <StabilityMonitor />
                             <DevelopmentTools />
